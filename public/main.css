@@ -1,0 +1,226 @@
+/* body {
+	margin: 0;
+    background: radial-gradient( transparent, black);
+    background-color: rgba(0, 0, 0, 0.69);	color: #fff;
+    font-family: "Montserrat", sans-serif;
+	font-size: 23px;
+	line-height: 24px;
+	/* overscroll-behavior: none; */
+
+
+/* a {
+	color: white;
+    font-family: "Montserrat", sans-serif;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+} */
+/* 
+button {
+	cursor: pointer;
+	text-transform: uppercase;
+}
+
+canvas {
+	display: block;
+} */
+
+
+/* #menu {
+	position: absolute;
+	bottom: 20px;
+	width: 100%;
+	text-align: center;
+}  */
+
+/* .nav-header {
+	position: absolute;
+	top: 0
+}
+
+.audio-svg {
+width: 50% !important;
+height: 50% !important;
+transition: all .3s ease-in-out;
+
+}
+
+.audio-svg:hover {
+	border-radius: 10px;
+	background-color:#dc9b9b ;
+	padding: 4px;
+
+}
+
+
+.element {
+	width: 120px;
+	height: 160px;
+	box-shadow: 0px 0px 12px rgba(243, 120, 192, 0.5);
+	border: 1px solid white;
+	font-family: Helvetica, sans-serif;
+	text-align: center;
+	line-height: normal;
+	cursor: default;
+	background-color: white !important;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.element:hover {
+	transition: all .3s ease-in-out;
+	box-shadow: 0px 0px 12px rgba(214, 91, 128, 0.959);
+	border: 1px solid rgba(246, 184, 215, 0.75);
+	transform: translate(-50%, -50%) matrix3d(-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, -1000, 1) skewY(0.20009deg) scale(2.5);
+}
+
+.date {
+	color: black;
+	font-size: 10px;
+	padding-bottom: 5px;
+    font-family: "Montserrat", sans-serif;
+	color: rgba(241, 42, 42, 0.582);
+
+}
+.container {
+	width: 80%;
+	height: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.container .number {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	font-size: 12px;
+	color: rgba(241, 42, 42, 0.582);
+}
+
+
+.container .symbol {
+	position: absolute;
+	top: 40px;
+	left: 0px;
+	right: 0px;
+	font-size: 40px;
+	font-weight: bold;
+	color: rgba(255, 255, 255, 0.75);
+	text-shadow: 0 0 10px rgba(165, 210, 210, 0.95);
+
+}
+
+.container .details {
+	position: absolute;
+	bottom: 15px;
+	left: 0px;
+	right: 0px;
+	font-size: 12px;
+	color: rgba(241, 42, 42, 0.582);
+	opacity: 0;
+	transition: all .3s ease-in-out;
+	padding: 3px;
+}
+
+.container .image-tile {
+	height: 100%;
+	width: 100%;
+	padding-bottom: 10px;
+}
+
+.container .video-tile {
+	width: 100%;
+	height: 100%;
+	object-fit: fill;
+	padding-bottom: 10px;
+
+}
+
+
+
+
+button {
+	color: white;
+	background: transparent;
+	outline: 1px solid rgb(223, 139, 139);
+	border: 0px;
+	padding: 5px 10px;
+	cursor: pointer;
+	font-size: 68%;
+}
+
+button:hover {
+	transition: all .3s ease;
+	background-color: rgb(223, 139, 139);
+}
+
+
+button:active {
+	color: #000000;
+	background-color: rgba(0, 255, 255, 0.75);
+}
+
+#info {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	text-align: center;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	z-index: 1; /* TODO Solve this in HTML */
+}
+
+a, button, input, select {
+	pointer-events: auto;
+}
+
+.dg.ac {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	z-index: 2 !important; /* TODO Solve this in HTML */
+}
+
+#overlay {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height:100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 1;
+	background-color: #000000;
+	color: #ffffff;
+}
+
+#overlay > div {
+	text-align: center;
+}
+
+#overlay > div > button {
+	height: 20px;
+	background: transparent;
+	color: #ffffff;
+	outline: 1px solid #ffffff;
+	border: 0px;
+	cursor: pointer;
+}
+
+#overlay > div > p {
+	color: #777777;
+	font-size: 12px;
+} */

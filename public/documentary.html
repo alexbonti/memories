@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<link>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website</title>
+<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css" />
+<!-- FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat&display=swap" rel="stylesheet">
+
+</head>
+
+<body data-barba="wrapper">
+    <header class="nav-header">
+        <h1><a href="./index.html" id="logo">memories that make us</a></h1>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+        </div>
+    </header>
+    <main data-barba="container" data-barba-namespace="documentary" class="wrapper-documentary">
+        <section class="documentary">
+            <video data-plyr-config='{ "title": "Example Title" }' id="player"
+                class="video-documentary video-js vjs-theme-city" autoplay controls playsinline data-poster>
+                <source
+                    src="https://assets.mixkit.co/videos/preview/mixkit-people-pouring-a-warm-drink-around-a-campfire-513-large.mp4"
+                    type="video/mp4"></video>
+        </section>
+    </main>
+
+    <nav class="nav-bar" id="nav-bar">
+        <ul class="nav-links">
+            <a href="./documentary.html" class="link-views video-stories-link">
+                <h3>Documentary</h3>
+            </a>
+            <a href="./archive/archive.html" class="link-views video-stories-link">
+                <h3>Archive</h3>
+            </a>
+            <a href="./videostories.html" class="link-views video-stories-link">
+                <h3>Video Stories</h3>
+            </a>
+            <a href="./memorywalks.html" class="link-views video-stories-link">
+                <h3>Memory Walks</h3>
+            </a>
+            <h3>About Us</h3>
+            <h3>Contacts</h3>
+        </ul>
+        <div class="contact">
+            <h2>Stay in touch</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatem aperiam animi laboriosam
+                impedit culpa cupiditate odit optio esse laborum provident velit consectetur, blanditiis voluptates
+                perferendis et vel dolore nobis!</p>
+        </div>
+    </nav>
+    <div class="cursor">
+        <span class="cursor-text"></span>
+    </div>
+
+
+    <div class="swipe swipe1"></div>
+    <div class="swipe swipe2"></div>
+    <div class="swipe swipe3"></div>
+    <script src="https://unpkg.com/@barba/core"></script>
+    <script>
+        // window.location.reload(true)
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"
+        integrity="sha256-2p2tRZlPowp3P/04Pw2rqVCSbhyV/IB7ZEVUglrDS/c=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.min.js"
+        integrity="sha256-+9YNuItWuR4sbqeaNiJOxG0BvptYz4fbUXbIZoH5Jwo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"
+        integrity="sha256-XBVALc3QsDSQiDtiaBwNZ2rxCJTHzlUhhlDQ84J8bw8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"
+        integrity="sha256-3arngJBQR3FTyeRtL3muAGFaGcL8iHsubYOqq48mBLw=" crossorigin="anonymous"></script>
+    <script src="./js/SplitText.min.js"></script>
+    <script src="https://cdn.plyr.io/3.6.2/plyr.js"></script>
+    </script>
+    <script>  const player = new Plyr('#player');
+    </script>
+    <script type="module" src="./js/index.js"></script>
+</body>
+
+</html>
