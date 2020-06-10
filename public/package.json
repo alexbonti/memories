@@ -1,0 +1,24 @@
+{
+  "name": "memories-that-make-us",
+  "version": "1.0.0",
+  "description": "",
+  "main": "archive.js",
+  "dependencies": {
+    "plyr": "^3.6.2",
+    "three": "^0.116.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deakin-launchpad/memories-that-make-us-vanilla.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deakin-launchpad/memories-that-make-us-vanilla/issues"
+  },
+  "homepage": "https://github.com/deakin-launchpad/memories-that-make-us-vanilla#readme"
+}

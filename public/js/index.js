@@ -13,6 +13,7 @@ import { launchArchive } from "../archive.js"
 let controller;
 let slideScene;
 let pageScene;
+let detailScene;
 let landingTextScene;
 
 // var promise = document.querySelector('video')
@@ -180,6 +181,7 @@ function navToggle2(e) {
 // barba page transitions
 const logo = document.querySelector("#logo")
 const videoStories = document.querySelector(".video-stories-link")
+var destroyArchive
 barba.init({
   prevent: ({ el }) => el.classList && el.classList.contains('prevent'),
 
@@ -215,7 +217,6 @@ barba.init({
         detailAnimation();
       },
       beforeLeave() {
-        detailScene.destroy();
         controller.destroy();
       }
     },
@@ -223,19 +224,15 @@ barba.init({
     {
       namespace: "archive",
       beforeEnter() {
+        let body = document.querySelector("body");
+        body.setAttribute("class", "body-archive");
         logo.href = "./index.html";
+        destroyArchive = launchArchive();
         detailAnimation();
-        launchArchive()
-        // addStyle()
-        // detailAnimation();
-        let script = document.createElement("script");
-        script.src = "../archive.js";
-        next.container.appendChild(script)
       },
       beforeLeave() {
-        openArchive("move")
-        detailScene.destroy();
         controller.destroy();
+        destroyArchive();
       }
     }
   ],
@@ -309,7 +306,7 @@ function detailAnimation() {
     slideTl.fromTo(nextImg, { x: "50%" }, { x: "0%" });
 
    // Scene
-    let detailScene = new ScrollMagic.Scene({
+     detailScene = new ScrollMagic.Scene({
       triggerElement: slide,
       duration: "100%",
       triggerHook: 0
@@ -324,6 +321,9 @@ function detailAnimation() {
       .addTo(controller);
   });
 }
+
+
+
 
 
 

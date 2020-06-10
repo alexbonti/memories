@@ -5,14 +5,15 @@
     <title>Archive</title>
     <meta charset="utf-8">
     <!-- FONTS -->
-<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <!-- <link rel="stylesheet" href="../main.css"> -->
-    <link rel="stylesheet" href="../style.css">  <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css"> -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css"> -->
 </head>
 
 
-<body data-barba="wrapper" data-barba-prevent="all" class="body-archive">
+<body class="body-archive" data-barba="wrapper" data-barba-prevent="all" class="body-archive">
     <header class="nav-header">
         <h1><a href="./index.html" id="logo">memories that make us</a></h1>
         <div class="burger">
@@ -21,43 +22,44 @@
         </div>
     </header>
     <main data-barba="container" data-barba-namespace="archive">
-        <div id="container"  />
-    </div>
-            <div class="menu-container">
-                <div id="menu">
-                    <button id="table">ALL</button>
-                    <button id="sphere">IMAGES</button>
-                    <button id="helix">AUDIO</button>
-                    <button id="grid">VIDEO</button>
-                    <button id="helix">DATE</button>
-                    <button id="grid">LOCATION</button>
-                    <a href="http://localhost:5501">home</a>
-                </div>
-
-
+        <div id="container"></div>
+        <div class="menu-container">
+            <div id="menu">
+                <button id="table">ALL</button>
+                <button id="sphere">IMAGES</button>
+                <button id="helix">AUDIO</button>
+                <button id="grid">VIDEO</button>
+                <button id="date">DATE</button>
+                <div id="drag-window">Drag</div>
+                <!-- <form>
+                    <input id="input-location" type="text" label="text" />
+                    <button id="button-search">Search</button>
+                </form> -->
+            </div>
     </main>
+            </div>
 
 
     <nav class="nav-bar" id="nav-bar">
         <ul class="nav-links">
             <a href="./documentary.html" class="link-views video-stories-link">
                 <h3>Documentary</h3>
-            </a>   
+            </a>
             <a href="./archive.html" class="link-views video-stories-link">
                 <h3>Archive</h3>
-            </a>   
+            </a>
             <a href="./videostories.html" class="link-views video-stories-link">
                 <h3>Video Stories</h3>
-            </a>   
+            </a>
             <a href="./memorywalks.html" class="link-views video-stories-link">
                 <h3>Memory Walks</h3>
-            </a>   
+            </a>
             <a href="./about.html" class="link-views video-stories-link">
                 <h3>About</h3>
-            </a>  
+            </a>
             <a href="./contacts.html" class="link-views video-stories-link">
                 <h3>Contacts</h3>
-            </a>  
+            </a>
         </ul>
         <div class="contact">
             <h2>Stay in touch</h2>
@@ -73,15 +75,21 @@
     <div class="swipe swipe1"></div>
     <div class="swipe swipe2"></div>
     <div class="swipe swipe3"></div>
+
     <script src="https://unpkg.com/@barba/core"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js" integrity="sha256-2p2tRZlPowp3P/04Pw2rqVCSbhyV/IB7ZEVUglrDS/c=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.min.js" integrity="sha256-+9YNuItWuR4sbqeaNiJOxG0BvptYz4fbUXbIZoH5Jwo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js" integrity="sha256-XBVALc3QsDSQiDtiaBwNZ2rxCJTHzlUhhlDQ84J8bw8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js" integrity="sha256-3arngJBQR3FTyeRtL3muAGFaGcL8iHsubYOqq48mBLw=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"
+        integrity="sha256-2p2tRZlPowp3P/04Pw2rqVCSbhyV/IB7ZEVUglrDS/c=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.min.js"
+        integrity="sha256-+9YNuItWuR4sbqeaNiJOxG0BvptYz4fbUXbIZoH5Jwo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"
+        integrity="sha256-XBVALc3QsDSQiDtiaBwNZ2rxCJTHzlUhhlDQ84J8bw8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"
+        integrity="sha256-3arngJBQR3FTyeRtL3muAGFaGcL8iHsubYOqq48mBLw=" crossorigin="anonymous"></script>
     <script src="./js/SplitText.min.js"></script>
     <script type="module" src="./js/index.js"></script>
     <!-- <script src="../archive.js" type="module"> -->
     </script>
 </body>
+
 
 </html>

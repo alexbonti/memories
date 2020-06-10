@@ -58,6 +58,11 @@ a:hover{
     width: 100%;
     text-align: center;
     z-index: 1;
+    display: flex;
+    justify-content: center;
+}
+
+#input-location {
 }
 
 .nav-header {
@@ -766,6 +771,8 @@ overflow-x: hidden;
     height: 70vh;
 }
 
+
+
 .fashion-text {
     position: relative;
     flex-basis: 35rem;
@@ -783,7 +790,6 @@ overflow-x: hidden;
 }
 
 .fashion-img video {
-    width: 50%;
     height: 100%;
     object-fit: cover;
 }
