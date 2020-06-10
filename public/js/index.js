@@ -8,7 +8,7 @@
 
 // import { TWEEN } from './tween.module.min.js';
 
-import { launchArchive } from "../archive.js"
+import { launchArchive } from "./archive/archive.js"
 
 let controller;
 let slideScene;

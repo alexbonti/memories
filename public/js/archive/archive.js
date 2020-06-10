@@ -1,12 +1,12 @@
 /**@author Andrea Mele / https://github.com/isaobushi */
 
-import * as THREE from './js/three.module.js';
+import * as THREE from '../three.module.js';
 
-import { CSS3DRenderer, CSS3DObject } from "./js/renderers/CSS3DRenderer.js"
+import { CSS3DRenderer, CSS3DObject } from "../renderers/CSS3DRenderer.js"
 
-import { OrbitControls, MapControls } from "./js/controls/OrbitControls.js"
+import { OrbitControls, MapControls } from "../controls/OrbitControls.js"
 
-import { TWEEN } from './js/tween.module.min.js';
+import { TWEEN } from "../tween.module.min.js"
 
 export const launchArchive = () => {
 
