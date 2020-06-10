@@ -9,6 +9,7 @@
 // import { TWEEN } from './tween.module.min.js';
 
 import { launchArchive } from "./archive/archive.js"
+import {playerCSS} from "../js/cssHelper.js"
 
 let controller;
 let slideScene;
@@ -198,9 +199,24 @@ barba.init({
       }
     },
     {
+      namespace: "documentary",
+      beforeEnter() {
+        logo.href = "./index.html";
+        const videoCSS = document.createElement("style");
+        videoCSS.innerText({test});
+        const head = document.querySelector("head");
+        head.append(videoCSS)
+      },
+      beforeLeave() {
+        slideScene.destroy();
+        pageScene.destroy();
+        controller.destroy();
+      }
+    },
+    {
       namespace: "videostories",
       beforeEnter() {
-        logo.href = "../index.html";
+        logo.href = "../public/index.html";
         animateSlides();
       },
       beforeLeave() {
@@ -213,7 +229,7 @@ barba.init({
     {
       namespace: "memorywalks",
       beforeEnter() {
-        logo.href = "../index.html";
+        logo.href = "./index.html";
         detailAnimation();
       },
       beforeLeave() {
@@ -224,13 +240,15 @@ barba.init({
     {
       namespace: "archive",
       beforeEnter() {
+        detailAnimation();
         let body = document.querySelector("body");
         body.setAttribute("class", "body-archive");
         logo.href = "./index.html";
         destroyArchive = launchArchive();
-        detailAnimation();
       },
       beforeLeave() {
+        let body = document.querySelector("body");
+        body.removeAttribute("class", "body-archive");
         controller.destroy();
         destroyArchive();
       }
@@ -327,16 +345,16 @@ function detailAnimation() {
 
 
 
-var prevScrollpos = window.pageYOffset;
-window.onscroll = function () {
-  var currentScrollPos = window.pageYOffset;
-  if (prevScrollpos > currentScrollPos) {
-    document.querySelector(".nav-header").style.top = "0";
-  } else {
-    document.querySelector(".nav-header").style.top = "-250px";
-  }
-  prevScrollpos = currentScrollPos;
-}
+// var prevScrollpos = window.pageYOffset;
+// window.onscroll = function () {
+//   var currentScrollPos = window.pageYOffset;
+//   if (prevScrollpos > currentScrollPos) {
+//     document.querySelector(".nav-header").style.top = "0";
+//   } else {
+//     document.querySelector(".nav-header").style.top = "-450px";
+//   }
+//   prevScrollpos = currentScrollPos;
+// }
 //event listeners
 burger.addEventListener("click", navToggle);
 nav.addEventListener("click", navToggle2)
@@ -347,3 +365,4 @@ window.addEventListener("mouseover", activeCursor)
 
 
 
+// const css = "body{background-color: red !important}"

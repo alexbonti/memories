@@ -462,6 +462,9 @@ export const launchArchive = () => {
         camera.position.set(110, 120, 2000);
 
 
+        var dragStart = 0;
+        var dragNow = 0;
+
         //?? rotate the camera in front of the helix
         rotate = function (e) {
             e.preventDefault();
@@ -500,49 +503,50 @@ export const launchArchive = () => {
         //?? drag event rotate the camera as in rotate function
 
         drag = function(e){
-            e.preventDefault();
-
-            var vector = new THREE.Vector3();
-            if(e.touches[0].target.id === "drag-window"){
-
-
-                var origin =  e.touches[0].pageY;
-                cameraRailPosition += + origin - 1299;
-                position 
-                var factor = 1 / 1000
-                if (cameraRailPosition < 0) {
-                    cameraRailPosition = 0
-                }
-                if (cameraRailPosition > (tilesList.length - 1) / factor) {
-                    cameraRailPosition = (tilesList.length - 1) / factor
-                }
-                var [y, theta] = calcRail(cameraRailPosition, speedX * factor, speedY * factor)
-                camera.position.setFromCylindricalCoords(cameraRadius, theta, y);
-                vector.x = 0;
-                vector.y = camera.position.y;
-                vector.z = 0;
-                camera.lookAt(vector);
-                controls.target = vector
-    
-                var skew = Math.max(0, Math.min(20, e.deltaY))
-    
-                for (var i = 0; i < elements.length; i++) {
-                    if (elements[i].style.transform.includes("skewY")) {
-                        elements[i].style.transform = elements[i].style.transform.replace(/skewY\([0-9]+deg\)/, `skewY(${skew}deg) `)
-                    } else {
-                        elements[i].style.transform = `${elements[i].style.transform} skewY(${skew}deg)`
-                    }
-                }
-                controls.update();
-                console.log(cameraRailPosition);
+            // e.preventDefault();
+          var  deltaDrag = dragNow - dragStart;
+            if(e.type === "touchstart"){
+                dragStart = e.touches[0].pageY;
+            } else if(e.type === "touchmove"){
+                dragNow =  e.touches[0].pageY;
             }
+            var vector = new THREE.Vector3();
+            // var distance = Math.sqrt(e.deltaY*e.deltaY + e.deltaX*e.deltaX)
+            cameraRailPosition += deltaDrag;
+            var factor = 1 / 100
+            if (cameraRailPosition < 0) {
+                cameraRailPosition = 0
+            }
+            if (cameraRailPosition > (tilesList.length - 1) / factor) {
+                cameraRailPosition = (tilesList.length - 1) / factor
+            }
+            var [y, theta] = calcRail(cameraRailPosition, speedX * factor, speedY * factor)
+            camera.position.setFromCylindricalCoords(cameraRadius, theta, y);
+            vector.x = 0;
+            vector.y = camera.position.y;
+            vector.z = 0;
+            camera.lookAt(vector);
+            controls.target = vector
+
+            var skew = Math.max(0, Math.min(20, e.deltaY))
+
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].style.transform.includes("skewY")) {
+                    elements[i].style.transform = elements[i].style.transform.replace(/skewY\([0-9]+deg\)/, `skewY(${skew}deg) `)
+                } else {
+                    elements[i].style.transform = `${elements[i].style.transform} skewY(${skew}deg)`
+                }
+            }
+            controls.update();            
             // controls.update();
         }
 
 
         transform(targets.all, 2000);
         window.addEventListener("wheel", rotate, { passive: false })
+        window.addEventListener("touchstart", drag, { passive: false })
         window.addEventListener("touchmove", drag, { passive: false })
+        window.addEventListener("touchend", drag, { passive: false })
         controls.update();
     }
 
