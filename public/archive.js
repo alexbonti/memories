@@ -1,6 +1,6 @@
 /**@author Andrea Mele / https://github.com/isaobushi */
 
-import * as THREE from './node_modules/three/build/three.module.js';
+import * as THREE from './js/three.module.js';
 
 import { CSS3DRenderer, CSS3DObject } from "./js/renderers/CSS3DRenderer.js"
 
@@ -380,7 +380,7 @@ export const launchArchive = () => {
             container.appendChild(details);
 
             var img = document.createElement('img');
-            img.src = tilesList[i].type === "audio" ? "/assets/img/audio.svg" : tilesList[i].url
+            img.src = tilesList[i].type === "audio" ? "./assets/img/audio.svg" : tilesList[i].url
             img.className = tilesList[i].type === "audio" ? "image-tile audio-svg" : "image-tile"
             if (tilesList[i].type === "img" || tilesList[i].type === "audio") {
                 container.appendChild(img);
