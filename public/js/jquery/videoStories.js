@@ -68,7 +68,7 @@ const videoStories = [
 
 
 export function inflateVideoStories(videoPlayerClassName) {
-    let splitIntoDifferentVideos = true;
+    let splitIntoDifferentVideos = false;
     var sections = videoStories;
     sections.forEach((section) => {
         var videos = "";
@@ -94,7 +94,9 @@ export function inflateVideoStories(videoPlayerClassName) {
                         <a class="explore mountain-exp">${section.buttonText}</a>
                         <div class="reveal-text"></div>
                     </div>
-                </section>`);
+                </section>`).promise().then(() => {
+                    new window.videoPlayer.setup(`.${videoPlayerClassName}`);
+                });
             });
         } else {
             var videoPlayerID = Math.random();
@@ -115,8 +117,12 @@ export function inflateVideoStories(videoPlayerClassName) {
                     <a class="explore mountain-exp">${section.buttonText}</a>
                     <div class="reveal-text"></div>
                 </div>
-            </section>`);
+            </section>`).promise().then(() => {
+                new window.videoPlayer.setup(`.${videoPlayerClassName}`);
+            });
         }
     });
+
+
 };
 
