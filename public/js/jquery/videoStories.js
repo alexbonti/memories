@@ -67,7 +67,7 @@ const videoStories = [
 ];
 
 
-export function inflateVideoStories(videoPlayerClassName) {
+export function inflateVideoStories({ videoPlayerClassName, callback }) {
     let splitIntoDifferentVideos = false;
     var sections = videoStories;
     sections.forEach((section) => {
@@ -119,5 +119,8 @@ export function inflateVideoStories(videoPlayerClassName) {
         }
     });
     new window.videoPlayer.setup(`.${videoPlayerClassName}`);
+    if (callback instanceof Function) {
+        callback({ videoPlayerClassName });
+    }
 };
 
