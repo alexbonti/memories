@@ -94,9 +94,7 @@ export function inflateVideoStories(videoPlayerClassName) {
                         <a class="explore mountain-exp">${section.buttonText}</a>
                         <div class="reveal-text"></div>
                     </div>
-                </section>`).promise().then(() => {
-                    new window.videoPlayer.setup(`.${videoPlayerClassName}`);
-                });
+                </section>`)
             });
         } else {
             var videoPlayerID = Math.random();
@@ -117,12 +115,9 @@ export function inflateVideoStories(videoPlayerClassName) {
                     <a class="explore mountain-exp">${section.buttonText}</a>
                     <div class="reveal-text"></div>
                 </div>
-            </section>`).promise().then(() => {
-                new window.videoPlayer.setup(`.${videoPlayerClassName}`);
-            });
+            </section>`)
         }
     });
-
-
+    new window.videoPlayer.setup(`.${videoPlayerClassName}`);
 };
 
