@@ -9,7 +9,8 @@
 // import { TWEEN } from './tween.module.min.js';
 
 import { launchArchive } from "./archive/archive.js"
-import {playerCSS} from "../js/cssHelper.js"
+import { playerCSS } from "../js/cssHelper.js"
+import * as  jQueryVideoStories from "./jquery/videoStories.js";
 
 let controller;
 let slideScene;
@@ -59,12 +60,12 @@ function animateTextLanding() {
     .addTo(controller)
 }
 
-function animateSlides() {
+function animateSlides({ playVideoAutomatically = true }) {
   //Init Controller
   const video = document.querySelectorAll("video")
 
-  console.log(video)
-  video.forEach(item => item.play())
+  if (playVideoAutomatically)
+    video.forEach(item => item.play())
   controller = new ScrollMagic.Controller();
   const sliders = document.querySelectorAll(".slide");
   //Loop over each sllide
@@ -203,7 +204,7 @@ barba.init({
       beforeEnter() {
         logo.href = "./index.html";
         const videoCSS = document.createElement("style");
-        videoCSS.innerText({test});
+        videoCSS.innerText({ test });
         const head = document.querySelector("head");
         head.append(videoCSS)
       },
@@ -217,7 +218,11 @@ barba.init({
       namespace: "videostories",
       beforeEnter() {
         logo.href = "../public/index.html";
-        animateSlides();
+      },
+      afterEnter() {
+        let videoPlayerClassName = "plyrVideoPlayer";
+        jQueryVideoStories.inflateVideoStories(videoPlayerClassName);
+        animateSlides({ playVideoAutomatically: false });
       },
       beforeLeave() {
         slideScene.destroy();
@@ -312,7 +317,7 @@ function detailAnimation() {
   const videos = document.querySelectorAll("video")
   videos.forEach(item => item.play())
   slides.forEach((slide, index, slides) => {
-  console.log("detailAnimation -> slide", slide)
+    console.log("detailAnimation -> slide", slide)
 
     const slideTl = gsap.timeline({ defaults: { duration: 1 } });
 
@@ -323,8 +328,8 @@ function detailAnimation() {
     slideTl.fromTo(nextSlide, { opacity: 0 }, { opacity: 1 }, "-=1");
     slideTl.fromTo(nextImg, { x: "50%" }, { x: "0%" });
 
-   // Scene
-     detailScene = new ScrollMagic.Scene({
+    // Scene
+    detailScene = new ScrollMagic.Scene({
       triggerElement: slide,
       duration: "100%",
       triggerHook: 0
