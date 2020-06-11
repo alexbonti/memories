@@ -1,12 +1,4 @@
 /**@author Andrea Mele / https://github.com/isaobushi */
-// import * as THREE from '../node_modules/three/build/three.module.js'
-// // import * as THREE from './node_modules/three/build/three.module.js';
-
-// import { CSS3DRenderer, CSS3DObject } from "./renderers/CSS3DRenderer.js"
-
-// import { OrbitControls, MapControls } from "./controls/OrbitControls.js"
-
-// import { TWEEN } from './tween.module.min.js';
 
 import { launchArchive } from "./archive/archive.js"
 import * as  jQueryVideoStories from "./jquery/videoStories.js";
@@ -17,8 +9,6 @@ let pageScene;
 let detailScene;
 let landingTextScene;
 
-// var promise = document.querySelector('video')
-// promise.play()
 
 
 
@@ -202,10 +192,6 @@ barba.init({
       namespace: "documentary",
       beforeEnter() {
         logo.href = "./index.html";
-        const videoCSS = document.createElement("style");
-        videoCSS.innerText({ test });
-        const head = document.querySelector("head");
-        head.append(videoCSS)
       },
       beforeLeave() {
         slideScene.destroy();
@@ -221,7 +207,7 @@ barba.init({
       afterEnter() {
         let videoPlayerClassName = "plyrVideoPlayer";
         jQueryVideoStories.inflateVideoStories(videoPlayerClassName);
-        animateSlides({ playVideoAutomatically: false });
+        // animateSlides({ playVideoAutomatically: false });
       },
       beforeLeave() {
         slideScene.destroy();
