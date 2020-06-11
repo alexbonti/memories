@@ -132,6 +132,7 @@ width: 100vw;
 
 .plyr {
     width: 90%;
+    /* z-index to 1 when disabled animation of videostories */
     z-index: 1 !important;
 }
      
@@ -195,9 +196,7 @@ margin: 0 10%;
     font-family: "Montserrat", sans-serif;
 }
 
-.container-barba-videostories {
-    opacity: 1 !important;
-}
+
 .construction h2:first-child {
     color: white;
     font-size: 5rem;
@@ -235,7 +234,7 @@ margin: 0 10%;
     padding-left: 5rem;
     position:  relative;
 }
-
+/* disabling animaiton */
 .hero-desc > p {
     z-index: 1;
 }
