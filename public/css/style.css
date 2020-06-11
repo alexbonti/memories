@@ -129,8 +129,10 @@ width: 100vw;
     }
 }
 
+
 .plyr {
     width: 90%;
+    z-index: 1 !important;
 }
      
 .nav-header {
@@ -193,6 +195,9 @@ margin: 0 10%;
     font-family: "Montserrat", sans-serif;
 }
 
+.container-barba-videostories {
+    opacity: 1 !important;
+}
 .construction h2:first-child {
     color: white;
     font-size: 5rem;
@@ -231,6 +236,9 @@ margin: 0 10%;
     position:  relative;
 }
 
+.hero-desc > p {
+    z-index: 1;
+}
 
 .hero-img {
     position: relative;

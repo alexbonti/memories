@@ -207,7 +207,7 @@ barba.init({
       afterEnter() {
         let videoPlayerClassName = "plyrVideoPlayer";
         jQueryVideoStories.inflateVideoStories(videoPlayerClassName);
-        animateSlides({ playVideoAutomatically: false });
+        // animateSlides({ playVideoAutomatically: false });
       },
       beforeLeave() {
         slideScene.destroy();
