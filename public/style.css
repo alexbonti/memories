@@ -8,7 +8,6 @@
 body {
     background: #17181a ;
     font-family: "Montserrat", sans-serif;
-    overscroll-behavior: none;
     overflow-x: hidden;
 }
 
@@ -1015,6 +1014,3 @@ video {
       opacity: .1;
     }
   }
-
-
-  

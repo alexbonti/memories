@@ -1,15 +1,6 @@
 /**@author Andrea Mele / https://github.com/isaobushi */
-// import * as THREE from '../node_modules/three/build/three.module.js'
-// // import * as THREE from './node_modules/three/build/three.module.js';
-
-// import { CSS3DRenderer, CSS3DObject } from "./renderers/CSS3DRenderer.js"
-
-// import { OrbitControls, MapControls } from "./controls/OrbitControls.js"
-
-// import { TWEEN } from './tween.module.min.js';
 
 import { launchArchive } from "./archive/archive.js"
-import {playerCSS} from "../js/cssHelper.js"
 
 let controller;
 let slideScene;
@@ -202,10 +193,6 @@ barba.init({
       namespace: "documentary",
       beforeEnter() {
         logo.href = "./index.html";
-        const videoCSS = document.createElement("style");
-        videoCSS.innerText({test});
-        const head = document.querySelector("head");
-        head.append(videoCSS)
       },
       beforeLeave() {
         slideScene.destroy();
