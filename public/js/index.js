@@ -202,7 +202,7 @@ barba.init({
     {
       namespace: "videostories",
       beforeEnter() {
-        logo.href = "../public/index.html";
+        logo.href = "./index.html";
       },
       afterEnter() {
         const videoPlayerClassName = "plyrVideoPlayer";
