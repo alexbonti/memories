@@ -62,7 +62,8 @@ a:hover{
     justify-content: center;
 }
 
-#input-location {
+#drag{
+    display: none;
 }
 
 .nav-header {
@@ -857,6 +858,8 @@ overflow-x: hidden;
     align-items: center;
 }
 
+
+
 .nav-bar {
     padding:4rem;
 }
@@ -893,7 +896,12 @@ overflow-x: hidden;
     text-align: center;
   }
 
-
+#drag{
+    display: inline-block;
+    height: 100px;
+    border: 1px solid rgb(198, 194, 194);
+    line-height: 100px;
+}
   .fashion-text p {
     margin-bottom: 1rem;
     padding: 0;

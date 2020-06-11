@@ -9,8 +9,6 @@ let pageScene;
 let detailScene;
 let landingTextScene;
 
-// var promise = document.querySelector('video')
-// promise.play()
 
 
 
