@@ -49,7 +49,7 @@ function animateTextLanding() {
     .addTo(controller)
 }
 
-function animateSlides({ playVideoAutomatically = true }) {
+function animateSlides({ playVideoAutomatically = true, videoPlayerClassName = "video1" }) {
   //Init Controller
   const video = document.querySelectorAll("video")
 
@@ -60,7 +60,7 @@ function animateSlides({ playVideoAutomatically = true }) {
   //Loop over each sllide
   sliders.forEach((slide, index, slides) => {
     const revealImg = slide.querySelector(".reveal-img");
-    const img = slide.querySelector(".video1");
+    const img = slide.querySelector(`.${videoPlayerClassName}`);
     console.log("animateSlides -> img", img)
     const revealText = slide.querySelector(".reveal-text");
     //GSAP
@@ -202,12 +202,16 @@ barba.init({
     {
       namespace: "videostories",
       beforeEnter() {
-        logo.href = "../public/index.html";
+        logo.href = "./index.html";
       },
       afterEnter() {
-        let videoPlayerClassName = "plyrVideoPlayer";
-        jQueryVideoStories.inflateVideoStories(videoPlayerClassName);
-        // animateSlides({ playVideoAutomatically: false });
+        const videoPlayerClassName = "plyrVideoPlayer";
+        jQueryVideoStories.inflateVideoStories({
+          videoPlayerClassName: videoPlayerClassName,
+          callback: ({ videoPlayerClassName }) => {
+            animateSlides({ playVideoAutomatically: false, videoPlayerClassName: videoPlayerClassName });
+          }
+        });
       },
       beforeLeave() {
         slideScene.destroy();
