@@ -49,7 +49,7 @@ function animateTextLanding() {
     .addTo(controller)
 }
 
-function animateSlides({ playVideoAutomatically = true, videoPlayerClassName = "video1" }) {
+function animateSlides({ playVideoAutomatically = true, videoPlayerClassName = "video1", callback = () => { } }) {
   //Init Controller
   const video = document.querySelectorAll("video")
 
@@ -60,47 +60,46 @@ function animateSlides({ playVideoAutomatically = true, videoPlayerClassName = "
   //Loop over each sllide
   sliders.forEach((slide, index, slides) => {
     const revealImg = slide.querySelector(".reveal-img");
-    const img = slide.querySelector(`.${videoPlayerClassName}`);
-    console.log("animateSlides -> img", img)
+    const videoPlayer = slide.querySelector(`.${videoPlayerClassName}`);
     const revealText = slide.querySelector(".reveal-text");
     //GSAP
-    const slideTl = gsap.timeline({
-      defaults: { duration: 1, ease: "power2.inOut" }
-    });
-    slideTl.fromTo(revealImg, { x: "0%" }, { x: "100%" });
-    slideTl.fromTo(img, { opacity: 0, scale: 2 }, { scale: 1, opacity: 1 }, "-=.5");
-    slideTl.fromTo(revealText, { x: "0%" }, { x: "100%" }, "-=0.75");
-    //Create Scene
-    slideScene = new ScrollMagic.Scene({
-      triggerElement: slide,
-      triggerHook: 0.25,
-      reverse: true
-    })
-      .setTween(slideTl)
+    if (index !== 0) {
+      const slideTl = gsap.timeline({
+        defaults: { duration: 1, ease: "power2.inOut" }
+      });
+      slideTl.fromTo(revealImg, { x: "0%" }, { x: "100%" });
+      slideTl.fromTo(videoPlayer, { opacity: 0, scale: 2 }, { scale: 1, opacity: 1 }, "-=.5");
+      slideTl.fromTo(revealText, { x: "0%" }, { x: "100%" }, "-=0.75");
 
-      .addTo(controller);
+      //Create Scene
+      slideScene = new ScrollMagic.Scene({
+        triggerElement: slide,
+        triggerHook: 0.25,
+        reverse: true
+      })
+        .setTween(slideTl)
+        .addTo(controller);
+    }
     //New ANimation
     const pageTl = gsap.timeline();
-    let nextSlide = slides.length - 1 === index ? "end" : slides[index + 1];
-    pageTl.fromTo(nextSlide, { y: "0%" }, { y: "50%" });
-    pageTl.fromTo(slide, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.5 });
-    pageTl.fromTo(nextSlide, { y: "50%" }, { y: "0%" }, "-=0.5");
-    //Create new scene
-    pageScene = new ScrollMagic.Scene({
-      triggerElement: slide,
-      duration: "100%",
-      triggerHook: 0
-    })
-      // .addIndicators({
-      //   colorStart: "white",
-      //   colorTrigger: "white",
-      //   name: "page",
-      //   indent: 200
-      // })
-      .setPin(slide, { pushFollowers: false })
-      .setTween(pageTl)
-      .addTo(controller);
+    if (slides.length - 1 !== index && index !== 0) {
+      let nextSlide = slides[index + 1];
+      pageTl.fromTo(nextSlide, { y: "0%" }, { y: "50%" });
+      pageTl.fromTo(slide, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.5 });
+      pageTl.fromTo(nextSlide, { y: "50%" }, { y: "0%" }, "-=0.5");
+      //Create new scene
+      pageScene = new ScrollMagic.Scene({
+        triggerElement: slide,
+        duration: "100%",
+        triggerHook: 0
+      }).setPin(slide, { pushFollowers: false })
+        .setTween(pageTl)
+        .addTo(controller);
+    }
   });
+  if (callback instanceof Function) {
+    callback();
+  }
 }
 
 
@@ -124,14 +123,14 @@ function activeCursor(e) {
   } else {
     mouse.classList.remove("nav-active")
   }
-
-  if (item.classList.contains("explore")) {
-    gsap.to(".title-swipe", .5, { y: "100%" })
-    mouse.classList.add("explore-active")
-  } else {
-    mouse.classList.remove("explore-active")
-    gsap.to(".title-swipe", .5, { y: "0%" })
-  }
+  if (document.querySelectorAll(".title-swipe").length > 0)
+    if (item.classList.contains("explore")) {
+      gsap.to(".title-swipe", .5, { y: "100%" })
+      mouse.classList.add("explore-active")
+    } else {
+      mouse.classList.remove("explore-active")
+      gsap.to(".title-swipe", .5, { y: "0%" })
+    }
 
 }
 
@@ -204,14 +203,25 @@ barba.init({
       beforeEnter() {
         logo.href = "./index.html";
       },
+      enter() {
+
+      },
       afterEnter() {
         const videoPlayerClassName = "plyrVideoPlayer";
         jQueryVideoStories.inflateVideoStories({
           videoPlayerClassName: videoPlayerClassName,
           callback: ({ videoPlayerClassName }) => {
-            animateSlides({ playVideoAutomatically: false, videoPlayerClassName: videoPlayerClassName });
+            animateSlides({
+              playVideoAutomatically: false,
+              videoPlayerClassName: videoPlayerClassName,
+              callback: () => {
+                jQueryVideoStories.fixFirstVideoPosition();
+              }
+            });
           }
         });
+
+
       },
       beforeLeave() {
         slideScene.destroy();

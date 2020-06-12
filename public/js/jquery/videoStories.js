@@ -124,3 +124,8 @@ export function inflateVideoStories({ videoPlayerClassName, callback }) {
     }
 };
 
+export function fixFirstVideoPosition() {
+    $(window).ready(() => {
+        $("section").first().css("transform", "translate(0px,0%)");
+    })
+}
