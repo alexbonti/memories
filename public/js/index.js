@@ -54,14 +54,13 @@ function animateSlides({ playVideoAutomatically = true, videoPlayerClassName = "
   const video = document.querySelectorAll("video")
 
   if (playVideoAutomatically)
-    video.forEach(item => item.play())
+  video.forEach(item => item.play())
   controller = new ScrollMagic.Controller();
   const sliders = document.querySelectorAll(".slide");
   //Loop over each sllide
   sliders.forEach((slide, index, slides) => {
     const revealImg = slide.querySelector(".reveal-img");
     const img = slide.querySelector(`.${videoPlayerClassName}`);
-    console.log("animateSlides -> img", img)
     const revealText = slide.querySelector(".reveal-text");
     //GSAP
     const slideTl = gsap.timeline({
@@ -77,14 +76,17 @@ function animateSlides({ playVideoAutomatically = true, videoPlayerClassName = "
       reverse: true
     })
       .setTween(slideTl)
-
       .addTo(controller);
-    //New ANimation
+
+    //New Animation
     const pageTl = gsap.timeline();
+    console.log("animateSlides -> pageTl", pageTl)
+    
     let nextSlide = slides.length - 1 === index ? "end" : slides[index + 1];
-    pageTl.fromTo(nextSlide, { y: "0%" }, { y: "50%" });
-    pageTl.fromTo(slide, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.5 });
-    pageTl.fromTo(nextSlide, { y: "50%" }, { y: "0%" }, "-=0.5");
+    
+    // pageTl.fromTo(nextSlide, { y: "0%" }, { y: "50%" });
+    // pageTl.fromTo(slide, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.5 });
+    // pageTl.fromTo(nextSlide, { y: "50%" }, { y: "0%" }, "-=0.5");
     //Create new scene
     pageScene = new ScrollMagic.Scene({
       triggerElement: slide,
@@ -112,28 +114,28 @@ const mouseTxt = mouse.querySelector("span");
 const burger = document.querySelector(".burger");
 const nav = document.querySelector(".nav-bar")
 //----------------------------
-// function cursor(e) {
-//   mouse.style.top = e.pageY + "px";
-//   mouse.style.left = e.pageX + "px";
-// }
+function cursor(e) {
+  mouse.style.top = e.pageY + "px";
+  mouse.style.left = e.pageX + "px";
+}
 
-// function activeCursor(e) {
-//   const item = e.target;
-//   if (item.id === "logo" || item.classList.contains("burger")) {
-//     mouse.classList.add("nav-active")
-//   } else {
-//     mouse.classList.remove("nav-active")
-//   }
+function activeCursor(e) {
+  const item = e.target;
+  if (item.id === "logo" || item.classList.contains("burger")) {
+    mouse.classList.add("nav-active")
+  } else {
+    mouse.classList.remove("nav-active")
+  }
 
-//   if (item.classList.contains("explore")) {
-//     gsap.to(".title-swipe", .5, { y: "100%" })
-//     mouse.classList.add("explore-active")
-//   } else {
-//     mouse.classList.remove("explore-active")
-//     gsap.to(".title-swipe", .5, { y: "0%" })
-//   }
+  if (item.classList.contains("explore")) {
+    gsap.to(".title-swipe", .5, { y: "100%" })
+    mouse.classList.add("explore-active")
+  } else {
+    mouse.classList.remove("explore-active")
+    gsap.to(".title-swipe", .5, { y: "0%" })
+  }
 
-// }
+}
 
 function navToggle(e) {
   if (!e.target.classList.contains("active")) {
@@ -194,8 +196,6 @@ barba.init({
         logo.href = "./index.html";
       },
       beforeLeave() {
-        slideScene.destroy();
-        pageScene.destroy();
         controller.destroy();
       }
     },
