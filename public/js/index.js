@@ -234,11 +234,13 @@ barba.init({
     {
       namespace: "archive",
       beforeEnter() {
-        detailAnimation();
         let body = document.querySelector("body");
+        let main = document.querySelector("main");
+        main.setAttribute("class", "main-archive")
         body.setAttribute("class", "body-archive");
         logo.href = "./index.html";
         destroyArchive = launchArchive();
+        detailAnimation();
       },
       beforeLeave() {
         let body = document.querySelector("body");

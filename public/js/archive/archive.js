@@ -343,6 +343,8 @@ export const launchArchive = () => {
     init(gridCells);
     animate();
 
+    const tileOpened = document.querySelector(".open-tile")
+    const mediaContent = document.querySelector(".media-file")
     function init(tilesList) {
 
         camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
@@ -352,12 +354,52 @@ export const launchArchive = () => {
 
         objects.map(obj => obj.dispose()) // clear the array of  objects
 
+
         for (var i = 0; i < tilesList.length; i++) {
 
-            //??-----------ELEMENTS CREATION ------------------------
+            let index = i
 
+
+            const openMedia = (data) => {
+                const title = document.querySelector(".media-title");
+                const description = document.querySelector(".media-description")
+                const date = document.querySelector(".media-date")
+                const location = document.querySelector(".media-origin")
+                
+
+                title.textContent = data[index].title;
+                description.textContent = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iure unde debitis dolor minima quod culpa ex illum. Velit dicta suscipit libero illum eius nemo? Saepe distinctio quo porro exercitationem!"
+                date.textContent = data[index].date;
+                location.textContent = data[index].region;
+
+                if (data[index].type === "video") {
+                    const video = document.createElement('video')
+                    video.className = "media-video"
+                    const controls = document.createAttribute("controls")
+                    video.setAttributeNode(controls);
+                    const source = document.createElement("source")
+                    source.src = data[index].url
+                    video.appendChild(source)
+                    mediaContent.appendChild(video)
+                }
+                if (data[index].type === "img") {
+                    const img = document.createElement('img')
+                    const imgContainer = document.createElement('div')
+                    imgContainer.className = "container-img-archive"
+                    img.className = "media-img"
+                    img.src = data[index].url
+                    mediaContent.appendChild(img)
+                }
+
+                tileOpened.style.opacity = 1;
+                const media = document.createElement("div");
+                tileOpened.style.pointerEvents = "all"
+                // tileOpened.appendChild(media)
+
+            }
+            //??-----------ELEMENTS CREATION ------------------------
             var element = document.createElement('div');
-            element.className = `element item-tile-${i} item-type-${tilesList[i].type}`;
+            element.className = `element item-tile-${i} item-type-${tilesList[2].type}`;
             element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
 
             var date = document.createElement('div');
@@ -369,10 +411,8 @@ export const launchArchive = () => {
             container.className = `container container-tile-${i}`;
             element.appendChild(container);
 
-            // var number = document.createElement('div');
-            // number.className = 'number';
-            // number.textContent = tilesList[i].region;
-            // container.appendChild(number);
+
+            container.addEventListener("click", () => openMedia(tilesList))
 
             var details = document.createElement('div');
             details.className = 'details';
@@ -430,6 +470,7 @@ export const launchArchive = () => {
             }
             targets.all.push(object);
 
+
         }
 
 
@@ -463,7 +504,7 @@ export const launchArchive = () => {
 
 
         var dragStart = 0;
-        var dragNow = 0;
+        var dragFinish = 0;
 
         //?? rotate the camera in front of the helix
         rotate = function (e) {
@@ -496,19 +537,19 @@ export const launchArchive = () => {
                 }
             }
             controls.update();
-       
+
         }
 
 
         //?? drag event rotate the camera as in rotate function
 
-        drag = function(e){
-            // e.preventDefault();
-          var  deltaDrag = dragNow - dragStart;
-            if(e.type === "touchstart"){
+        drag = function (e) {
+            e.preventDefault()
+            var deltaDrag = dragFinish - dragStart;
+            if (e.type === "touchstart") {
                 dragStart = e.touches[0].pageY;
-            } else if(e.type === "touchmove"){
-                dragNow =  e.touches[0].pageY;
+            } else if (e.type === "touchmove") {
+                dragFinish = e.touches[0].pageY;
             }
             var vector = new THREE.Vector3();
             // var distance = Math.sqrt(e.deltaY*e.deltaY + e.deltaX*e.deltaX)
@@ -537,16 +578,14 @@ export const launchArchive = () => {
                     elements[i].style.transform = `${elements[i].style.transform} skewY(${skew}deg)`
                 }
             }
-            controls.update();            
+            controls.update();
             // controls.update();
         }
 
 
         transform(targets.all, 2000);
         window.addEventListener("wheel", rotate, { passive: false })
-        window.addEventListener("touchstart", drag, { passive: false })
-        window.addEventListener("touchmove", drag, { passive: false })
-        window.addEventListener("touchend", drag, { passive: false })
+
         controls.update();
     }
 
@@ -579,6 +618,16 @@ export const launchArchive = () => {
     var searchButton = document.getElementById("button-search")
     button
 
+    const buttonCloseMediaModal = document.querySelector(".close-media-button")
+
+    buttonCloseMediaModal.addEventListener("click", () => {
+        tileOpened.style.opacity = 0;
+        tileOpened.style.pointerEvents = "none"
+        
+        while (mediaContent.children[0]) mediaContent.removeChild(mediaContent.lastChild);
+
+    })
+
     var container = document.querySelectorAll('.container')
     container.forEach((e, i) => {
         e.addEventListener("mouseover", () => {
@@ -590,8 +639,11 @@ export const launchArchive = () => {
         })
     })
 
+    // let containerBig = documet.getElementById("nav-bar");
     window.addEventListener('resize', onWindowResize, false);
-
+    window.addEventListener("touchstart", drag, { passive: false })
+    window.addEventListener("touchmove", drag, { passive: false })
+    window.addEventListener("touchend", drag, { passive: false })
 
 
     function transform(targets, duration, type) {
