@@ -554,7 +554,7 @@ export const launchArchive = () => {
             var vector = new THREE.Vector3();
             // var distance = Math.sqrt(e.deltaY*e.deltaY + e.deltaX*e.deltaX)
             cameraRailPosition += deltaDrag;
-            var factor = 1 / 100
+            var factor = 1 / 4000
             if (cameraRailPosition < 0) {
                 cameraRailPosition = 0
             }
