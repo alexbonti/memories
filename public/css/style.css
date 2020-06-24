@@ -151,7 +151,7 @@ width: 100vw;
     align-items: center;
     justify-content: space-between;
     color: white;
-    width: 90%;
+    width: 86%;
     padding: 2rem 0;
     position: fixed;
     z-index: 12;
@@ -731,7 +731,7 @@ a, button, input, select {
 
 }
 .open-tile {
-    width: 98%;
+    width: 86%;
     height: 80vh;
     position: absolute;
     top: 12%;
@@ -744,7 +744,7 @@ a, button, input, select {
     pointer-events: none;
     flex-direction: column;
     border-radius: 7px;
-    margin: 0 1%;
+    margin: 0 7%;
 }
 .media-title {
     color: black;
@@ -766,36 +766,41 @@ a, button, input, select {
     height: 100%;
     border-radius: 10px;
 }
+.sub-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .container-img-archive {
     width: 70%;
     height: 100%;
-
 }
 .media-img, .media-video, .media-audio {
     border-radius: 10px;
-    object-fit: cover;
+    object-fit: contain;
     width: 100%;
-    height: 100%;
-
+    height: 50vh;
 }
 .media-img:focus, .media-video:focus, .media-audio:focus{
     outline: none;
 }
 .media-description-container {
  display: flex;
- flex-direction: column;
- justify-content: flex-end;
- height: 75%;
  color: black;
- width: 10vw;
- align-items: flex-start;
-}
-.media-description-container > div {
-    padding-top: 15%;
+ justify-content: center;
+ padding: 2% 0;
 }
 
+.media-date {
+    padding-right: 5%;
+}
+.media-orgin {
+    padding-left: 5%;
+}
+
+
 .button-media {
-    width: 90%;
+    width: 98%;
     display: flex;
     justify-content: flex-end;
 }
@@ -807,6 +812,7 @@ a, button, input, select {
 .media-file {
     width: 100%;
     height: 75%;
+    border-radius: 10px;
 }
 
   /*? ----------------------------SMALL SCREENS------------------------------------------ */
@@ -824,11 +830,9 @@ overflow-x: hidden;
     justify-content: space-between;
     color: white;
     width: 86%;
-    margin: 0 5% !important ;
     padding: 2rem 0;
     position: fixed;
     z-index: 12;
-    margin-left: 9%;
     transition: all .3s ease;
 }
 

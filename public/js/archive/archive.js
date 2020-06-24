@@ -319,9 +319,8 @@ export const launchArchive = () => {
 
 
 
-    // for (let index = 0; index < 1; index++) {
+    // for (let index = 0; index < 2; index++) {
     //     gridCells = gridCells.concat(gridCells)
-
     // }
     var camera, scene, renderer, rotate, controls, drag;
     var objects = [];
@@ -356,6 +355,7 @@ export const launchArchive = () => {
 
 
         for (var i = 0; i < tilesList.length; i++) {
+        console.log("init -> tilesList", tilesList.length)
 
             let index = i
 
@@ -368,7 +368,7 @@ export const launchArchive = () => {
                 
 
                 title.textContent = data[index].title;
-                description.textContent = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iure unde debitis dolor minima quod culpa ex illum. Velit dicta suscipit libero illum eius nemo? Saepe distinctio quo porro exercitationem!"
+                // description.textContent = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iure unde debitis dolor minima quod culpa ex illum. Velit dicta suscipit libero illum eius nemo? Saepe distinctio quo porro exercitationem!"
                 date.textContent = data[index].date;
                 location.textContent = data[index].region;
 
@@ -512,7 +512,7 @@ export const launchArchive = () => {
             var vector = new THREE.Vector3();
             // var distance = Math.sqrt(e.deltaY*e.deltaY + e.deltaX*e.deltaX)
             cameraRailPosition += e.deltaY;
-            var factor = 1 / 100
+            var factor = 1 / 250
             if (cameraRailPosition < 0) {
                 cameraRailPosition = 0
             }
@@ -529,13 +529,13 @@ export const launchArchive = () => {
 
             var skew = Math.max(0, Math.min(20, e.deltaY))
 
-            for (var i = 0; i < elements.length; i++) {
-                if (elements[i].style.transform.includes("skewY")) {
-                    elements[i].style.transform = elements[i].style.transform.replace(/skewY\([0-9]+deg\)/, `skewY(${skew}deg) `)
-                } else {
-                    elements[i].style.transform = `${elements[i].style.transform} skewY(${skew}deg)`
-                }
-            }
+            // for (var i = 0; i < elements.length; i++) {
+            //     if (elements[i].style.transform.includes("skewY")) {
+            //         elements[i].style.transform = elements[i].style.transform.replace(/skewY\([0-9]+deg\)/, `skewY(${skew}deg) `)
+            //     } else {
+            //         elements[i].style.transform = `${elements[i].style.transform} skewY(${skew}deg)`
+            //     }
+            // }
             controls.update();
 
         }
@@ -554,7 +554,7 @@ export const launchArchive = () => {
             var vector = new THREE.Vector3();
             // var distance = Math.sqrt(e.deltaY*e.deltaY + e.deltaX*e.deltaX)
             cameraRailPosition += deltaDrag;
-            var factor = 1 / 4000
+            var factor = 1 / 1000
             if (cameraRailPosition < 0) {
                 cameraRailPosition = 0
             }
