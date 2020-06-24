@@ -331,7 +331,7 @@ export const launchArchive = () => {
     var tilesRadius = 800
     var tilesSpacing = 1200
     var speedX = 0.175 * tilesSpacing / tilesRadius
-    var speedY = 40
+    var speedY = 50
     let calcRail = (i, speedX, speedY) => {
         var y = - (i * speedY);
         var theta = i * speedX + Math.PI;
