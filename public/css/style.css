@@ -139,7 +139,7 @@ width: 100vw;
 
 
 .plyr {
-    width: 90%;
+    width: 86%;
     /* z-index to 1 when disabled animation of videostories */
     z-index: 1 !important;
 }

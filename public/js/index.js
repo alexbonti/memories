@@ -162,7 +162,6 @@ function navToggle2(e) {
     gsap.to("#logo", 1, { color: "black" })
     document.body.classList.add("hide")
   } else {
-    console.log(burger.classList)
     burger.classList.remove("active")
     gsap.to(".line1", 0.3, { rotate: "0", y: 0, background: "white" });
     gsap.to(".line2", 0.3, { rotate: "0", y: 0, background: "white" });

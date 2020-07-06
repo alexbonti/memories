@@ -8,6 +8,8 @@ import { OrbitControls, MapControls } from "../controls/OrbitControls.js"
 
 import { TWEEN } from "../tween.module.min.js"
 
+// import {API} from "../../helpers/API.js"
+
 export const launchArchive = () => {
 
 
@@ -288,35 +290,49 @@ export const launchArchive = () => {
             url: "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
         },
     ])
+    
+    let data;
+    let memories = [];
 
+    const callApi = async () => {
+        var test = await axios({
+            method: 'post',
+            url: 'http://localhost:8061/api/memory/getMemories',
+            data: {
+                "numberOfRecords": 10,
+                "currentPageNumber": 1
+            }
+        })
 
-    // var callApi = async () => {
+    data = test.data.data.data
+    if(data !== undefined){
+        console.log(data)
+        data.forEach(item => {
+          
 
-    //     var test = await axios({
-    //         method: 'post',
-    //         // url: 'http://168.1.217.30:31308/api/memory/getMemories',
-    //         url: 'http://localhost:8100/api/memory/getMemories',
-    //         data: {
-    //             "numberOfRecords": 10,
-    //             "currentPageNumber": 1
-    //         }
-    //     })
+            if(item.media.length === 0){
+                const urlsMatches = item.content.match(/\bhttps?:\/\/\S+/gi);
+                console.log(urlsMatches[0])
+                memories.push({
+                title: item.title,
+                content: item.content,
+                url: urlsMatches ? urlsMatches[1]: "",
+                type: item.content.includes("video") ? "video" : 
+                    item.content.includes("img") ? "img" : "error",
+                category: item.category,
+                date: moment(item.date).get("year")
+            })
 
-    // data = test.data.data.data
-    // console.log(data)
-    // if(data !== undefined){
-    //     data.forEach(item => {
-    //         console.log(item.media[0].thumbnail)
-    //          grid.push({
-    //             title: item.title,
-    //             content: item.content,
-    //             url: item.media[0].thumbnail,
-    //             type: item.media[0].type,
-    //             category: item.category
-    //         })
-    //     })
-    // }
-
+            }
+        })
+        memories = memories.concat(memories)
+        console.log("callApi -> memories", memories)
+        init(memories);
+        const activateMemories = document.getElementById("table")
+        activateMemories.click();
+    }
+    }
+callApi()
 
 
     // for (let index = 0; index < 2; index++) {
@@ -339,7 +355,6 @@ export const launchArchive = () => {
     }
 
     var cameraRailPosition = 0
-    init(gridCells);
     animate();
 
     const tileOpened = document.querySelector(".open-tile")
@@ -349,17 +364,18 @@ export const launchArchive = () => {
         camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
         scene = new THREE.Scene();
 
-        //create html elements and initiate the helix shape object
+        //*create html elements and initiate the helix shape object
 
-        objects.map(obj => obj.dispose()) // clear the array of  objects
-
+        // if(objects.length > 0){
+        //     objects.map(obj => obj.dispose()) //*clear the array of  objects
+        // }
 
         for (var i = 0; i < tilesList.length; i++) {
-        console.log("init -> tilesList", tilesList.length)
-
             let index = i
-
-
+            let urlVideo = tilesList[i].url.split("")
+            urlVideo.pop()
+            urlVideo = urlVideo.join("")
+            console.log("init -> urlVideo", urlVideo)
             const openMedia = (data) => {
                 const title = document.querySelector(".media-title");
                 const description = document.querySelector(".media-description")
@@ -378,11 +394,11 @@ export const launchArchive = () => {
                     const controls = document.createAttribute("controls")
                     video.setAttributeNode(controls);
                     const source = document.createElement("source")
-                    source.src = data[index].url
+                    source.src = urlVideo
                     video.appendChild(source)
                     mediaContent.appendChild(video)
                 }
-                if (data[index].type === "img") {
+                if (data[index].type === "IMAGE") {
                     const img = document.createElement('img')
                     const imgContainer = document.createElement('div')
                     imgContainer.className = "container-img-archive"
@@ -395,7 +411,6 @@ export const launchArchive = () => {
                 const media = document.createElement("div");
                 tileOpened.style.pointerEvents = "all"
                 // tileOpened.appendChild(media)
-
             }
             //??-----------ELEMENTS CREATION ------------------------
             var element = document.createElement('div');
@@ -404,7 +419,7 @@ export const launchArchive = () => {
 
             var date = document.createElement('div');
             date.className = `date date-${i}`;
-            date.innerHTML = ` ${tilesList[i].date} - ${tilesList[i].region}`
+            date.innerHTML = ` ${tilesList[i].date}`
             element.appendChild(date);
 
             var container = document.createElement('div');
@@ -439,7 +454,7 @@ export const launchArchive = () => {
             if (tilesList[i].type === "video") {
                 container.appendChild(video)
                 var source = document.createElement("source")
-                source.src = tilesList[i].url
+                source.src = urlVideo
                 video.appendChild(source)
             }
 
@@ -466,7 +481,6 @@ export const launchArchive = () => {
                 vector.y = object.position.y;
                 vector.z = object.position.z * 2;
                 object.lookAt(vector);
-
             }
             targets.all.push(object);
 
@@ -702,10 +716,10 @@ export const launchArchive = () => {
             empty(document.querySelector("#container"))
             window.removeEventListener("wheel", rotate, { passive: false })
             objects = []
-            init(gridCells)
+            init(memories)
         }
 
-        let filteredArray = gridCells.filter(item => item.type === type)
+        let filteredArray = memories.filter(item => item.type === type)
         if (filteredArray.length > 0) {
             function empty(elem) {
                 while (elem.firstChild) elem.removeChild(elem.lastChild);
