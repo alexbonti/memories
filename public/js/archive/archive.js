@@ -28,29 +28,34 @@ export const launchArchive = () => {
 
         data = memoriesData.data.data.data
         if (data !== undefined) {
-            console.log(data)
             data.forEach(item => {
+
+                ///!!FILTERING THE DATA TO EXTRAPOLATE WHAT KIND OF MEDIA IT IS, CLEANING THE URL ADDRESS FROM THE HTML DATA
                 if (item.media.length === 0) {
                     const urlsMatches = item.content.match(/\bhttps?:\/\/\S+/gi);
-                    let urlVideo, posterUrlVideo;
-                    if (urlsMatches) {
-                        console.log("callApi -> urlsMatches", urlsMatches)
-                        urlVideo = urlsMatches[1]
-                        let urlVIdeoArray = urlVideo.split("")
-                        urlVIdeoArray.pop()
-                        urlVideo = urlVIdeoArray.join("")
-
+                    let url, posterUrlVideo;
+                    if (urlsMatches && urlsMatches.length === 1) { //* IT MEANS THAT IS AN IMAGE
+                        url = urlsMatches[0]
+                        let urlArray = url.split("")
+                        urlArray.pop()
+                        url = urlArray.join("")
+                    }else if(urlsMatches && urlsMatches.length === 2){ //* IT MEANS THAT IS A VIDEO
+                        url = urlsMatches[1]
+                        let urlArray = url.split("")
+                        urlArray.pop()
+                        url = urlArray.join("")
                         posterUrlVideo = urlsMatches[0]
                         let urlPosterArray = posterUrlVideo.split("")
                         urlPosterArray.pop()
                         posterUrlVideo = urlPosterArray.join("")
                     }
+                    //CREATING AN ARRAY WITH THE MEDIA ITEMS
                     memories.push({
                         title: item.title,
                         content: item.content,
-                        url: urlsMatches ? urlVideo : "",
+                        url: urlsMatches ? url : "",
                         type: item.content.includes("video") ? "video" :
-                            item.content.includes("img") ? "img" : "error",
+                            item.content.includes("img") ? "img" : "audio",
                         category: item.category,
                         poster: item.content.includes("video") ? posterUrlVideo : "",
                         date: moment(item.date).get("year")
@@ -59,7 +64,6 @@ export const launchArchive = () => {
                 }
             })
             memories = memories.concat(memories)
-            console.log("callApi -> memories", memories)
             init(memories);
             const activateMemories = document.getElementById("table")
             activateMemories.click();
@@ -99,9 +103,6 @@ export const launchArchive = () => {
 
         //*create html elements and initiate the helix shape object
 
-        // if(objects.length > 0){
-        //     objects.map(obj => obj.dispose()) //*clear the array of  objects
-        // }
 
         for (var i = 0; i < tilesList.length; i++) {
             let index = i
@@ -116,18 +117,20 @@ export const launchArchive = () => {
                 location.textContent = data[index].region;
 
                 if (data[index].type === "video") {
+                    console.log(data[index].url)
                     const video = document.createElement('video')
                     video.className = "media-video"
                     const controls = document.createAttribute("controls")
                     video.setAttributeNode(controls);
                     const source = document.createElement("source")
                     const poster = document.createAttribute("poster")
-                    video.poster = data.poster
-                    source.src = data.url
+                    video.setAttributeNode(poster)
+                    video.poster = data[index].poster
+                    source.src = data[index].url
                     video.appendChild(source)
                     mediaContent.appendChild(video)
                 }
-                if (data[index].type === "IMAGE") {
+                if (data[index].type === "img") {
                     const img = document.createElement('img')
                     const imgContainer = document.createElement('div')
                     imgContainer.className = "container-img-archive"

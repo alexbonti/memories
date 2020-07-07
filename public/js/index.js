@@ -358,8 +358,8 @@ function detailAnimation() {
 //event listeners
 burger.addEventListener("click", navToggle);
 nav.addEventListener("click", navToggle2)
-window.addEventListener("mousemove", cursor);
-window.addEventListener("mouseover", activeCursor)
+// window.addEventListener("mousemove", cursor);
+// window.addEventListener("mouseover", activeCursor)
 
 
 
