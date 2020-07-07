@@ -191,7 +191,9 @@ barba.init({
       },
       beforeLeave() {
         slideTextLanding.destroy();
+        detailScene.destroy();
         controller.destroy();
+
       }
     },
     {
@@ -210,12 +212,6 @@ barba.init({
       },
       afterEnter() {
         const videoPlayerClassName = "plyrVideoPlayer";
-        // jQueryVideoStories.inflateVideoStories({
-        //   videoPlayerClassName: videoPlayerClassName,
-        //   callback: ({ videoPlayerClassName }) => {
-        //     animateSlides({ playVideoAutomatically: false, videoPlayerClassName: videoPlayerClassName });
-        //   }
-        // });
         jQueryVideoStories.callApiVideoStories({
           videoPlayerClassName: videoPlayerClassName,
           callback: ({ videoPlayerClassName }) => {
@@ -238,6 +234,7 @@ barba.init({
       },
       beforeLeave() {
         controller.destroy();
+        detailScene.destroy();
       }
     },
 
@@ -318,7 +315,6 @@ function detailAnimation() {
   const videos = document.querySelectorAll("video")
   videos.forEach(item => item.play())
   slides.forEach((slide, index, slides) => {
-    console.log("detailAnimation -> slide", slide)
 
     const slideTl = gsap.timeline({ defaults: { duration: 1 } });
 
