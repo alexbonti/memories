@@ -144,12 +144,14 @@ function navToggle(e) {
     gsap.to(".nav-bar", .75, { clipPath: "circle(4500px at 100% -10%)" })
     gsap.to("#logo", 1, { color: "black" })
     document.body.classList.add("hide")
+    document.getElementById("logo").style.display = "none"
   } else {
     e.target.classList.remove("active")
     gsap.to(".line1", 0.3, { rotate: "0", y: 0, background: "white" });
     gsap.to(".line2", 0.3, { rotate: "0", y: 0, background: "white" });
     gsap.to(".nav-bar", .75, { clipPath: "circle(50px at 100% -10%)" })
     gsap.to("#logo", 1, { color: "white" })
+    document.getElementById("logo").style.display = "block"
     document.body.classList.remove("hide")
   }
 }
@@ -159,6 +161,8 @@ function navToggle2(e) {
     gsap.to(".line2", 0.3, { rotate: "-45", y: -5, background: "black" });
     gsap.to(".nav-bar", .75, { clipPath: "circle(4500px at 100% -10%)" })
     gsap.to("#logo", 1, { color: "black" })
+    document.getElementById("logo").style.display = "none"
+
     document.body.classList.add("hide")
   } else {
     burger.classList.remove("active")
@@ -166,6 +170,8 @@ function navToggle2(e) {
     gsap.to(".line2", 0.3, { rotate: "0", y: 0, background: "white" });
     gsap.to(".nav-bar", .75, { clipPath: "circle(50px at 100% -10%)" })
     gsap.to("#logo", 1, { color: "white" })
+    document.getElementById("logo").style.display = "block"
+
     document.body.classList.remove("hide")
   }
 }

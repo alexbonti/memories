@@ -39,8 +39,8 @@ a {
 }
 a:hover{
     transition: all .2s ease-in-out;
-    transform: translateX(30px);
-    color: #0000ff69
+    /* transform: translateX(30px); */
+    color: rgb(86,124,228);
 }
 
 #logo {
@@ -292,7 +292,6 @@ margin: 0 10%;
     border: 1px solid white;
     font-size: 1rem;
     text-decoration: none;
-    align-self: flex-start;
     cursor: pointer;
 }
 
@@ -948,8 +947,9 @@ main {
     }
   main {
     overflow-x: hidden;
-    width: 100%;
+    width: 86%;
     margin: 0;
+    /* height: 100vh; */
   }
   .hero {
     width: 100%;
@@ -960,7 +960,14 @@ main {
     align-items: center;
 }
 
-
+.plyr {
+    width: 86%;
+    height: 40vh;
+    margin: 0 auto;
+    border-radius: 10px;
+    /* z-index to 1 when disabled animation of videostories */
+    z-index: 1 !important;
+}
 
 .nav-bar {
     padding:4rem;
@@ -977,7 +984,7 @@ main {
       font-size: 2rem;
   }
   .hero-img {
-    padding-top: 4rem;
+    padding-top: 10rem;
   }
   .hero-desc h2 {
     font-size: 1.6rem;
@@ -1023,15 +1030,14 @@ main {
     font-size: 3rem;
   }
   .nav-bar {
-    display: block;
+    display: flex;
   }
   .nav-links {
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-align: center;
   }
-  .contact h2 {
-    font-size: 3rem;
-    text-align: center;
+  .contact  {
+    display: none;
   }
   .contact p {
     font-size: 1.2rem;

@@ -37,7 +37,7 @@ export function inflateVideoStories({ videoPlayerClassName, callback }) {
                                 <div class="title-swipe t-swipe1"></div>
                             </div>
                             <p> ${section.description} videoSize: ${video.width}p </p>
-                            <a class="explore mountain-exp">CLICK</a>
+                            <a class="explore mountain-exp">EXPLORE</a>
                             <div class="reveal-text"></div>
                         </div>
                     </section>`)
@@ -59,7 +59,7 @@ export function inflateVideoStories({ videoPlayerClassName, callback }) {
                             <div class="title-swipe t-swipe1"></div>
                         </div>
                         <p> ${section.description} </p>
-                        <a class="explore mountain-exp">CLICK</a>
+                        <a class="explore mountain-exp">EXPLORE</a>
                         <div class="reveal-text"></div>
                     </div>
                 </section>`)
