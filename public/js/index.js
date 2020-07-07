@@ -83,9 +83,9 @@ function animateSlides({ playVideoAutomatically = true, videoPlayerClassName = "
     
     let nextSlide = slides.length - 1 === index ? "end" : slides[index + 1];
     
-    // pageTl.fromTo(nextSlide, { y: "0%" }, { y: "50%" });
-    // pageTl.fromTo(slide, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.5 });
-    // pageTl.fromTo(nextSlide, { y: "50%" }, { y: "0%" }, "-=0.5");
+    pageTl.fromTo(nextSlide, { y: "0%" }, { y: "50%" });
+    pageTl.fromTo(slide, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.5 });
+    pageTl.fromTo(nextSlide, { y: "50%" }, { y: "0%" }, "-=0.5");
     //Create new scene
     pageScene = new ScrollMagic.Scene({
       triggerElement: slide,
@@ -113,28 +113,28 @@ const mouseTxt = mouse.querySelector("span");
 const burger = document.querySelector(".burger");
 const nav = document.querySelector(".nav-bar")
 //----------------------------
-// function cursor(e) {
-//   mouse.style.top = e.pageY + "px";
-//   mouse.style.left = e.pageX + "px";
-// }
+function cursor(e) {
+  mouse.style.top = e.pageY + "px";
+  mouse.style.left = e.pageX + "px";
+}
 
-// function activeCursor(e) {
-//   const item = e.target;
-//   if (item.id === "logo" || item.classList.contains("burger")) {
-//     mouse.classList.add("nav-active")
-//   } else {
-//     mouse.classList.remove("nav-active")
-//   }
+function activeCursor(e) {
+  const item = e.target;
+  if (item.id === "logo" || item.classList.contains("burger")) {
+    mouse.classList.add("nav-active")
+  } else {
+    mouse.classList.remove("nav-active")
+  }
 
-//   if (item.classList.contains("explore")) {
-//     gsap.to(".title-swipe", .5, { y: "100%" })
-//     mouse.classList.add("explore-active")
-//   } else {
-//     mouse.classList.remove("explore-active")
-//     gsap.to(".title-swipe", .5, { y: "0%" })
-//   }
+  if (item.classList.contains("explore")) {
+    gsap.to(".title-swipe", .5, { y: "100%" })
+    mouse.classList.add("explore-active")
+  } else {
+    mouse.classList.remove("explore-active")
+    gsap.to(".title-swipe", .5, { y: "0%" })
+  }
 
-// }
+}
 
 function navToggle(e) {
   if (!e.target.classList.contains("active")) {
@@ -359,7 +359,7 @@ function detailAnimation() {
 burger.addEventListener("click", navToggle);
 nav.addEventListener("click", navToggle2)
 // window.addEventListener("mousemove", cursor);
-// window.addEventListener("mouseover", activeCursor)
+window.addEventListener("mouseover", activeCursor)
 
 
 

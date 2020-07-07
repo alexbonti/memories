@@ -1,70 +1,5 @@
 
-const videoStories = [
-    {
-        videos: [
-            {
-                link: "https://d22xto1e7jlkk0.cloudfront.net/wildlife/demo240p.mp4",
-                size: "240",
-                type: "video/mp4"
-            },
-            {
-                link: "https://d22xto1e7jlkk0.cloudfront.net/wildlife/demo360p.mp4",
-                size: "360",
-                type: "video/mp4"
-            },
-            {
-                link: "https://d22xto1e7jlkk0.cloudfront.net/wildlife/demo480p.mp4",
-                size: "480",
-                type: "video/mp4"
-            },
-            {
-                link: "https://d22xto1e7jlkk0.cloudfront.net/wildlife/demo720p.mp4",
-                size: "720",
-                type: "video/mp4"
-            },
-            {
-                link: "https://d22xto1e7jlkk0.cloudfront.net/wildlife/demo1080p.mp4",
-                size: "1080",
-                type: "video/mp4"
-            },
-        ],
-        title: "Cloudfront Demo",
-        description: "This is a demo for different Qualities video from Cloudfront.",
-        buttonText: "Yeah!!!!!"
-    },
-    {
-        videos: [
-            {
-                link: "https://s3-ap-southeast-2.amazonaws.com/deakin.launchpad.test/streaming/wildlife/demo360p.mp4",
-                size: "360",
-                type: "video/mp4"
-            },
-            {
-                link: "https://s3-ap-southeast-2.amazonaws.com/deakin.launchpad.test/streaming/wildlife/demo240p.mp4",
-                size: "240",
-                type: "video/mp4"
-            },
-            {
-                link: "https://s3-ap-southeast-2.amazonaws.com/deakin.launchpad.test/streaming/wildlife/demo1080p.mp4",
-                size: "1080",
-                type: "video/mp4"
-            },
-            {
-                link: "https://s3-ap-southeast-2.amazonaws.com/deakin.launchpad.test/streaming/wildlife/demo480p.mp4",
-                size: "480",
-                type: "video/mp4"
-            },
-            {
-                link: "https://s3-ap-southeast-2.amazonaws.com/deakin.launchpad.test/streaming/wildlife/demo720p.mp4",
-                size: "720",
-                type: "video/mp4"
-            },
-        ],
-        title: "S3 Bucket Demo",
-        description: "This is a demo for different Qualities video from S3 bucket",
-        buttonText: "Yeah!!!!!"
-    }
-];
+
 let videoData;
 
 export const callApiVideoStories = async ({ videoPlayerClassName, callback }) => {
@@ -88,7 +23,7 @@ export function inflateVideoStories({ videoPlayerClassName, callback }) {
         if (splitIntoDifferentVideos) {
             section.videos.forEach((video) => {
                 var videoPlayerID = Math.random();
-                var videoTAGstart = `<video id=${videoPlayerID} class="${videoPlayerClassName}" controls class="video-js vjs-default-skin">`;
+                var videoTAGstart = `<video id=${videoPlayerID} class="${videoPlayerClassName} video1" controls class="video-js vjs-default-skin">`;
                 $("main").append(`<section class="slide">
                     <div class="hero-img">
                         ${videoTAGstart}
@@ -111,6 +46,7 @@ export function inflateVideoStories({ videoPlayerClassName, callback }) {
             var videoPlayerID = Math.random();
             var videoTAGstart = `<video id=${videoPlayerID} class="${videoPlayerClassName}" muted controls class="video-js vjs-default-skin">`;
             section.videos.forEach((video) => videoTAGSources = videoTAGSources + `<source src=${video.link} size=${video.width} p > </source>`);
+            $("main").addClass("main-videostories") 
             videos = videoTAGstart + videoTAGSources + videoTAGend;
             $("main").append(`<section class="slide">
                 <div class="hero-img">
