@@ -21,6 +21,7 @@ body {
     background-color: rgba(0, 0, 0, 0.69);	color: #fff !important;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 
@@ -941,7 +942,14 @@ main {
 
   /*?----------------------------MOBILE------------------------------------------ */
 @media screen and (max-width: 1024px) {
-   
+    .body-archive {
+        font-family: "Montserrat", sans-serif;
+        margin: 0;
+        background-color: rgba(0, 0, 0, 0.69);	color: #fff !important;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+    }
     body {
         overflow-x: hidden;
     }

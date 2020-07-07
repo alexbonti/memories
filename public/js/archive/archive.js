@@ -28,6 +28,7 @@ export const launchArchive = () => {
 
         data = memoriesData.data.data.data
         if (data !== undefined) {
+            console.log(data)
             data.forEach(item => {
 
                 ///!!FILTERING THE DATA TO EXTRAPOLATE WHAT KIND OF MEDIA IT IS, CLEANING THE URL ADDRESS FROM THE HTML DATA
@@ -72,16 +73,14 @@ export const launchArchive = () => {
     callApi()
 
 
-    // for (let index = 0; index < 2; index++) {
-    //     gridCells = gridCells.concat(gridCells)
-    // }
+
     var camera, scene, renderer, rotate, controls, drag;
     var objects = [];
     var elements = [];
     var targets = { all: [], video: [], helix: [], grid: [] };
 
-    var cameraRadius = 1600
-    var tilesRadius = 800
+    var cameraRadius = 1800
+    var tilesRadius = 1000
     var tilesSpacing = 1200
     var speedX = 0.175 * tilesSpacing / tilesRadius
     var speedY = 50
@@ -91,14 +90,14 @@ export const launchArchive = () => {
         return [y, theta]
     }
 
-    var cameraRailPosition = 0
+    var cameraRailPosition = 100
     animate();
 
     const tileOpened = document.querySelector(".open-tile")
     const mediaContent = document.querySelector(".media-file")
     function init(tilesList) {
-
-        camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
+        
+        camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 100);
         scene = new THREE.Scene();
 
         //*create html elements and initiate the helix shape object
@@ -162,6 +161,7 @@ export const launchArchive = () => {
 
 
             container.addEventListener("click", () => openMedia(tilesList))
+            container.addEventListener("touchstart", () => openMedia(tilesList))
 
             var details = document.createElement('div');
             details.className = 'details';
@@ -253,8 +253,7 @@ export const launchArchive = () => {
         camera.position.set(110, 120, 2000);
 
 
-        var dragStart = 0;
-        var dragFinish = 0;
+     
 
         //?? rotate the camera in front of the helix
         rotate = function (e) {
@@ -262,7 +261,7 @@ export const launchArchive = () => {
             var vector = new THREE.Vector3();
             // var distance = Math.sqrt(e.deltaY*e.deltaY + e.deltaX*e.deltaX)
             cameraRailPosition += e.deltaY;
-            var factor = 1 / 250
+            var factor = 1 / 350
             if (cameraRailPosition < 0) {
                 cameraRailPosition = 0
             }
@@ -276,35 +275,25 @@ export const launchArchive = () => {
             vector.z = 0;
             camera.lookAt(vector);
             controls.target = vector
-
-            var skew = Math.max(0, Math.min(20, e.deltaY))
-
-            // for (var i = 0; i < elements.length; i++) {
-            //     if (elements[i].style.transform.includes("skewY")) {
-            //         elements[i].style.transform = elements[i].style.transform.replace(/skewY\([0-9]+deg\)/, `skewY(${skew}deg) `)
-            //     } else {
-            //         elements[i].style.transform = `${elements[i].style.transform} skewY(${skew}deg)`
-            //     }
-            // }
             controls.update();
 
         }
 
 
         //?? drag event rotate the camera as in rotate function
-
+        var dragStart = 0;
+        var dragFinish = 0;
         drag = function (e) {
             e.preventDefault()
             var deltaDrag = dragFinish - dragStart;
             if (e.type === "touchstart") {
-                dragStart = e.touches[0].pageY;
+                dragStart = e.touches[0].pageX;
             } else if (e.type === "touchmove") {
-                dragFinish = e.touches[0].pageY;
+                dragFinish = e.touches[0].pageX;
             }
             var vector = new THREE.Vector3();
-            // var distance = Math.sqrt(e.deltaY*e.deltaY + e.deltaX*e.deltaX)
             cameraRailPosition += deltaDrag;
-            var factor = 1 / 1000
+            var factor = 1 / 10000
             if (cameraRailPosition < 0) {
                 cameraRailPosition = 0
             }
@@ -329,13 +318,15 @@ export const launchArchive = () => {
                 }
             }
             controls.update();
-            // controls.update();
         }
 
 
         transform(targets.all, 2000);
+        const layer = document.querySelector(".layer-super")
         window.addEventListener("wheel", rotate, { passive: false })
-
+        layer.addEventListener("touchstart", drag, { passive: false })
+        layer.addEventListener("touchmove", drag, { passive: false })
+        layer.addEventListener("touchend", drag, { passive: false })
         controls.update();
     }
 
@@ -365,18 +356,21 @@ export const launchArchive = () => {
         transform(targets.all, 2000);
     }, { passive: false });
 
-    var searchButton = document.getElementById("button-search")
-    button
+    
 
     const buttonCloseMediaModal = document.querySelector(".close-media-button")
 
     buttonCloseMediaModal.addEventListener("click", () => {
         tileOpened.style.opacity = 0;
         tileOpened.style.pointerEvents = "none"
-
         while (mediaContent.children[0]) mediaContent.removeChild(mediaContent.lastChild);
-
     })
+    buttonCloseMediaModal.addEventListener("touchstart", () => {
+        tileOpened.style.opacity = 0;
+        tileOpened.style.pointerEvents = "none"
+        while (mediaContent.children[0]) mediaContent.removeChild(mediaContent.lastChild);
+    })
+
 
     var container = document.querySelectorAll('.container')
     container.forEach((e, i) => {
@@ -389,11 +383,8 @@ export const launchArchive = () => {
         })
     })
 
-    // let containerBig = documet.getElementById("nav-bar");
     window.addEventListener('resize', onWindowResize, false);
-    window.addEventListener("touchstart", drag, { passive: false })
-    window.addEventListener("touchmove", drag, { passive: false })
-    window.addEventListener("touchend", drag, { passive: false })
+ 
 
 
     function transform(targets, duration, type) {
@@ -477,32 +468,6 @@ export const launchArchive = () => {
     }
     return destroy
 
-    // callApi()
-
-    //-------------------------------------------------------------------------------------------
-    // var symbol = document.createElement('div');
-    // symbol.className = 'symbol';
-
-    // symbol.textContent = array[i].title;
-    // if (array[i].type === "audio") {
-    //     symbol.textContent = "Audio";
-    // }
-
-    // element.appendChild(symbol); 
-    // var rotate = function (e) {
-
-    //     e.preventDefault();
-
-
-    //     horizzontal += e.deltaY
-
-    //     // Apply scale transform
-    //     camera.position.x = horizzontal;
-    //     controls.update()
-    // }
-
-    // window.addEventListener("wheel", rotate, { passive: false })
-    // table
 }
 
 
