@@ -13,289 +13,11 @@ import { TWEEN } from "../tween.module.min.js"
 export const launchArchive = () => {
 
 
-    var gridCells = ([
-        {
-            title: "test",
-            date: "1959",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/2530912/pexels-photo-2530912.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "June",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/3162828/pexels-photo-3162828.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "March",
-            region: "Location",
-            origin: "title",
-            type: "video",
-            url: "https://player.vimeo.com/external/367990063.sd.mp4?s=71a9e15587fd85d83d0be6b2a79c0ed393ef1bf6&profile_id=139&oauth2_token_id=57447761"
-        },
-
-        {
-            title: "test",
-            date: "1999",
-            region: "Location",
-            origin: "title",
-            type: "audio",
-            url: "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
-        },
-        {
-            title: "test",
-            date: "Jan",
-            region: "Location",
-            origin: "title",
-            type: "audio",
-            url: "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "audio",
-            url: "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
-        },
-        {
-            title: "test",
-            date: "1965",
-            region: "Location",
-            origin: "title",
-            type: "video",
-            url: "https://player.vimeo.com/external/406147533.sd.mp4?s=c6ce5146646594b39bb4b68bb22f465dd1a0e074&profile_id=139&oauth2_token_id=57447761"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "video",
-            url: "https://player.vimeo.com/external/189545420.sd.mp4?s=6f67b9713a4c6f0f8db18778b8b002b2e9fbcded&profile_id=164&oauth2_token_id=57447761"
-        },
-        {
-            title: "test",
-            date: "1983",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/4273439/pexels-photo-4273439.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "July",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/4334161/pexels-photo-4334161.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-
-        {
-            title: "test",
-            date: "1930",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/2253415/pexels-photo-2253415.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "1992",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/4171211/pexels-photo-4171211.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/3064717/pexels-photo-3064717.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "Sept",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/4207892/pexels-photo-4207892.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/4142815/pexels-photo-4142815.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "Nov",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/2397645/pexels-photo-2397645.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "April",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/2250276/pexels-photo-2250276.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "audio",
-            url: "https://images.pexels.com/photos/2146042/pexels-photo-2146042.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "audio",
-            url: "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "audio",
-            url: "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/4108004/pexels-photo-4108004.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/3812041/pexels-photo-3812041.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "Feb",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/4108126/pexels-photo-4108126.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        }
-        ,
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "video",
-            url: "https://player.vimeo.com/external/394675169.sd.mp4?s=b26a3457330f9e4ce188d433223d22f188ebe4cc&profile_id=165&oauth2_token_id=57447761"
-        },
-        {
-            title: "test",
-            date: "June",
-            region: "Location",
-            origin: "title",
-            type: "video",
-            url: "https://player.vimeo.com/external/387172534.sd.mp4?s=fb4985189e9acf6520ba02ffd085812cf0dade97&profile_id=165&oauth2_token_id=57447761"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/2530912/pexels-photo-2530912.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "2001",
-            region: "Location",
-            origin: "title",
-            type: "img",
-            url: "https://images.pexels.com/photos/3162828/pexels-photo-3162828.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "video",
-            url: "https://player.vimeo.com/external/367990063.sd.mp4?s=71a9e15587fd85d83d0be6b2a79c0ed393ef1bf6&profile_id=139&oauth2_token_id=57447761"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "audio",
-            url: "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
-        },
-        {
-            title: "test",
-            date: "Sept",
-            region: "Location",
-            origin: "title",
-            type: "audio",
-            url: "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Location",
-            origin: "title",
-            type: "audio",
-            url: "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
-        },
-        {
-            title: "test",
-            date: "May",
-            region: "Region",
-            origin: "title",
-            type: "audio",
-            url: "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
-        },
-    ])
-    
     let data;
     let memories = [];
 
     const callApi = async () => {
-        var test = await axios({
+        var memoriesData = await axios({
             method: 'post',
             url: 'http://localhost:8061/api/memory/getMemories',
             data: {
@@ -304,35 +26,46 @@ export const launchArchive = () => {
             }
         })
 
-    data = test.data.data.data
-    if(data !== undefined){
-        console.log(data)
-        data.forEach(item => {
-          
+        data = memoriesData.data.data.data
+        if (data !== undefined) {
+            console.log(data)
+            data.forEach(item => {
+                if (item.media.length === 0) {
+                    const urlsMatches = item.content.match(/\bhttps?:\/\/\S+/gi);
+                    let urlVideo, posterUrlVideo;
+                    if (urlsMatches) {
+                        console.log("callApi -> urlsMatches", urlsMatches)
+                        urlVideo = urlsMatches[1]
+                        let urlVIdeoArray = urlVideo.split("")
+                        urlVIdeoArray.pop()
+                        urlVideo = urlVIdeoArray.join("")
 
-            if(item.media.length === 0){
-                const urlsMatches = item.content.match(/\bhttps?:\/\/\S+/gi);
-                console.log(urlsMatches[0])
-                memories.push({
-                title: item.title,
-                content: item.content,
-                url: urlsMatches ? urlsMatches[1]: "",
-                type: item.content.includes("video") ? "video" : 
-                    item.content.includes("img") ? "img" : "error",
-                category: item.category,
-                date: moment(item.date).get("year")
+                        posterUrlVideo = urlsMatches[0]
+                        let urlPosterArray = posterUrlVideo.split("")
+                        urlPosterArray.pop()
+                        posterUrlVideo = urlPosterArray.join("")
+                    }
+                    memories.push({
+                        title: item.title,
+                        content: item.content,
+                        url: urlsMatches ? urlVideo : "",
+                        type: item.content.includes("video") ? "video" :
+                            item.content.includes("img") ? "img" : "error",
+                        category: item.category,
+                        poster: item.content.includes("video") ? posterUrlVideo : "",
+                        date: moment(item.date).get("year")
+                    })
+
+                }
             })
-
-            }
-        })
-        memories = memories.concat(memories)
-        console.log("callApi -> memories", memories)
-        init(memories);
-        const activateMemories = document.getElementById("table")
-        activateMemories.click();
+            memories = memories.concat(memories)
+            console.log("callApi -> memories", memories)
+            init(memories);
+            const activateMemories = document.getElementById("table")
+            activateMemories.click();
+        }
     }
-    }
-callApi()
+    callApi()
 
 
     // for (let index = 0; index < 2; index++) {
@@ -372,19 +105,13 @@ callApi()
 
         for (var i = 0; i < tilesList.length; i++) {
             let index = i
-            let urlVideo = tilesList[i].url.split("")
-            urlVideo.pop()
-            urlVideo = urlVideo.join("")
-            console.log("init -> urlVideo", urlVideo)
+
+            /* Create and Open the modal view */
             const openMedia = (data) => {
                 const title = document.querySelector(".media-title");
-                const description = document.querySelector(".media-description")
                 const date = document.querySelector(".media-date")
                 const location = document.querySelector(".media-origin")
-                
-
                 title.textContent = data[index].title;
-                // description.textContent = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iure unde debitis dolor minima quod culpa ex illum. Velit dicta suscipit libero illum eius nemo? Saepe distinctio quo porro exercitationem!"
                 date.textContent = data[index].date;
                 location.textContent = data[index].region;
 
@@ -394,7 +121,9 @@ callApi()
                     const controls = document.createAttribute("controls")
                     video.setAttributeNode(controls);
                     const source = document.createElement("source")
-                    source.src = urlVideo
+                    const poster = document.createAttribute("poster")
+                    video.poster = data.poster
+                    source.src = data.url
                     video.appendChild(source)
                     mediaContent.appendChild(video)
                 }
@@ -412,6 +141,8 @@ callApi()
                 tileOpened.style.pointerEvents = "all"
                 // tileOpened.appendChild(media)
             }
+
+
             //??-----------ELEMENTS CREATION ------------------------
             var element = document.createElement('div');
             element.className = `element item-tile-${i} item-type-${tilesList[2].type}`;
@@ -446,15 +177,17 @@ callApi()
             var autoplay = document.createAttribute("autoPlay")
             var loop = document.createAttribute("loop")
             var mute = document.createAttribute("mute")
+            var poster = document.createAttribute("poster")
             autoplay.value = true
-            video.setAttributeNode(autoplay)
+            // video.setAttributeNode(autoplay)
             video.setAttributeNode(loop)
+            video.setAttributeNode(poster)
             video.setAttributeNode(mute)
-
+            video.poster = tilesList[i].poster
             if (tilesList[i].type === "video") {
                 container.appendChild(video)
                 var source = document.createElement("source")
-                source.src = urlVideo
+                source.src = tilesList[i].url
                 video.appendChild(source)
             }
 
@@ -637,7 +370,7 @@ callApi()
     buttonCloseMediaModal.addEventListener("click", () => {
         tileOpened.style.opacity = 0;
         tileOpened.style.pointerEvents = "none"
-        
+
         while (mediaContent.children[0]) mediaContent.removeChild(mediaContent.lastChild);
 
     })

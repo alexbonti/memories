@@ -348,7 +348,7 @@ margin: 0 10%;
     top: -15%;
 }
 
-.cursor {
+/* .cursor {
     transition: all .1s ease-in-out;
     width: 2rem;
     height: 2rem;
@@ -359,7 +359,7 @@ margin: 0 10%;
     transform-origin: 75% 75%;
     pointer-events: none;
     transition-property: background, transform, border;
-}
+} */
 
 .cursor.nav-active{
     background: rgb(86,124,228);

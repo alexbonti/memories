@@ -65,11 +65,22 @@ const videoStories = [
         buttonText: "Yeah!!!!!"
     }
 ];
+let videoData;
 
-
+export const callApiVideoStories = async ({ videoPlayerClassName, callback }) => {
+    var videoStoriesData = await axios({
+        method: 'get',
+        url: 'http://localhost:8061/api/videoStories/getVideoStories',
+    })
+    videoData = videoStoriesData.data.data.stories;
+    if (videoData !== undefined) {
+        inflateVideoStories({ videoPlayerClassName, callback })
+    }
+}
 export function inflateVideoStories({ videoPlayerClassName, callback }) {
+
     let splitIntoDifferentVideos = false;
-    var sections = videoStories;
+    var sections = videoData;
     sections.forEach((section) => {
         var videos = "";
         var videoTAGSources = "";
@@ -79,10 +90,31 @@ export function inflateVideoStories({ videoPlayerClassName, callback }) {
                 var videoPlayerID = Math.random();
                 var videoTAGstart = `<video id=${videoPlayerID} class="${videoPlayerClassName}" controls class="video-js vjs-default-skin">`;
                 $("main").append(`<section class="slide">
+                    <div class="hero-img">
+                        ${videoTAGstart}
+                        <source src=${video.link} size=${video.width}> </source>
+                        ${videoTAGend}
+                        <div class="reveal-img"></div>
+                    </div >
+                        <div class="hero-desc">
+                            <div class="title">
+                                <h2>${section.title}</h2>
+                                <div class="title-swipe t-swipe1"></div>
+                            </div>
+                            <p> ${section.description} videoSize: ${video.width}p </p>
+                            <a class="explore mountain-exp">CLICK</a>
+                            <div class="reveal-text"></div>
+                        </div>
+                    </section>`)
+            });
+        } else {
+            var videoPlayerID = Math.random();
+            var videoTAGstart = `<video id=${videoPlayerID} class="${videoPlayerClassName}" muted controls class="video-js vjs-default-skin">`;
+            section.videos.forEach((video) => videoTAGSources = videoTAGSources + `<source src=${video.link} size=${video.width} p > </source>`);
+            videos = videoTAGstart + videoTAGSources + videoTAGend;
+            $("main").append(`<section class="slide">
                 <div class="hero-img">
-                    ${videoTAGstart}
-                    <source src=${video.link} size=${video.size}> </source>
-                    ${videoTAGend}
+                    ${videoTAGstart} ${videoTAGSources} ${videoTAGend}
                     <div class="reveal-img"></div>
                 </div >
                     <div class="hero-desc">
@@ -90,32 +122,11 @@ export function inflateVideoStories({ videoPlayerClassName, callback }) {
                             <h2>${section.title}</h2>
                             <div class="title-swipe t-swipe1"></div>
                         </div>
-                        <p> ${section.description} videoSize: ${video.size}p </p>
-                        <a class="explore mountain-exp">${section.buttonText}</a>
+                        <p> ${section.description} </p>
+                        <a class="explore mountain-exp">CLICK</a>
                         <div class="reveal-text"></div>
                     </div>
                 </section>`)
-            });
-        } else {
-            var videoPlayerID = Math.random();
-            var videoTAGstart = `<video id=${videoPlayerID} class="${videoPlayerClassName}" muted controls class="video-js vjs-default-skin">`;
-            section.videos.forEach((video) => videoTAGSources = videoTAGSources + `<source src=${video.link} size=${video.size} type=${video.type} label=${video.size}p > </source>`);
-            videos = videoTAGstart + videoTAGSources + videoTAGend;
-            $("main").append(`<section class="slide">
-            <div class="hero-img">
-                ${videoTAGstart} ${videoTAGSources} ${videoTAGend}
-                <div class="reveal-img"></div>
-            </div >
-                <div class="hero-desc">
-                    <div class="title">
-                        <h2>${section.title}</h2>
-                        <div class="title-swipe t-swipe1"></div>
-                    </div>
-                    <p> ${section.description} </p>
-                    <a class="explore mountain-exp">${section.buttonText}</a>
-                    <div class="reveal-text"></div>
-                </div>
-            </section>`)
         }
     });
     new window.videoPlayer.setup(`.${videoPlayerClassName}`);

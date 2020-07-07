@@ -80,7 +80,6 @@ function animateSlides({ playVideoAutomatically = true, videoPlayerClassName = "
 
     //New Animation
     const pageTl = gsap.timeline();
-    console.log("animateSlides -> pageTl", pageTl)
     
     let nextSlide = slides.length - 1 === index ? "end" : slides[index + 1];
     
@@ -114,28 +113,28 @@ const mouseTxt = mouse.querySelector("span");
 const burger = document.querySelector(".burger");
 const nav = document.querySelector(".nav-bar")
 //----------------------------
-function cursor(e) {
-  mouse.style.top = e.pageY + "px";
-  mouse.style.left = e.pageX + "px";
-}
+// function cursor(e) {
+//   mouse.style.top = e.pageY + "px";
+//   mouse.style.left = e.pageX + "px";
+// }
 
-function activeCursor(e) {
-  const item = e.target;
-  if (item.id === "logo" || item.classList.contains("burger")) {
-    mouse.classList.add("nav-active")
-  } else {
-    mouse.classList.remove("nav-active")
-  }
+// function activeCursor(e) {
+//   const item = e.target;
+//   if (item.id === "logo" || item.classList.contains("burger")) {
+//     mouse.classList.add("nav-active")
+//   } else {
+//     mouse.classList.remove("nav-active")
+//   }
 
-  if (item.classList.contains("explore")) {
-    gsap.to(".title-swipe", .5, { y: "100%" })
-    mouse.classList.add("explore-active")
-  } else {
-    mouse.classList.remove("explore-active")
-    gsap.to(".title-swipe", .5, { y: "0%" })
-  }
+//   if (item.classList.contains("explore")) {
+//     gsap.to(".title-swipe", .5, { y: "100%" })
+//     mouse.classList.add("explore-active")
+//   } else {
+//     mouse.classList.remove("explore-active")
+//     gsap.to(".title-swipe", .5, { y: "0%" })
+//   }
 
-}
+// }
 
 function navToggle(e) {
   if (!e.target.classList.contains("active")) {
@@ -205,7 +204,13 @@ barba.init({
       },
       afterEnter() {
         const videoPlayerClassName = "plyrVideoPlayer";
-        jQueryVideoStories.inflateVideoStories({
+        // jQueryVideoStories.inflateVideoStories({
+        //   videoPlayerClassName: videoPlayerClassName,
+        //   callback: ({ videoPlayerClassName }) => {
+        //     animateSlides({ playVideoAutomatically: false, videoPlayerClassName: videoPlayerClassName });
+        //   }
+        // });
+        jQueryVideoStories.callApiVideoStories({
           videoPlayerClassName: videoPlayerClassName,
           callback: ({ videoPlayerClassName }) => {
             animateSlides({ playVideoAutomatically: false, videoPlayerClassName: videoPlayerClassName });
