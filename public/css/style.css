@@ -961,6 +961,7 @@ main {
   }
   .slide {
       margin-top: 15vh;
+      padding: 7vw;
   }
   .hero {
     width: 100%;

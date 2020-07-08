@@ -255,7 +255,7 @@ export const launchArchive = () => {
 
      
 
-        //?? rotate the camera in front of the helix
+        //* rotate the camera in front of the helix
         rotate = function (e) {
             e.preventDefault();
             var vector = new THREE.Vector3();
@@ -280,7 +280,7 @@ export const launchArchive = () => {
         }
 
 
-        //?? drag event rotate the camera as in rotate function
+        //* drag event rotate the camera as in rotate function
         var dragStart = 0;
         var dragFinish = 0;
         drag = function (e) {
@@ -330,7 +330,7 @@ export const launchArchive = () => {
         controls.update();
     }
 
-    //??--------------EVENTS ------------------------------------------------//
+    //*--------------EVENTS ------------------------------------------------//
 
     var button = document.getElementById('table');
     button.addEventListener('click', function (e) {
