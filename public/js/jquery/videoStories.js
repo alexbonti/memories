@@ -66,8 +66,8 @@ export function inflateVideoStories({ videoPlayerClassName, callback }) {
         }
     });
     new window.videoPlayer.setup(`.${videoPlayerClassName}`);
-    if (callback instanceof Function) {
-        callback({ videoPlayerClassName });
-    }
+    // if (callback instanceof Function) {
+    //     callback({ videoPlayerClassName });
+    // }
 };
 
