@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  //alert("Common js loading");
   // get the page title when the page loading
   var pageTitle = jQuery(document).attr("title");
 
