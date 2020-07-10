@@ -282,51 +282,79 @@ export const launchArchive = () => {
 
         //* drag event rotate the camera as in rotate function
         var dragStart = 0;
-        var dragFinish = 0;
+        var dragMove = 0;
+        var dragEnd = 0;
+        var deltaX = 0;
+        var pageX, pageY
         drag = function (e) {
-            e.preventDefault()
-            var deltaDrag = dragFinish - dragStart;
+            e.preventDefault();
+            pageX = e.pageX
+            pageY = e.pageY
+            var deltaDrag = dragMove - dragStart;
             if (e.type === "touchstart") {
+                deltaX = dragStart - e.touches[0].pageX;
+                
+                const layer = document.querySelector(".layer-super")
+                //*tryin to understand if it's a click or drag here
+                if(deltaX < 30 && deltaX > -30){
+                    let divToBeClicked = document.elementFromPoint(pageX,pageY)
+                    layer.style.display = "none"
+                    console.log("drag -> divToBeClicked", divToBeClicked)
+                    divToBeClicked.click()
+                   return
+                    
+                }else{
+                    layer.style.display = "block"
+                }
                 dragStart = e.touches[0].pageX;
             } else if (e.type === "touchmove") {
-                dragFinish = e.touches[0].pageX;
+                dragMove = e.touches[0].pageX;
+            } else if(e.type === "touchend"){
+                dragEnd = e.pageX
             }
-            var vector = new THREE.Vector3();
-            cameraRailPosition += deltaDrag;
-            var factor = 1 / 10000
-            if (cameraRailPosition < 0) {
-                cameraRailPosition = 0
-            }
-            if (cameraRailPosition > (tilesList.length - 1) / factor) {
-                cameraRailPosition = (tilesList.length - 1) / factor
-            }
-            var [y, theta] = calcRail(cameraRailPosition, speedX * factor, speedY * factor)
-            camera.position.setFromCylindricalCoords(cameraRadius, theta, y);
-            vector.x = 0;
-            vector.y = camera.position.y;
-            vector.z = 0;
-            camera.lookAt(vector);
-            controls.target = vector
-
-            var skew = Math.max(0, Math.min(20, e.deltaY))
-
-            for (var i = 0; i < elements.length; i++) {
-                if (elements[i].style.transform.includes("skewY")) {
-                    elements[i].style.transform = elements[i].style.transform.replace(/skewY\([0-9]+deg\)/, `skewY(${skew}deg) `)
-                } else {
-                    elements[i].style.transform = `${elements[i].style.transform} skewY(${skew}deg)`
+            
+            // console.log( 
+                //     "touch start ===>", dragStart,
+                //     "touch move ===>", dragMove,
+                //     "touchs end ===>", dragEnd
+                // )
+                var vector = new THREE.Vector3();
+                cameraRailPosition += deltaDrag;
+                var factor = 1 / 5000
+                if (cameraRailPosition < 0) {
+                    cameraRailPosition = 0
                 }
+                if (cameraRailPosition > (tilesList.length - 1) / factor) {
+                    cameraRailPosition = (tilesList.length - 1) / factor
+                }
+                var [y, theta] = calcRail(cameraRailPosition, speedX * factor, speedY * factor)
+                camera.position.setFromCylindricalCoords(cameraRadius, theta, y);
+                vector.x = 0;
+                vector.y = camera.position.y;
+                vector.z = 0;
+                camera.lookAt(vector);
+                controls.target = vector
+                
+                var skew = Math.max(0, Math.min(20, e.deltaY))
+                
+                for (var i = 0; i < elements.length; i++) {
+                    if (elements[i].style.transform.includes("skewY")) {
+                        elements[i].style.transform = elements[i].style.transform.replace(/skewY\([0-9]+deg\)/, `skewY(${skew}deg) `)
+                    } else {
+                        elements[i].style.transform = `${elements[i].style.transform} skewY(${skew}deg)`
+                    }
+                }
+                controls.update();
             }
-            controls.update();
-        }
+            
+            
+            transform(targets.all, 2000);
+            const layer = document.querySelector(".layer-super")
 
-
-        transform(targets.all, 2000);
-        const layer = document.querySelector(".layer-super")
         window.addEventListener("wheel", rotate, { passive: false })
-        layer.addEventListener("touchstart", drag, { passive: false })
-        layer.addEventListener("touchmove", drag, { passive: false })
-        layer.addEventListener("touchend", drag, { passive: false })
+        window.addEventListener("touchstart", drag, { passive: false })
+        window.addEventListener("touchmove", drag, { passive: false })
+        window.addEventListener("touchend", drag, { passive: false })
         controls.update();
     }
 
@@ -361,11 +389,13 @@ export const launchArchive = () => {
     const buttonCloseMediaModal = document.querySelector(".close-media-button")
 
     buttonCloseMediaModal.addEventListener("click", () => {
+        console.log("click ")
         tileOpened.style.opacity = 0;
         tileOpened.style.pointerEvents = "none"
         while (mediaContent.children[0]) mediaContent.removeChild(mediaContent.lastChild);
     })
     buttonCloseMediaModal.addEventListener("touchstart", () => {
+        console.log("touch")
         tileOpened.style.opacity = 0;
         tileOpened.style.pointerEvents = "none"
         while (mediaContent.children[0]) mediaContent.removeChild(mediaContent.lastChild);

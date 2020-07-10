@@ -742,10 +742,11 @@ a, button, input, select {
     justify-content: center;
     align-items: center;
     background-color: snow;
-    pointer-events: none;
+    /* pointer-events: none; */
     flex-direction: column;
     border-radius: 7px;
     margin: 0 7%;
+    z-index:11;
 }
 .media-title {
     color: black;
@@ -1029,10 +1030,12 @@ main {
     height: 100vh;
     width: 100vw;
     position: absolute;
-    z-index: 10;
+    z-index: 2;
     top: -1%;
-    pointer-events: stroke;
+    left: 0;
+    /* pointer-events: none; */
 }
+
 
 
   .fashion-text p {
@@ -1083,6 +1086,7 @@ video {
     width: 90% !important;
     height: 90%;
 }
+
 
 }
 
