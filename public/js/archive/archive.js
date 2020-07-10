@@ -128,7 +128,7 @@ export const launchArchive = () => {
                     source.src = `${data[index].url}#t=0.1`
                     video.appendChild(source)
                     mediaContent.appendChild(video)
-                    new window.videoPlayer.setup(`.${plyrVideoPlayer }`)
+                    new window.videoPlayer.setup(`.plyrVideoPlayer`)
                 }
                 if (data[index].type === "img") {
                     const img = document.createElement('img')
@@ -505,7 +505,6 @@ export const launchArchive = () => {
 
 
 export const loadVideoPlayerArchive = ({ videoPlayerClassName }) =>{
-        new window.videoPlayer.setup(`.${videoPlayerClassName}`);
-       
+        new window.videoPlayer.setup(`.${videoPlayerClassName}`, {clickToPlay: false});
 }
 
