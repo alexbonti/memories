@@ -1,7 +1,7 @@
 /**@author Andrea Mele / https://github.com/isaobushi */
 
-import { launchArchive, loadVideoPlayerArchive } from "./archive/archive.js";
-import * as jQueryVideoStories from "./jquery/videoStories.js";
+import { launchArchive, loadVideoPlayerArchive } from "./archive/archive.js"
+import * as  jQueryVideoStories from "./jquery/videoStories.js";
 
 let controller;
 let slideScene;
@@ -188,8 +188,8 @@ barba.init({
     {
       namespace: "home",
       beforeEnter() {
-        getPageName("home");
         animateTextLanding();
+        getPageName("home");
         logo.href = "./index.html";
       },
       beforeLeave() {
@@ -201,8 +201,8 @@ barba.init({
     {
       namespace: "about",
       beforeEnter() {
-        getPageName("about");
         animateTextLanding();
+        getPageName("about");
         logo.href = "./index.html";
       },
       beforeLeave() {
@@ -214,8 +214,8 @@ barba.init({
     {
       namespace: "contact",
       beforeEnter() {
-        getPageName("contact");
         animateTextLanding();
+        getPageName("contact");
         logo.href = "./index.html";
       },
       beforeLeave() {
@@ -238,8 +238,8 @@ barba.init({
     {
       namespace: "videostories",
       beforeEnter() {
-        logo.href = "./index.html";
         getPageName("videostories");
+        logo.href = "./index.html";
       },
       afterEnter() {
         const videoPlayerClassName = "plyrVideoPlayer";
@@ -346,6 +346,8 @@ barba.init({
     },
   ],
 });
+
+
 var pageTitle = "";
 function getPageName(name) {
   var language = sessionStorage.getItem("language");

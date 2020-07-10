@@ -93,11 +93,20 @@ let
 }
 
 .wrapper-documentary {
+<<<<<<< HEAD
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 100vw;
+=======
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+width: 100vw;
+background: black;
+>>>>>>> 35a88e241e0396d5959cfe9e18742d2a1e7d3421
 }
 
 .documentary {
@@ -153,6 +162,7 @@ let
     width: 86%;
     /* z-index to 1 when disabled animation of videostories */
     z-index: 1 !important;
+    border-radius: 10px;
 }
      
 .nav-header {
@@ -782,16 +792,21 @@ select {
   text-align: center;
 }
 .media-container {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: flex-start;
-  width: 85%;
-  height: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 85%;
+    height: 90%;
+    flex-direction: column;
+
 }
 .media-content {
-  width: 60%;
-  height: 100%;
-  border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .sub-card {
   display: flex;
@@ -840,20 +855,42 @@ select {
 }
 
 .media-file {
-  width: 100%;
-  height: 75%;
-  border-radius: 10px;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
 }
 
+.container .plyr {
+    height: 100% !important;
+    width: 100% !important;
+}
+.container .plyr__video-embed {
+padding-bottom: 0 !important;
+}
+.container .plyr__video-wrapper--fixed-ratio {
+    padding-bottom: 0 !important;
+}
 
-.plyr__controls, .plyr__control{ display: none !important}
+.media-file .plyr__video-embed {
+    padding-bottom: 0 !important;
+}
 
-layer-super {
+.media-file .plyr__video-wrapper--fixed-ratio {
+    padding-bottom: 0 !important;
+}
+.container .plyr__controls { display: none !important}
+.container .plyr__control{ display: none !important}
+
+.media-file .plyr__controls { display: flex !important}
+.media-file  .plyr__control{ display: flex !important}
+
+/* .layer-super {
  display: none;
-}
+} */
   /*? ----------------------------SMALL SCREENS------------------------------------------ */
 
-@media screen and (max-width: 1600px) {
+@media screen and (max-width: 1440px) {
    
 main {
     overflow-x: hidden;
@@ -874,7 +911,9 @@ main {
 
   .nav-header h1 {
     font-size: 1rem;
-  }
+}
+
+
   .hero-desc {
     padding: 1.5rem 1rem;
   }
@@ -884,11 +923,15 @@ main {
   .hero-desc p {
     font-size: 1rem;
     padding: 1rem 0rem;
-  }
-  .fashion1,
-  .fashion2,
-  .fashion3,
-  .fashion4 {
+}
+
+.text-split > div {
+    font-size: 1.5rem;
+}
+.fashion1,
+.fashion2,
+.fashion3,
+.fashion4 {
     min-height: 90vh;
     display: flex;
     align-items: center;
@@ -971,7 +1014,12 @@ main {
   }
 }
 
-/*?----------------------------MOBILE------------------------------------------ */
+  /* .layer-super {
+      display: none;
+  } */
+
+
+  /*?----------------------------MOBILE------------------------------------------ */
 @media screen and (max-width: 1024px) {
     .body-archive {
         font-family: "Montserrat", sans-serif;
@@ -1057,11 +1105,11 @@ main {
   }
 
   .layer-super {
-    height: 100vh;
+    height: 70vh;
     width: 100vw;
     position: absolute;
     z-index: 2;
-    top: -1%;
+    top: 9%;
     left: 0;
     /* pointer-events: none; */
 }
@@ -1082,9 +1130,10 @@ main {
   }
   .nav-bar {
     display: flex;
+    padding-top: 5rem;
   }
   .nav-links {
-    font-size: 1.5rem;
+    font-size: 1rem;
     text-align: center;
   }
   .contact  {
@@ -1110,12 +1159,30 @@ main {
     display: none;
   }
 
-  video {
+/* video {
     width: 90% !important;
     height: 90%;
+} */
+.open-tile {
+    width: 86%;
+    height: 70vh;
+    position: absolute;
+    top: 12%;
+    opacity: 0;
+    transition: all .5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: snow;
+    pointer-events: none;
+    flex-direction: column;
+    border-radius: 7px;
+    margin: 0 7%;
+    z-index:11;
 }
-
-
+.media-container, .media-content {
+    width: 95% !important;
+}
 }
 
 /*? ----------spinner loader */
