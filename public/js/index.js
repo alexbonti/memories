@@ -1,6 +1,6 @@
 /**@author Andrea Mele / https://github.com/isaobushi */
 
-import { launchArchive } from "./archive/archive.js"
+import { launchArchive, loadVideoPlayerArchive } from "./archive/archive.js"
 import * as  jQueryVideoStories from "./jquery/videoStories.js";
 
 let controller;
@@ -248,6 +248,12 @@ barba.init({
         logo.href = "./index.html";
         destroyArchive = launchArchive();
         detailAnimation();
+      },
+      afterEnter() {
+        const videoPlayerClassName = "plyr__video-embed";
+        loadVideoPlayerArchive({
+          videoPlayerClassName: videoPlayerClassName,
+        });
       },
       beforeLeave() {
         let body = document.querySelector("body");

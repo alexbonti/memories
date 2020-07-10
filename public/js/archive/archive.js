@@ -81,7 +81,7 @@ export const launchArchive = () => {
 
     var cameraRadius = 1800
     var tilesRadius = 1000
-    var tilesSpacing = 1200
+    var tilesSpacing = 1400
     var speedX = 0.175 * tilesSpacing / tilesRadius
     var speedY = 50
     let calcRail = (i, speedX, speedY) => {
@@ -118,16 +118,17 @@ export const launchArchive = () => {
                 if (data[index].type === "video") {
                     console.log(data[index].url)
                     const video = document.createElement('video')
-                    video.className = "media-video"
+                    video.className = "media-video plyrVideoPlayer plyr__video-embed"
                     const controls = document.createAttribute("controls")
                     video.setAttributeNode(controls);
                     const source = document.createElement("source")
                     const poster = document.createAttribute("poster")
                     video.setAttributeNode(poster)
-                    video.poster = data[index].poster
-                    source.src = data[index].url
+                    
+                    source.src = `${data[index].url}#t=0.1`
                     video.appendChild(source)
                     mediaContent.appendChild(video)
+                    new window.videoPlayer.setup(`.${plyrVideoPlayer }`)
                 }
                 if (data[index].type === "img") {
                     const img = document.createElement('img')
@@ -176,21 +177,24 @@ export const launchArchive = () => {
             }
 
             var video = document.createElement("video")
-            video.className = "video-tile"
+            video.className = "video-tile plyrVideoPlayer plyr__video-embed"
             var autoplay = document.createAttribute("autoPlay")
             var loop = document.createAttribute("loop")
             var mute = document.createAttribute("mute")
             var poster = document.createAttribute("poster")
+            var preload = document.createAttribute("preload")
             autoplay.value = true
             // video.setAttributeNode(autoplay)
             video.setAttributeNode(loop)
             video.setAttributeNode(poster)
             video.setAttributeNode(mute)
-            video.poster = tilesList[i].poster
+            video.setAttributeNode(preload)
+            // video.poster = tilesList[i].poster
+            video.preload = "metadata"
             if (tilesList[i].type === "video") {
                 container.appendChild(video)
                 var source = document.createElement("source")
-                source.src = tilesList[i].url
+                source.src = `${tilesList[i].url}#t=0.1`
                 video.appendChild(source)
             }
 
@@ -299,7 +303,6 @@ export const launchArchive = () => {
                 if(deltaX < 30 && deltaX > -30){
                     let divToBeClicked = document.elementFromPoint(pageX,pageY)
                     layer.style.display = "none"
-                    console.log("drag -> divToBeClicked", divToBeClicked)
                     divToBeClicked.click()
                    return
                     
@@ -500,4 +503,9 @@ export const launchArchive = () => {
 
 }
 
+
+export const loadVideoPlayerArchive = ({ videoPlayerClassName }) =>{
+        new window.videoPlayer.setup(`.${videoPlayerClassName}`);
+       
+}
 

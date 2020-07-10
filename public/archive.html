@@ -8,6 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css" />
+    <link href="https://vjs.zencdn.net/7.8.3/video-js.css" rel="stylesheet" />
+
+
 </head>
 
 
@@ -106,7 +110,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"
         integrity="sha256-3arngJBQR3FTyeRtL3muAGFaGcL8iHsubYOqq48mBLw=" crossorigin="anonymous"></script>
     <script src="./js/SplitText.min.js"></script>
+    <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
     <script type="module" src="./js/index.js"></script>
+    <script>
+        console.log("read")
+        const player = new Plyr('#player');
+      </script>
+    <script src="https://vjs.zencdn.net/7.8.3/video.js"></script>
+
     <!-- <script src="../archive.js" type="module"> -->
     </script>
 </body>
