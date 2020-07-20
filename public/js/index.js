@@ -1,7 +1,9 @@
 /**@author Andrea Mele / https://github.com/isaobushi */
 
-import { launchArchive, loadVideoPlayerArchive } from "./archive/archive.js";
-import * as jQueryVideoStories from "./jquery/videoStories.js";
+import { launchArchive, loadVideoPlayerArchive } from "./archive/archive.js"
+import * as  jQueryVideoStories from "./jquery/videoStories.js";
+import  memoryWalks from "./memories/memory.js";
+
 
 let controller;
 let slideScene;
@@ -190,6 +192,7 @@ barba.init({
       beforeEnter() {
         getPageName("home");
         animateTextLanding();
+        console.log("inside")
         logo.href = "./index.html";
       },
       beforeLeave() {
@@ -260,19 +263,6 @@ barba.init({
       },
     },
     {
-      namespace: "memorywalks",
-      beforeEnter() {
-        logo.href = "./index.html";
-        getPageName("memorywalks");
-        detailAnimation();
-      },
-      beforeLeave() {
-        controller.destroy();
-        detailScene.destroy();
-      },
-    },
-
-    {
       namespace: "archive",
       beforeEnter() {
         getPageName("archive");
@@ -295,8 +285,35 @@ barba.init({
         body.removeAttribute("class", "body-archive");
         controller.destroy();
         destroyArchive();
-      },
+      }
     },
+    {
+      namespace: "memorywalks",
+      beforeEnter() {
+        logo.href = "./index.html";
+        memoryWalks()
+      },
+
+      beforeLeave() {
+        console.log("read")
+        detailScene.destroy();
+        controller.destroy();
+      }
+    },
+    {
+      namespace: "singleMemory",
+      beforeEnter() {
+        localStorage.getItem('label')
+        logo.href = "./index.html";
+
+      },
+      afterEnter() {
+       
+      },
+      beforeLeave() {
+      
+      }
+    }
   ],
   transitions: [
     {
@@ -676,9 +693,8 @@ $("#itBtn").on("click", function (e) {
   e.preventDefault();
 });
 
-function detailAnimation() {
+export const detailAnimation =() => {
   controller = new ScrollMagic.Controller();
-
   let slides = document.querySelectorAll(".detail-slide");
 
   const videos = document.querySelectorAll("video");

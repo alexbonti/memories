@@ -1,3 +1,4 @@
+/*
 /* body {
 	margin: 0;
     background: radial-gradient( transparent, black);
@@ -178,7 +179,7 @@ button:active {
 	user-select: none;
 	pointer-events: none;
 	z-index: 1; /* TODO Solve this in HTML */
-}
+/* }
 
 a, button, input, select {
 	pointer-events: auto;
@@ -190,9 +191,9 @@ a, button, input, select {
 	-ms-user-select: none;
 	user-select: none;
 	z-index: 2 !important; /* TODO Solve this in HTML */
-}
+/* } */
 
-#overlay {
+/* #overlay {
 	position: absolute;
 	z-index: 2;
 	top: 0;
@@ -223,4 +224,4 @@ a, button, input, select {
 #overlay > div > p {
 	color: #777777;
 	font-size: 12px;
-} */
+}  */

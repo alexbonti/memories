@@ -17,9 +17,12 @@ export const launchArchive = () => {
     let memories = [];
 
     const callApi = async () => {
+        // axios.defaults.baseURL = 'http://168.1.217.30:31308/api';
         var memoriesData = await axios({
+
             method: 'post',
-            url: 'http://192.168.20.11:8061/api/memory/getMemories',
+            // url: 'http://168.1.217.30:31308/api/memory/getMemories',
+            url: 'http://192.168.20.11:8100/api/memory/getMemories',
             data: {
                 "numberOfRecords": 10,
                 "currentPageNumber": 1
@@ -32,7 +35,7 @@ export const launchArchive = () => {
             data.forEach(item => {
 
                 ///!!FILTERING THE DATA TO EXTRAPOLATE WHAT KIND OF MEDIA IT IS, CLEANING THE URL ADDRESS FROM THE HTML DATA
-                if (item.media.length === 0) {
+                if (item.media.length > 0) {
                     const urlsMatches = item.content.match(/\bhttps?:\/\/\S+/gi);
                     let url, posterUrlVideo;
                     if (urlsMatches && urlsMatches.length === 1) { //* IT MEANS THAT IS AN IMAGE
@@ -40,7 +43,7 @@ export const launchArchive = () => {
                         let urlArray = url.split("")
                         urlArray.pop()
                         url = urlArray.join("")
-                    }else if(urlsMatches && urlsMatches.length === 2){ //* IT MEANS THAT IS A VIDEO
+                    } else if (urlsMatches && urlsMatches.length === 2) { //* IT MEANS THAT IS A VIDEO
                         url = urlsMatches[1]
                         let urlArray = url.split("")
                         urlArray.pop()
@@ -54,11 +57,10 @@ export const launchArchive = () => {
                     memories.push({
                         title: item.title,
                         content: item.content,
-                        url: urlsMatches ? url : "",
-                        type: item.content.includes("video") ? "video" :
-                            item.content.includes("img") ? "img" : "audio",
+                        url: item.media[0].link,
+                        type: item.media[0].type,
                         category: item.category,
-                        poster: item.content.includes("video") ? posterUrlVideo : "",
+                        poster: item.media[0].thumbnail,
                         date: moment(item.date).get("year")
                     })
 
@@ -96,7 +98,7 @@ export const launchArchive = () => {
     const tileOpened = document.querySelector(".open-tile")
     const mediaContent = document.querySelector(".media-file")
     function init(tilesList) {
-        
+
         camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 100);
         scene = new THREE.Scene();
 
@@ -124,13 +126,13 @@ export const launchArchive = () => {
                     const source = document.createElement("source")
                     const poster = document.createAttribute("poster")
                     video.setAttributeNode(poster)
-                    
+
                     source.src = `${data[index].url}#t=0.1`
                     video.appendChild(source)
                     mediaContent.appendChild(video)
-                    new window.videoPlayer.setup(`.${plyrVideoPlayer }`)
+                    new window.videoPlayer.setup(`.plyrVideoPlayer`)
                 }
-                if (data[index].type === "img") {
+                if (data[index].type === "image") {
                     const img = document.createElement('img')
                     const imgContainer = document.createElement('div')
                     imgContainer.className = "container-img-archive"
@@ -151,6 +153,8 @@ export const launchArchive = () => {
             element.className = `element item-tile-${i} item-type-${tilesList[2].type}`;
             element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
 
+
+            console.log("init -> tilesList[i]", tilesList[i])
             var date = document.createElement('div');
             date.className = `date date-${i}`;
             date.innerHTML = ` ${tilesList[i].date}`
@@ -172,7 +176,7 @@ export const launchArchive = () => {
             var img = document.createElement('img');
             img.src = tilesList[i].type === "audio" ? "./assets/img/audio.svg" : tilesList[i].url
             img.className = tilesList[i].type === "audio" ? "image-tile audio-svg" : "image-tile"
-            if (tilesList[i].type === "img" || tilesList[i].type === "audio") {
+            if (tilesList[i].type === "image" || tilesList[i].type === "audio") {
                 container.appendChild(img);
             }
 
@@ -257,7 +261,7 @@ export const launchArchive = () => {
         camera.position.set(110, 120, 2000);
 
 
-     
+
 
         //* rotate the camera in front of the helix
         rotate = function (e) {
@@ -290,6 +294,7 @@ export const launchArchive = () => {
         var dragEnd = 0;
         var deltaX = 0;
         var pageX, pageY
+        var burger = true;
         drag = function (e) {
             e.preventDefault();
             pageX = e.pageX
@@ -297,67 +302,77 @@ export const launchArchive = () => {
             var deltaDrag = dragMove - dragStart;
             if (e.type === "touchstart") {
                 deltaX = dragStart - e.touches[0].pageX;
-                
+
                 const layer = document.querySelector(".layer-super")
                 //*tryin to understand if it's a click or drag here
-                if(deltaX < 30 && deltaX > -30){
-                    let divToBeClicked = document.elementFromPoint(pageX,pageY)
+                if (deltaX < 30 && deltaX > -30) {
+                    let divToBeClicked = document.elementFromPoint(pageX, pageY)
                     layer.style.display = "none"
-                    divToBeClicked.click()
-                   return
-                    
-                }else{
+                    if (divToBeClicked.className === "burger active" && !burger) {
+                        divToBeClicked.click()
+                    }
+                    if (divToBeClicked.className !== "burger active" && burger) {
+                        burger = !burger
+                        divToBeClicked.click()
+                    }
+
+
+
+                    console.log("drag -> divToBeClicked", divToBeClicked.className, burger)
+                    return
+
+                } else {
                     layer.style.display = "block"
                 }
                 dragStart = e.touches[0].pageX;
             } else if (e.type === "touchmove") {
                 dragMove = e.touches[0].pageX;
-            } else if(e.type === "touchend"){
+            } else if (e.type === "touchend") {
                 dragEnd = e.pageX
             }
-            
+
             // console.log( 
-                //     "touch start ===>", dragStart,
-                //     "touch move ===>", dragMove,
-                //     "touchs end ===>", dragEnd
-                // )
-                var vector = new THREE.Vector3();
-                cameraRailPosition += deltaDrag;
-                var factor = 1 / 5000
-                if (cameraRailPosition < 0) {
-                    cameraRailPosition = 0
-                }
-                if (cameraRailPosition > (tilesList.length - 1) / factor) {
-                    cameraRailPosition = (tilesList.length - 1) / factor
-                }
-                var [y, theta] = calcRail(cameraRailPosition, speedX * factor, speedY * factor)
-                camera.position.setFromCylindricalCoords(cameraRadius, theta, y);
-                vector.x = 0;
-                vector.y = camera.position.y;
-                vector.z = 0;
-                camera.lookAt(vector);
-                controls.target = vector
-                
-                var skew = Math.max(0, Math.min(20, e.deltaY))
-                
-                for (var i = 0; i < elements.length; i++) {
-                    if (elements[i].style.transform.includes("skewY")) {
-                        elements[i].style.transform = elements[i].style.transform.replace(/skewY\([0-9]+deg\)/, `skewY(${skew}deg) `)
-                    } else {
-                        elements[i].style.transform = `${elements[i].style.transform} skewY(${skew}deg)`
-                    }
-                }
-                controls.update();
+            //     "touch start ===>", dragStart,
+            //     "touch move ===>", dragMove,
+            //     "touchs end ===>", dragEnd
+            // )
+            var vector = new THREE.Vector3();
+            cameraRailPosition += deltaDrag;
+            var factor = 1 / 5000
+            if (cameraRailPosition < 0) {
+                cameraRailPosition = 0
             }
-            
-            
-            transform(targets.all, 2000);
-            const layer = document.querySelector(".layer-super")
+            if (cameraRailPosition > (tilesList.length - 1) / factor) {
+                cameraRailPosition = (tilesList.length - 1) / factor
+            }
+            var [y, theta] = calcRail(cameraRailPosition, speedX * factor, speedY * factor)
+            camera.position.setFromCylindricalCoords(cameraRadius, theta, y);
+            vector.x = 0;
+            vector.y = camera.position.y;
+            vector.z = 0;
+            camera.lookAt(vector);
+            controls.target = vector
+
+            var skew = Math.max(0, Math.min(20, e.deltaY))
+
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].style.transform.includes("skewY")) {
+                    elements[i].style.transform = elements[i].style.transform.replace(/skewY\([0-9]+deg\)/, `skewY(${skew}deg) `)
+                } else {
+                    elements[i].style.transform = `${elements[i].style.transform} skewY(${skew}deg)`
+                }
+            }
+            controls.update();
+        }
+
+
+        transform(targets.all, 2000);
+        const layer = document.querySelector(".layer-super")
 
         window.addEventListener("wheel", rotate, { passive: false })
-        window.addEventListener("touchstart", drag, { passive: false })
-        window.addEventListener("touchmove", drag, { passive: false })
-        window.addEventListener("touchend", drag, { passive: false })
+        layer.addEventListener("touchstart", drag, { passive: false })
+        layer.addEventListener("touchmove", drag, { passive: false })
+        layer.addEventListener("touchend", drag, { passive: false })
         controls.update();
     }
 
@@ -387,18 +402,21 @@ export const launchArchive = () => {
         transform(targets.all, 2000);
     }, { passive: false });
 
-    
+
 
     const buttonCloseMediaModal = document.querySelector(".close-media-button")
 
     buttonCloseMediaModal.addEventListener("click", () => {
-        console.log("click ")
+        const layer = document.querySelector(".layer-super")
+        
         tileOpened.style.opacity = 0;
         tileOpened.style.pointerEvents = "none"
         while (mediaContent.children[0]) mediaContent.removeChild(mediaContent.lastChild);
+        layer.style.display = "block"
     })
     buttonCloseMediaModal.addEventListener("touchstart", () => {
-        console.log("touch")
+        const layer = document.querySelector(".layer-super")
+        layer.style.display = "block"
         tileOpened.style.opacity = 0;
         tileOpened.style.pointerEvents = "none"
         while (mediaContent.children[0]) mediaContent.removeChild(mediaContent.lastChild);
@@ -417,7 +435,7 @@ export const launchArchive = () => {
     })
 
     window.addEventListener('resize', onWindowResize, false);
- 
+
 
 
     function transform(targets, duration, type) {
@@ -465,6 +483,7 @@ export const launchArchive = () => {
     }
 
     const filterArray = (type) => {
+
         if (type === "reset") {
             function empty(elem) {
                 while (elem.firstChild) elem.removeChild(elem.lastChild);
@@ -504,8 +523,7 @@ export const launchArchive = () => {
 }
 
 
-export const loadVideoPlayerArchive = ({ videoPlayerClassName }) =>{
-        new window.videoPlayer.setup(`.${videoPlayerClassName}`);
-       
+export const loadVideoPlayerArchive = ({ videoPlayerClassName }) => {
+    new window.videoPlayer.setup(`.${videoPlayerClassName}`, { clickToPlay: false });
 }
 
