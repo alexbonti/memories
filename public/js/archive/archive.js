@@ -21,7 +21,8 @@ export const launchArchive = () => {
         var memoriesData = await axios({
 
             method: 'post',
-            url: 'http://168.1.217.30:31308/api/memory/getMemories',
+            // url: 'http://168.1.217.30:31308/api/memory/getMemories',
+            url: 'http://192.168.20.11:8100/api/memory/getMemories',
             data: {
                 "numberOfRecords": 10,
                 "currentPageNumber": 1
@@ -34,7 +35,7 @@ export const launchArchive = () => {
             data.forEach(item => {
 
                 ///!!FILTERING THE DATA TO EXTRAPOLATE WHAT KIND OF MEDIA IT IS, CLEANING THE URL ADDRESS FROM THE HTML DATA
-                if (item.media.length === 0) {
+                if (item.media.length > 0) {
                     const urlsMatches = item.content.match(/\bhttps?:\/\/\S+/gi);
                     let url, posterUrlVideo;
                     if (urlsMatches && urlsMatches.length === 1) { //* IT MEANS THAT IS AN IMAGE
@@ -56,11 +57,10 @@ export const launchArchive = () => {
                     memories.push({
                         title: item.title,
                         content: item.content,
-                        url: urlsMatches ? url : "",
-                        type: item.content.includes("video") ? "video" :
-                            item.content.includes("img") ? "img" : "audio",
+                        url: item.media[0].link,
+                        type: item.media[0].type,
                         category: item.category,
-                        poster: item.content.includes("video") ? posterUrlVideo : "",
+                        poster: item.media[0].thumbnail,
                         date: moment(item.date).get("year")
                     })
 
@@ -132,7 +132,7 @@ export const launchArchive = () => {
                     mediaContent.appendChild(video)
                     new window.videoPlayer.setup(`.plyrVideoPlayer`)
                 }
-                if (data[index].type === "img") {
+                if (data[index].type === "image") {
                     const img = document.createElement('img')
                     const imgContainer = document.createElement('div')
                     imgContainer.className = "container-img-archive"
@@ -153,6 +153,8 @@ export const launchArchive = () => {
             element.className = `element item-tile-${i} item-type-${tilesList[2].type}`;
             element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
 
+
+            console.log("init -> tilesList[i]", tilesList[i])
             var date = document.createElement('div');
             date.className = `date date-${i}`;
             date.innerHTML = ` ${tilesList[i].date}`
@@ -174,7 +176,7 @@ export const launchArchive = () => {
             var img = document.createElement('img');
             img.src = tilesList[i].type === "audio" ? "./assets/img/audio.svg" : tilesList[i].url
             img.className = tilesList[i].type === "audio" ? "image-tile audio-svg" : "image-tile"
-            if (tilesList[i].type === "img" || tilesList[i].type === "audio") {
+            if (tilesList[i].type === "image" || tilesList[i].type === "audio") {
                 container.appendChild(img);
             }
 
@@ -481,6 +483,7 @@ export const launchArchive = () => {
     }
 
     const filterArray = (type) => {
+
         if (type === "reset") {
             function empty(elem) {
                 while (elem.firstChild) elem.removeChild(elem.lastChild);

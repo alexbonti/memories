@@ -2,6 +2,8 @@
 
 import { launchArchive, loadVideoPlayerArchive } from "./archive/archive.js"
 import * as  jQueryVideoStories from "./jquery/videoStories.js";
+import  memoryWalks from "./memories/memory.js";
+
 
 let controller;
 let slideScene;
@@ -187,6 +189,7 @@ barba.init({
       namespace: "home",
       beforeEnter() {
         animateTextLanding();
+        console.log("inside")
         logo.href = "./index.html";
       },
       beforeLeave() {
@@ -225,19 +228,6 @@ barba.init({
         controller.destroy();
       }
     },
-
-    {
-      namespace: "memorywalks",
-      beforeEnter() {
-        logo.href = "./index.html";
-        detailAnimation();
-      },
-      beforeLeave() {
-        controller.destroy();
-        detailScene.destroy();
-      }
-    },
-
     {
       namespace: "archive",
       beforeEnter() {
@@ -260,6 +250,33 @@ barba.init({
         body.removeAttribute("class", "body-archive");
         controller.destroy();
         destroyArchive();
+      }
+    },
+    {
+      namespace: "memorywalks",
+      beforeEnter() {
+        logo.href = "./index.html";
+        memoryWalks()
+      },
+
+      beforeLeave() {
+        console.log("read")
+        detailScene.destroy();
+        controller.destroy();
+      }
+    },
+    {
+      namespace: "singleMemory",
+      beforeEnter() {
+        localStorage.getItem('label')
+        logo.href = "./index.html";
+
+      },
+      afterEnter() {
+       
+      },
+      beforeLeave() {
+      
       }
     }
   ],
@@ -313,9 +330,8 @@ barba.init({
 })
 
 
-function detailAnimation() {
+export const detailAnimation =() => {
   controller = new ScrollMagic.Controller();
-
   let slides = document.querySelectorAll(".detail-slide");
 
   const videos = document.querySelectorAll("video")

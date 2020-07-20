@@ -5,7 +5,9 @@ let videoData;
 export const callApiVideoStories = async ({ videoPlayerClassName, callback }) => {
     var videoStoriesData = await axios({
         method: 'get',
-        url: 'http://168.1.217.30:31308/api/videoStories/getVideoStories',
+        // url: 'http://168.1.217.30:31308/api/videoStories/getVideoStories',
+        url: 'http://192.168.20.11:8100/api/videoStories/getVideoStories',
+        
     })
     videoData = videoStoriesData.data.data.stories;
     if (videoData !== undefined) {
