@@ -672,7 +672,7 @@ button {
   background: transparent;
   /* outline: 1px solid rgb(223, 139, 139); */
   border: 0px;
-  padding: 5px 10px;
+  /*padding: 5px 10px;*/
   cursor: pointer;
   font-size: 68%;
   border-radius: 5px;
@@ -851,41 +851,16 @@ layer-super {
 }
 
 /*Translation buttons*/
-.btnEn {
-  font-family: "Montserrant", sans-serif;
-  background-image: linear-gradient(to top, blue 45%, white 45% 55%, red 55%);
+.btnTranslation {
   border: none;
-  padding: 8px 15px;
+  padding: 18px 25px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  margin: 4px 2px;
   border-radius: 4px;
-  color: white;
-  width: 60px;
-  height: 25px;
 }
-.btnIt {
-  font-family: "Montserrant", sans-serif;
-  background-image: linear-gradient(to top, green 45%, white 45% 55%, red 55%);
-  border: none;
-  padding: 8px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  border-radius: 4px;
-  color: white;
-  width: 60px;
-  height: 25px;
-}
-.btnEn:hover {
+.btnTranslation:hover {
   opacity: 0.7;
-  color: white;
-}
-.btnIt:hover {
-  opacity: 0.7;
-  color: white;
 }
 .translateBtns {
   margin-left: 60%;
@@ -1008,14 +983,6 @@ layer-super {
     opacity: 0.4;
   }
   /*Translation buttons*/
-  .btnEn {
-    width: 60px;
-    height: 25px;
-  }
-  .btnIt {
-    width: 60px;
-    height: 25px;
-  }
   .translateBtns {
     margin-left: 60%;
   }
@@ -1164,29 +1131,13 @@ layer-super {
     height: 90%;
   }
   /*Translation buttons*/
-  .btnEn {
-    width: 20px;
-    height: 12px;
-  }
-  .btnIt {
-    width: 20px;
-    height: 12px;
-  }
   .translateBtns {
-    margin-left: 30%;
+    margin-left: 40%;
   }
 }
 
 @media screen and (max-width: 1199px) and (min-width: 992px) {
   /*Translation buttons*/
-  .btnEn {
-    width: 60px;
-    height: 25px;
-  }
-  .btnIt {
-    width: 60px;
-    height: 25px;
-  }
   .translateBtns {
     margin-left: 50%;
   }
@@ -1194,14 +1145,6 @@ layer-super {
 
 @media screen and (max-width: 991px) and (min-width: 768) {
   /*Translation buttons*/
-  .btnEn {
-    width: 40px;
-    height: 20px;
-  }
-  .btnIt {
-    width: 40px;
-    height: 20px;
-  }
   .translateBtns {
     margin-left: 40%;
   }
@@ -1209,43 +1152,32 @@ layer-super {
 
 @media screen and (max-width: 767px) and (min-width: 561px) {
   /*Translation buttons*/
-  .btnEn {
-    width: 35px;
-    height: 17px;
-  }
-  .btnIt {
-    width: 35px;
-    height: 17px;
+  .btnTranslation {
+    padding: 14px 18px;
   }
   .translateBtns {
-    margin-left: 30%;
+    margin-left: 25%;
   }
 }
 
 @media screen and (max-width: 560px) and (min-width: 480px) {
   /*Translation buttons*/
-  .btnEn {
-    width: 25px;
-    height: 14px;
-  }
-  .btnIt {
-    width: 25px;
-    height: 14px;
-  }
   .translateBtns {
-    margin-left: 20%;
+    margin-left: 25%;
+  }
+  .line1,
+  .line2 {
+    width: 1.5rem;
+  }
+  .nav-header h1 {
+    font-size: 0.8rem;
   }
 }
 
 @media screen and (max-width: 479px) and (min-width: 321px) {
   /*Translation buttons*/
-  .btnEn {
-    width: 20px;
-    height: 12px;
-  }
-  .btnIt {
-    width: 20px;
-    height: 12px;
+  .btnTranslation {
+    padding: 12px 20px;
   }
   .translateBtns {
     margin-left: 7%;
@@ -1261,13 +1193,8 @@ layer-super {
 
 @media screen and (max-width: 320px) {
   /*Translation buttons*/
-  .btnEn {
-    width: 20px;
-    height: 12px;
-  }
-  .btnIt {
-    width: 20px;
-    height: 12px;
+  .btnTranslation {
+    padding: 10px 14px;
   }
   .translateBtns {
     margin-left: 10%;
