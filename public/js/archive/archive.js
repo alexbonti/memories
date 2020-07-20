@@ -21,8 +21,8 @@ export const launchArchive = () => {
         var memoriesData = await axios({
 
             method: 'post',
-            // url: 'http://168.1.217.30:31308/api/memory/getMemories',
-            url: 'http://192.168.20.11:8100/api/memory/getMemories',
+            url: 'http://168.1.217.30:31308/api/memory/getMemories',
+            // url: 'http://192.168.20.11:8100/api/memory/getMemories',
             data: {
                 "numberOfRecords": 10,
                 "currentPageNumber": 1
@@ -34,25 +34,24 @@ export const launchArchive = () => {
             console.log(data)
             data.forEach(item => {
 
-                ///!!FILTERING THE DATA TO EXTRAPOLATE WHAT KIND OF MEDIA IT IS, CLEANING THE URL ADDRESS FROM THE HTML DATA
                 if (item.media.length > 0) {
-                    const urlsMatches = item.content.match(/\bhttps?:\/\/\S+/gi);
-                    let url, posterUrlVideo;
-                    if (urlsMatches && urlsMatches.length === 1) { //* IT MEANS THAT IS AN IMAGE
-                        url = urlsMatches[0]
-                        let urlArray = url.split("")
-                        urlArray.pop()
-                        url = urlArray.join("")
-                    } else if (urlsMatches && urlsMatches.length === 2) { //* IT MEANS THAT IS A VIDEO
-                        url = urlsMatches[1]
-                        let urlArray = url.split("")
-                        urlArray.pop()
-                        url = urlArray.join("")
-                        posterUrlVideo = urlsMatches[0]
-                        let urlPosterArray = posterUrlVideo.split("")
-                        urlPosterArray.pop()
-                        posterUrlVideo = urlPosterArray.join("")
-                    }
+                    // const urlsMatches = item.content.match(/\bhttps?:\/\/\S+/gi);
+                    // let url, posterUrlVideo;
+                    // if (urlsMatches && urlsMatches.length === 1) { //* IT MEANS THAT IS AN IMAGE
+                    //     url = urlsMatches[0]
+                    //     let urlArray = url.split("")
+                    //     urlArray.pop()
+                    //     url = urlArray.join("")
+                    // } else if (urlsMatches && urlsMatches.length === 2) { //* IT MEANS THAT IS A VIDEO
+                    //     url = urlsMatches[1]
+                    //     let urlArray = url.split("")
+                    //     urlArray.pop()
+                    //     url = urlArray.join("")
+                    //     posterUrlVideo = urlsMatches[0]
+                    //     let urlPosterArray = posterUrlVideo.split("")
+                    //     urlPosterArray.pop()
+                    //     posterUrlVideo = urlPosterArray.join("")
+                    // }
                     //CREATING AN ARRAY WITH THE MEDIA ITEMS
                     memories.push({
                         title: item.title,

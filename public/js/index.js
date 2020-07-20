@@ -3,6 +3,7 @@
 import { launchArchive, loadVideoPlayerArchive } from "./archive/archive.js"
 import * as  jQueryVideoStories from "./jquery/videoStories.js";
 import  memoryWalks from "./memories/memory.js";
+import  singleMemory from "./memories/singleMemory.js";
 
 
 let controller;
@@ -254,11 +255,15 @@ barba.init({
     },
     {
       namespace: "memorywalks",
+      
       beforeEnter() {
-        logo.href = "./index.html";
         memoryWalks()
+        logo.href = "./index.html";
       },
+      afterEnter(){
+        detailAnimation()
 
+      },
       beforeLeave() {
         console.log("read")
         detailScene.destroy();
@@ -268,9 +273,8 @@ barba.init({
     {
       namespace: "singleMemory",
       beforeEnter() {
-        localStorage.getItem('label')
         logo.href = "./index.html";
-
+        singleMemory()
       },
       afterEnter() {
        
