@@ -10,8 +10,63 @@ import { TWEEN } from "../tween.module.min.js"
 
 // import {API} from "../../helpers/API.js"
 
-export const launchArchive = () => {
+let myYearArray = [];
+let images = [];
+let currentYear = 0;
 
+const touchInvertedAxis = false;
+
+const floatingBoxText = "Welcome";
+
+const getFloatingBoxStatus = () => {
+    if (window.localStorage.getItem("displayFloatingBox") == "false") return false;
+    return true;
+}
+
+const createFloatingBox = () => {
+    let style = `
+        z-index: 999;
+        background-color: white;
+        position: absolute;
+        top: 94%;
+        left: 50%;
+        height: 10%;
+        width: 99%;
+        color: white;
+        display: block;
+        transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        border-radius: 3px;
+        padding: 10px;
+    `;
+    let floatingBox = document.createElement("div");
+    floatingBox.setAttribute("id", "floatingBox");
+    floatingBox.setAttribute("style", style);
+
+    let closeIcon = document.createElement("i");
+    closeIcon.setAttribute("class", "material-icons");
+    closeIcon.append("close");
+    closeIcon.onclick = () => {
+        document.getElementById("floatingBox").style.display = "none";
+        window.localStorage.setItem("displayFloatingBox", false);
+    }
+    closeIcon.setAttribute("style", `color:black; font-size:11px; float:right; cursor: pointer;`);
+    let innerComponent = document.createElement("div");
+    innerComponent.setAttribute("style", `color:black; cursor: default; font-size: smaller;`);
+    innerComponent.append(floatingBoxText);
+    floatingBox.append(closeIcon);
+    floatingBox.append(innerComponent);
+    document.getElementsByTagName("main")[0].appendChild(floatingBox)
+    return floatingBox;
+}
+
+const onChangeOfYear = (currentYear, index) => {
+    console.log(currentYear);
+    if (images[index] !== undefined)
+        document.getElementById("container").setAttribute("style", `background:url("${images[index]}") !important`)
+}
+
+export const launchArchive = () => {
 
     let data;
     let memories = [];
@@ -19,7 +74,6 @@ export const launchArchive = () => {
     const callApi = async () => {
         // axios.defaults.baseURL = 'http://168.1.217.30:31308/api';
         var memoriesData = await axios({
-
             method: 'post',
             url: 'http://168.1.217.30:31308/api/memory/getMemories',
             data: {
@@ -27,9 +81,7 @@ export const launchArchive = () => {
                 "currentPageNumber": 1
             }
         })
-
         data = memoriesData.data.data.data
-
         if (data !== undefined) {
             data.sort((a, b) => moment(a.date).diff(b.date)).forEach(item => {
                 if (item.media.length > 0) {
@@ -42,9 +94,14 @@ export const launchArchive = () => {
                         poster: item.media[0].thumbnail,
                         date: moment(item.date).get("year")
                     })
-
+                    myYearArray.push(moment(item.date).get("year"));
                 }
-            })
+            });
+            if (myYearArray[0] !== undefined)
+                currentYear = myYearArray[0];
+            if (images[0] !== undefined)
+                document.getElementById("container").setAttribute("style", `background:url("${images[0]}") !important`)
+
             init(memories);
             const activateMemories = document.getElementById("table")
             activateMemories.click();
@@ -52,7 +109,12 @@ export const launchArchive = () => {
     }
     callApi()
 
-
+    try {
+        if (getFloatingBoxStatus())
+            createFloatingBox();
+    } catch (e) {
+        console.log(e)
+    }
 
     var camera, scene, renderer, rotate, controls, drag;
     var objects = [];
@@ -140,7 +202,6 @@ export const launchArchive = () => {
             container.className = `container container-tile-${i}`;
             element.appendChild(container);
 
-
             container.addEventListener("click", () => openMedia(tilesList))
             container.addEventListener("touchstart", () => openMedia(tilesList))
 
@@ -203,12 +264,7 @@ export const launchArchive = () => {
                 object.lookAt(vector);
             }
             targets.all.push(object);
-
-
         }
-
-
-
 
 
         //??--------------RENDERS ------------------------------------------------//
@@ -257,8 +313,13 @@ export const launchArchive = () => {
             vector.z = 0;
             camera.lookAt(vector);
             controls.target = vector
+            const oneTileVectorSize = -38;
+            let tileIndex = Math.floor(vector.y / oneTileVectorSize);
+            if (currentYear !== myYearArray[tileIndex]) {
+                currentYear = myYearArray[tileIndex];
+                onChangeOfYear(currentYear, tileIndex);
+            }
             controls.update();
-
         }
 
 
@@ -296,11 +357,15 @@ export const launchArchive = () => {
                 dragStart = e.touches[0].pageX;
             } else if (e.type === "touchmove") {
                 dragMove = e.touches[0].pageX;
+
             } else if (e.type === "touchend") {
-                dragEnd = e.pageX
+                dragEnd = e.pageX;
             }
             var vector = new THREE.Vector3();
-            cameraRailPosition += deltaDrag;
+            if (touchInvertedAxis)
+                cameraRailPosition += deltaDrag;
+            else
+                cameraRailPosition -= deltaDrag;
             var factor = 1 / 5000
             if (cameraRailPosition < 0) {
                 cameraRailPosition = 0
@@ -324,6 +389,12 @@ export const launchArchive = () => {
                 } else {
                     elements[i].style.transform = `${elements[i].style.transform} skewY(${skew}deg)`
                 }
+            }
+            const oneTileVectorSize = -38;
+            let tileIndex = Math.floor(vector.y / oneTileVectorSize);
+            if (currentYear !== myYearArray[tileIndex]) {
+                currentYear = myYearArray[tileIndex];
+                onChangeOfYear(currentYear, tileIndex);
             }
             controls.update();
         }
