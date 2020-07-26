@@ -82,7 +82,7 @@ export const launchArchive = () => {
 
         scene = new THREE.Scene();
         var vector = new THREE.Vector3
-        vector = {x: 0, y: -29.285714285714285, z: 0}
+        vector = { x: 0, y: -29.285714285714285, z: 0 }
         camera.lookAt(vector)
         //*create html elements and initiate the helix shape object
 
@@ -198,7 +198,7 @@ export const launchArchive = () => {
             //---initial helix shape
             var [y, theta] = calcRail(i, speedX, speedY)
             var object = new THREE.Object3D();
-            
+
             for (var j = 0, l = objects.length; j < l; j++) {
                 object.position.setFromCylindricalCoords(tilesRadius, theta, y);
                 vector.x = object.position.x * 2;
@@ -242,12 +242,12 @@ export const launchArchive = () => {
 
 
         //* rotate the camera in front of the helix
-        rotate = function (e) {
+        function rotate(e) {
             e.preventDefault();
             var vector = new THREE.Vector3();
             // var distance = Math.sqrt(e.deltaY*e.deltaY + e.deltaX*e.deltaX)
             cameraRailPosition += e.deltaY;
-            
+
             if (cameraRailPosition < 0) {
                 cameraRailPosition = 0
             }
@@ -337,6 +337,10 @@ export const launchArchive = () => {
         const layer = document.querySelector(".layer-super")
 
         window.addEventListener("wheel", rotate, { passive: false })
+        var evt = document.createEvent('MouseEvents');
+        evt.initEvent('wheel', true, true);
+        evt.deltaY = +1;
+        window.dispatchEvent(evt);
         layer.addEventListener("touchstart", drag, { passive: false })
         layer.addEventListener("touchmove", drag, { passive: false })
         layer.addEventListener("touchend", drag, { passive: false })
@@ -414,7 +418,7 @@ export const launchArchive = () => {
 
             var object = objects[i];
             var target = targets[i];
-            console.log("position",target.position)
+            console.log("position", target.position)
             new TWEEN.Tween(object.position)
                 .to({ x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration)
                 .easing(TWEEN.Easing.Exponential.InOut)
