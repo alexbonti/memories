@@ -21,7 +21,6 @@ export const launchArchive = () => {
 
             method: 'post',
             url: 'http://168.1.217.30:31308/api/memory/getMemories',
-            // url: 'http://192.168.20.11:8100/api/memory/getMemories',
             data: {
                 "numberOfRecords": 10,
                 "currentPageNumber": 1
@@ -29,12 +28,10 @@ export const launchArchive = () => {
         })
 
         data = memoriesData.data.data.data
-        if (data !== undefined) {
-            console.log(data)
-            data.forEach(item => {
 
+        if (data !== undefined) {
+            data.sort((a, b) => moment(a.date).diff(b.date)).forEach(item => {
                 if (item.media.length > 0) {
-                    //CREATING AN ARRAY WITH THE MEDIA ITEMS
                     memories.push({
                         title: item.title,
                         content: item.content,
@@ -47,7 +44,6 @@ export const launchArchive = () => {
 
                 }
             })
-            memories = memories.concat(memories)
             init(memories);
             const activateMemories = document.getElementById("table")
             activateMemories.click();
@@ -99,7 +95,6 @@ export const launchArchive = () => {
                 location.textContent = data[index].region;
 
                 if (data[index].type === "video") {
-                    console.log(data[index].url)
                     const video = document.createElement('video')
                     video.className = "media-video plyrVideoPlayer plyr__video-embed"
                     const controls = document.createAttribute("controls")
@@ -135,7 +130,6 @@ export const launchArchive = () => {
             element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
 
 
-            console.log("init -> tilesList[i]", tilesList[i])
             var date = document.createElement('div');
             date.className = `date date-${i}`;
             date.innerHTML = ` ${tilesList[i].date}`
@@ -242,8 +236,6 @@ export const launchArchive = () => {
         camera.position.set(110, 120, 2000);
 
 
-
-
         //* rotate the camera in front of the helix
         rotate = function (e) {
             e.preventDefault();
@@ -296,12 +288,7 @@ export const launchArchive = () => {
                         burger = !burger
                         divToBeClicked.click()
                     }
-
-
-
-                    console.log("drag -> divToBeClicked", divToBeClicked.className, burger)
                     return
-
                 } else {
                     layer.style.display = "block"
                 }
@@ -311,12 +298,6 @@ export const launchArchive = () => {
             } else if (e.type === "touchend") {
                 dragEnd = e.pageX
             }
-
-            // console.log( 
-            //     "touch start ===>", dragStart,
-            //     "touch move ===>", dragMove,
-            //     "touchs end ===>", dragEnd
-            // )
             var vector = new THREE.Vector3();
             cameraRailPosition += deltaDrag;
             var factor = 1 / 5000
@@ -389,7 +370,6 @@ export const launchArchive = () => {
 
     buttonCloseMediaModal.addEventListener("click", () => {
         const layer = document.querySelector(".layer-super")
-        
         tileOpened.style.opacity = 0;
         tileOpened.style.pointerEvents = "none"
         while (mediaContent.children[0]) mediaContent.removeChild(mediaContent.lastChild);
