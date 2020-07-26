@@ -245,7 +245,6 @@ export const launchArchive = () => {
         function rotate(e) {
             e.preventDefault();
             var vector = new THREE.Vector3();
-            // var distance = Math.sqrt(e.deltaY*e.deltaY + e.deltaX*e.deltaX)
             cameraRailPosition += e.deltaY;
 
             if (cameraRailPosition < 0) {
@@ -337,10 +336,13 @@ export const launchArchive = () => {
         const layer = document.querySelector(".layer-super")
 
         window.addEventListener("wheel", rotate, { passive: false })
+
+        //* Trigger scroll and touch tiles to center */
         var evt = document.createEvent('MouseEvents');
         evt.initEvent('wheel', true, true);
         evt.deltaY = +1;
         window.dispatchEvent(evt);
+
         layer.addEventListener("touchstart", drag, { passive: false })
         layer.addEventListener("touchmove", drag, { passive: false })
         layer.addEventListener("touchend", drag, { passive: false })
@@ -418,7 +420,6 @@ export const launchArchive = () => {
 
             var object = objects[i];
             var target = targets[i];
-            console.log("position", target.position)
             new TWEEN.Tween(object.position)
                 .to({ x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration)
                 .easing(TWEEN.Easing.Exponential.InOut)
@@ -487,6 +488,7 @@ export const launchArchive = () => {
 
     const destroy = () => {
         window.removeEventListener("wheel", rotate, { passive: false })
+       
     }
     return destroy
 

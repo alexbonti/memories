@@ -189,12 +189,14 @@ barba.init({
     {
       namespace: "home",
       beforeEnter() {
-        dispatchEvent(new Event('load'));
         animateTextLanding();
-        console.log("inside")
         logo.href = "./index.html";
         window.location.hash = ""
-
+        
+      },
+      afterEnter(){
+        window.removeEventListener("wheel", rotate, { passive: false })
+        
       },
       beforeLeave() {
         window.location.hash = ""
@@ -245,7 +247,7 @@ barba.init({
       beforeEnter() {
         logo.href = "./index.html";
         console.log("inside")
-        
+
       },
       afterEnter() {
         const videoPlayerClassName = "plyrVideoPlayer";
@@ -275,15 +277,15 @@ barba.init({
       },
       afterEnter() {
         console.log("inside afterEnter", window.location.hash === "")
-        dispatchEvent(new Event('load')); 
-        
+        dispatchEvent(new Event('load'));
+
         if (window.location.hash === "") {
           console.log("inside reload")
           window.location = window.location + '#loaded';
           window.location.reload();
         }
         detailAnimation()
-        
+
 
       },
       beforeLeave() {
@@ -297,7 +299,7 @@ barba.init({
         console.log("read")
         detailScene.destroy();
         controller.destroy();
-        
+
         window.location.hash = ""
       }
     },
@@ -412,12 +414,12 @@ var prevScrollpos = window.pageYOffset;
 window.onscroll = function () {
   var currentScrollPos = window.pageYOffset;
   console.log("prevScrollpos", prevScrollpos, currentScrollPos)
-  if (window.innerWidth <500 & prevScrollpos - currentScrollPos === -1) {
+  if (window.innerWidth < 500 & prevScrollpos - currentScrollPos === -1) {
     console.log("reset")
     document.querySelector(".nav-header").style.top = "0";
-  } else if(window.innerWidth > 500 & prevScrollpos > currentScrollPos ) {
+  } else if (window.innerWidth > 500 & prevScrollpos > currentScrollPos) {
     document.querySelector(".nav-header").style.top = "0px";
-  }else document.querySelector(".nav-header").style.top = "-150px";
+  } else document.querySelector(".nav-header").style.top = "-150px";
   prevScrollpos = currentScrollPos;
 }
 //event listeners
