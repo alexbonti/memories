@@ -17,7 +17,6 @@ export const launchArchive = () => {
     let memories = [];
 
     const callApi = async () => {
-        // axios.defaults.baseURL = 'http://168.1.217.30:31308/api';
         var memoriesData = await axios({
 
             method: 'post',
@@ -35,23 +34,6 @@ export const launchArchive = () => {
             data.forEach(item => {
 
                 if (item.media.length > 0) {
-                    // const urlsMatches = item.content.match(/\bhttps?:\/\/\S+/gi);
-                    // let url, posterUrlVideo;
-                    // if (urlsMatches && urlsMatches.length === 1) { //* IT MEANS THAT IS AN IMAGE
-                    //     url = urlsMatches[0]
-                    //     let urlArray = url.split("")
-                    //     urlArray.pop()
-                    //     url = urlArray.join("")
-                    // } else if (urlsMatches && urlsMatches.length === 2) { //* IT MEANS THAT IS A VIDEO
-                    //     url = urlsMatches[1]
-                    //     let urlArray = url.split("")
-                    //     urlArray.pop()
-                    //     url = urlArray.join("")
-                    //     posterUrlVideo = urlsMatches[0]
-                    //     let urlPosterArray = posterUrlVideo.split("")
-                    //     urlPosterArray.pop()
-                    //     posterUrlVideo = urlPosterArray.join("")
-                    // }
                     //CREATING AN ARRAY WITH THE MEDIA ITEMS
                     memories.push({
                         title: item.title,
