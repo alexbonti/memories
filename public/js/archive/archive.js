@@ -126,7 +126,8 @@ export const launchArchive = () => {
 
             //??-----------ELEMENTS CREATION ------------------------
             var element = document.createElement('div');
-            element.className = `element item-tile-${i} item-type-${tilesList[2].type}`;
+            console.log(tilesList)
+            element.className = `element item-tile-${i} `;
             element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
 
 
@@ -348,7 +349,7 @@ export const launchArchive = () => {
 
     var button = document.getElementById('sphere');
     button.addEventListener('click', function (e) {
-        filterArray("img")
+        filterArray("image")
         transform(targets.all, 2000);
     }, { passive: false });
 
@@ -409,7 +410,7 @@ export const launchArchive = () => {
 
             var object = objects[i];
             var target = targets[i];
-
+            console.log("position",target.position)
             new TWEEN.Tween(object.position)
                 .to({ x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration)
                 .easing(TWEEN.Easing.Exponential.InOut)

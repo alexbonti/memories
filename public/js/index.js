@@ -404,12 +404,12 @@ var prevScrollpos = window.pageYOffset;
 window.onscroll = function () {
   var currentScrollPos = window.pageYOffset;
   console.log("prevScrollpos", prevScrollpos, currentScrollPos)
-  if (prevScrollpos - currentScrollPos === -1) {
+  if (window.innerWidth <500 & prevScrollpos - currentScrollPos === -1) {
     console.log("reset")
     document.querySelector(".nav-header").style.top = "0";
-  } else {
-    document.querySelector(".nav-header").style.top = "-150px";
-  }
+  } else if(window.innerWidth > 500 & prevScrollpos > currentScrollPos ) {
+    document.querySelector(".nav-header").style.top = "0px";
+  }else document.querySelector(".nav-header").style.top = "-150px";
   prevScrollpos = currentScrollPos;
 }
 //event listeners
