@@ -2,7 +2,7 @@
 
 let videoData;
 
-export const callApiVideoStories = async ({ videoPlayerClassName, callback }) => {
+ async function callApiVideoStories({ videoPlayerClassName, callback }) {
     var videoStoriesData = await axios({
         method: 'get',
         url: 'http://168.1.217.30:31308/api/videoStories/getVideoStories',
@@ -14,7 +14,7 @@ export const callApiVideoStories = async ({ videoPlayerClassName, callback }) =>
         inflateVideoStories({ videoPlayerClassName, callback })
     }
 }
-export function inflateVideoStories({ videoPlayerClassName, callback }) {
+ function inflateVideoStories({ videoPlayerClassName, callback }) {
 
     let splitIntoDifferentVideos = false;
     var sections = videoData;
@@ -67,9 +67,11 @@ export function inflateVideoStories({ videoPlayerClassName, callback }) {
                 </section>`)
         }
     });
-    new window.videoPlayer.setup(`.${videoPlayerClassName}`);
+    new window.videoPlayer.setup(`.plyrVideoPlayer`)
     if (callback instanceof Function) {
         callback({ videoPlayerClassName });
     }
 };
+
+export{callApiVideoStories}
 

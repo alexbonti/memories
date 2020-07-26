@@ -2,8 +2,8 @@
 
 import { launchArchive, loadVideoPlayerArchive } from "./archive/archive.js"
 import * as  jQueryVideoStories from "./jquery/videoStories.js";
-import  memoryWalks from "./memories/memory.js";
-import  singleMemory from "./memories/singleMemory.js";
+import memoryWalks from "./memories/memory.js";
+import singleMemory from "./memories/singleMemory.js";
 
 
 let controller;
@@ -57,7 +57,7 @@ function animateSlides({ playVideoAutomatically = true, videoPlayerClassName = "
   const video = document.querySelectorAll("video")
 
   if (playVideoAutomatically)
-  video.forEach(item => item.play())
+    video.forEach(item => item.play())
   controller = new ScrollMagic.Controller();
   const sliders = document.querySelectorAll(".slide");
   //Loop over each sllide
@@ -83,9 +83,9 @@ function animateSlides({ playVideoAutomatically = true, videoPlayerClassName = "
 
     //New Animation
     const pageTl = gsap.timeline();
-    
+
     let nextSlide = slides.length - 1 === index ? "end" : slides[index + 1];
-    
+
     pageTl.fromTo(nextSlide, { y: "0%" }, { y: "50%" });
     pageTl.fromTo(slide, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.5 });
     pageTl.fromTo(nextSlide, { y: "50%" }, { y: "0%" }, "-=0.5");
@@ -189,11 +189,15 @@ barba.init({
     {
       namespace: "home",
       beforeEnter() {
+        dispatchEvent(new Event('load'));
         animateTextLanding();
         console.log("inside")
         logo.href = "./index.html";
+        window.location.hash = ""
+
       },
       beforeLeave() {
+        window.location.hash = ""
         slideTextLanding.destroy();
         detailScene.destroy();
         controller.destroy();
@@ -207,26 +211,7 @@ barba.init({
       },
       beforeLeave() {
         controller.destroy();
-      }
-    },
-    {
-      namespace: "videostories",
-      beforeEnter() {
-        logo.href = "./index.html";
-      },
-      afterEnter() {
-        const videoPlayerClassName = "plyrVideoPlayer";
-        jQueryVideoStories.callApiVideoStories({
-          videoPlayerClassName: videoPlayerClassName,
-          callback: ({ videoPlayerClassName }) => {
-            animateSlides({ playVideoAutomatically: false, videoPlayerClassName: videoPlayerClassName });
-          }
-        });
-      },
-      beforeLeave() {
-        slideScene.destroy();
-        pageScene.destroy();
-        controller.destroy();
+        window.location.hash = ""
       }
     },
     {
@@ -251,16 +236,52 @@ barba.init({
         body.removeAttribute("class", "body-archive");
         controller.destroy();
         destroyArchive();
+        window.location.hash = ""
+      }
+    },
+
+    {
+      namespace: "videostories",
+      beforeEnter() {
+        logo.href = "./index.html";
+        console.log("inside")
+        
+      },
+      afterEnter() {
+        const videoPlayerClassName = "plyrVideoPlayer";
+        jQueryVideoStories.callApiVideoStories({
+          videoPlayerClassName: videoPlayerClassName,
+          callback: ({ videoPlayerClassName }) => {
+            animateSlides({ playVideoAutomatically: false, videoPlayerClassName: videoPlayerClassName });
+          }
+        });
+      },
+      beforeLeave() {
+        slideScene.destroy();
+        pageScene.destroy();
+        controller.destroy();
+        window.location.hash = ""
       }
     },
     {
+
+      /** Memories */
       namespace: "memorywalks",
-      
+
       beforeEnter() {
-        memoryWalks()
         logo.href = "./index.html";
+        console.log(window.location.hash)
+        dispatchEvent(new Event('load')); 
+        window.onload = function () {
+          if (window.location.hash === "#") {
+            console.log("inside reload")
+            window.location = window.location + '#loaded';
+            window.location.reload();
+          }
+        }
+        memoryWalks()
       },
-      afterEnter(){
+      afterEnter() {
         detailAnimation()
 
       },
@@ -268,6 +289,7 @@ barba.init({
         console.log("read")
         detailScene.destroy();
         controller.destroy();
+        window.location.hash = ""
       }
     },
     {
@@ -277,10 +299,10 @@ barba.init({
         singleMemory()
       },
       afterEnter() {
-       
+
       },
       beforeLeave() {
-      
+        window.location.hash = ""
       }
     }
   ],
@@ -334,10 +356,11 @@ barba.init({
 })
 
 
-export const detailAnimation =() => {
+export const detailAnimation = () => {
   controller = new ScrollMagic.Controller();
   let slides = document.querySelectorAll(".detail-slide");
 
+  const isMobile = window.innerWidth < 500 ? true : false
   const videos = document.querySelectorAll("video")
   videos.forEach(item => item.play())
   slides.forEach((slide, index, slides) => {
@@ -347,6 +370,9 @@ export const detailAnimation =() => {
     let nextSlide = slides.length - 1 === index ? "end" : slides[index + 1];
 
     const nextImg = nextSlide.querySelector("video");
+    // if(isMobile){
+
+    // }
     slideTl.fromTo(slide, { opacity: 1 }, { opacity: 0 });
     slideTl.fromTo(nextSlide, { opacity: 0 }, { opacity: 1 }, "-=1");
     slideTl.fromTo(nextImg, { x: "50%" }, { x: "0%" });
@@ -373,16 +399,16 @@ export const detailAnimation =() => {
 
 
 
-// var prevScrollpos = window.pageYOffset;
-// window.onscroll = function () {
-//   var currentScrollPos = window.pageYOffset;
-//   if (prevScrollpos > currentScrollPos) {
-//     document.querySelector(".nav-header").style.top = "0";
-//   } else {
-//     document.querySelector(".nav-header").style.top = "-450px";
-//   }
-//   prevScrollpos = currentScrollPos;
-// }
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function () {
+  var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.querySelector(".nav-header").style.top = "0";
+  } else {
+    document.querySelector(".nav-header").style.top = "-450px";
+  }
+  prevScrollpos = currentScrollPos;
+}
 //event listeners
 burger.addEventListener("click", navToggle);
 nav.addEventListener("click", navToggle2)
