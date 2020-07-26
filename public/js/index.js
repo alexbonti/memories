@@ -271,18 +271,19 @@ barba.init({
       beforeEnter() {
         logo.href = "./index.html";
         console.log(window.location.hash)
-        dispatchEvent(new Event('load')); 
-        window.onload = function () {
-          if (window.location.hash === "#") {
-            console.log("inside reload")
-            window.location = window.location + '#loaded';
-            window.location.reload();
-          }
-        }
         memoryWalks()
       },
       afterEnter() {
+        console.log("inside afterEnter", window.location.hash === "")
+        dispatchEvent(new Event('load')); 
+        
+        if (window.location.hash === "") {
+          console.log("inside reload")
+          window.location = window.location + '#loaded';
+          window.location.reload();
+        }
         detailAnimation()
+        
 
       },
       beforeLeave() {
