@@ -189,12 +189,12 @@ barba.init({
     {
       namespace: "home",
       beforeEnter() {
-        dispatchEvent(new Event('load'));
         animateTextLanding();
-        console.log("inside")
-        logo.href = "./index.html";
-        window.location.hash = ""
-
+        logo.href = "./index.html";     
+      },
+      afterEnter(){
+        window.removeEventListener("wheel", rotate, { passive: false })
+        
       },
       beforeLeave() {
         window.location.hash = ""
@@ -245,7 +245,7 @@ barba.init({
       beforeEnter() {
         logo.href = "./index.html";
         console.log("inside")
-        
+
       },
       afterEnter() {
         const videoPlayerClassName = "plyrVideoPlayer";
@@ -275,15 +275,15 @@ barba.init({
       },
       afterEnter() {
         console.log("inside afterEnter", window.location.hash === "")
-        dispatchEvent(new Event('load')); 
-        
+        dispatchEvent(new Event('load'));
+
         if (window.location.hash === "") {
           console.log("inside reload")
           window.location = window.location + '#loaded';
           window.location.reload();
         }
         detailAnimation()
-        
+
 
       },
       beforeLeave() {
@@ -297,7 +297,7 @@ barba.init({
         console.log("read")
         detailScene.destroy();
         controller.destroy();
-        
+
         window.location.hash = ""
       }
     },
@@ -369,7 +369,6 @@ export const detailAnimation = () => {
   controller = new ScrollMagic.Controller();
   let slides = document.querySelectorAll(".detail-slide");
 
-  const isMobile = window.innerWidth < 500 ? true : false
   const videos = document.querySelectorAll("video")
   videos.forEach(item => item.play())
   slides.forEach((slide, index, slides) => {
@@ -379,9 +378,7 @@ export const detailAnimation = () => {
     let nextSlide = slides.length - 1 === index ? "end" : slides[index + 1];
 
     const nextImg = nextSlide.querySelector("video");
-    // if(isMobile){
-
-    // }
+ 
     slideTl.fromTo(slide, { opacity: 1 }, { opacity: 0 });
     slideTl.fromTo(nextSlide, { opacity: 0 }, { opacity: 1 }, "-=1");
     slideTl.fromTo(nextImg, { x: "50%" }, { x: "0%" });
@@ -411,13 +408,11 @@ export const detailAnimation = () => {
 var prevScrollpos = window.pageYOffset;
 window.onscroll = function () {
   var currentScrollPos = window.pageYOffset;
-  console.log("prevScrollpos", prevScrollpos, currentScrollPos)
-  if (window.innerWidth <500 & prevScrollpos - currentScrollPos === -1) {
-    console.log("reset")
+  if (window.innerWidth < 500 & prevScrollpos - currentScrollPos === -1) {
     document.querySelector(".nav-header").style.top = "0";
-  } else if(window.innerWidth > 500 & prevScrollpos > currentScrollPos ) {
+  } else if (window.innerWidth > 500 & prevScrollpos > currentScrollPos) {
     document.querySelector(".nav-header").style.top = "0px";
-  }else document.querySelector(".nav-header").style.top = "-150px";
+  } else document.querySelector(".nav-header").style.top = "-150px";
   prevScrollpos = currentScrollPos;
 }
 //event listeners
