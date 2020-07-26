@@ -993,9 +993,23 @@ main {
 }
   }
 
-  /* .layer-super {
-      display: none;
-  } */
+.memory-section{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+} 
+
+.memory-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%
+}
+
+.memory-text{
+
+}
 
 
   /*?----------------------------MOBILE------------------------------------------ */

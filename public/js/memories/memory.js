@@ -1,7 +1,19 @@
 const memoryWalks = () => {
-    
 
-    
+    // sessionStorage.setItem("first", true)
+
+    const onArrive = async () => {
+        if (localStorage.firstTime) {
+            
+            localStorage.counter++
+            if(localStorage.counter < 2) {
+                console.log("reloaded")
+                history.go(0)
+            }
+            return localStorage.firstTime = false
+        }
+    }
+    onArrive()
     const memories = [
         {
             title: "The Flight",
@@ -31,11 +43,13 @@ const memoryWalks = () => {
     ]
 
     const saveDataToStorage = (index) => {
-        return sessionStorage.setItem("data", JSON.stringify(memories[index]))
+        sessionStorage.clear();
+        console.log("session cleared")
+        sessionStorage.setItem("data", JSON.stringify(memories[index]))
     }
 
-        memories.forEach((memory, index) => {
-            $("main").append(`
+    memories.forEach((memory, index) => {
+        $("main").append(`
                 <section class="memory-${index} fashion${index + 1} detail-slide">
                 <div class="fashion-text">
                     <a href="./singleMemory.html" id="button-${index}">
@@ -54,7 +68,7 @@ const memoryWalks = () => {
                 </div>
                 <div class="fashion-nr"><span>${memory.date}</span></div>
                 </section>`)
-            document.querySelector(`#button-${index}`).addEventListener("click", () => saveDataToStorage(index))
-        })
-    }
+        document.querySelector(`#button-${index}`).addEventListener("click", () => saveDataToStorage(index))
+    })
+}
 export default memoryWalks

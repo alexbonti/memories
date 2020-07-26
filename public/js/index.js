@@ -257,10 +257,16 @@ barba.init({
       namespace: "memorywalks",
       
       beforeEnter() {
-        memoryWalks()
+        let data = localStorage.firstTime
+        
+        if(data === undefined){
+          console.log("inside")
+          localStorage.firstTime = true
+        }
         logo.href = "./index.html";
       },
       afterEnter(){
+        memoryWalks()
         detailAnimation()
 
       },
