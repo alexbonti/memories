@@ -82,8 +82,8 @@ export const launchArchive = () => {
 
         scene = new THREE.Scene();
         var vector = new THREE.Vector3
-        vector = { x: 0, y: -29.285714285714285, z: 0 }
-        camera.lookAt(vector)
+        // vector = { x: 0, y: -29.285714285714285, z: 0 }
+        // camera.lookAt(vector)
         //*create html elements and initiate the helix shape object
 
 
@@ -242,7 +242,7 @@ export const launchArchive = () => {
 
 
         //* rotate the camera in front of the helix
-        function rotate(e) {
+         rotate = function(e) {
             e.preventDefault();
             var vector = new THREE.Vector3();
             cameraRailPosition += e.deltaY;
