@@ -30,6 +30,7 @@ export const launchArchive = () => {
         data = memoriesData.data.data.data
 
         if (data !== undefined) {
+            data = data.concat(data).concat(data)
             data.sort((a, b) => moment(a.date).diff(b.date)).forEach(item => {
                 if (item.media.length > 0) {
                     memories.push({
@@ -61,6 +62,7 @@ export const launchArchive = () => {
     var cameraRadius = 1800
     var tilesRadius = 1000
     var tilesSpacing = 1400
+    var factor = 1 / 350
     var speedX = 0.175 * tilesSpacing / tilesRadius
     var speedY = 50
     let calcRail = (i, speedX, speedY) => {
@@ -77,8 +79,11 @@ export const launchArchive = () => {
     function init(tilesList) {
 
         camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 100);
-        scene = new THREE.Scene();
 
+        scene = new THREE.Scene();
+        var vector = new THREE.Vector3
+        vector = {x: 0, y: -29.285714285714285, z: 0}
+        camera.lookAt(vector)
         //*create html elements and initiate the helix shape object
 
 
@@ -126,7 +131,7 @@ export const launchArchive = () => {
 
             //??-----------ELEMENTS CREATION ------------------------
             var element = document.createElement('div');
-            element.className = `element item-tile-${i} item-type-${tilesList[2].type}`;
+            element.className = `element item-tile-${i} `;
             element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
 
 
@@ -193,7 +198,7 @@ export const launchArchive = () => {
             //---initial helix shape
             var [y, theta] = calcRail(i, speedX, speedY)
             var object = new THREE.Object3D();
-
+            
             for (var j = 0, l = objects.length; j < l; j++) {
                 object.position.setFromCylindricalCoords(tilesRadius, theta, y);
                 vector.x = object.position.x * 2;
@@ -242,7 +247,7 @@ export const launchArchive = () => {
             var vector = new THREE.Vector3();
             // var distance = Math.sqrt(e.deltaY*e.deltaY + e.deltaX*e.deltaX)
             cameraRailPosition += e.deltaY;
-            var factor = 1 / 350
+            
             if (cameraRailPosition < 0) {
                 cameraRailPosition = 0
             }
@@ -348,7 +353,7 @@ export const launchArchive = () => {
 
     var button = document.getElementById('sphere');
     button.addEventListener('click', function (e) {
-        filterArray("img")
+        filterArray("image")
         transform(targets.all, 2000);
     }, { passive: false });
 
@@ -409,7 +414,7 @@ export const launchArchive = () => {
 
             var object = objects[i];
             var target = targets[i];
-
+            console.log("position",target.position)
             new TWEEN.Tween(object.position)
                 .to({ x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration)
                 .easing(TWEEN.Easing.Exponential.InOut)
