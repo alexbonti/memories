@@ -287,9 +287,17 @@ barba.init({
 
       },
       beforeLeave() {
+        const videoPlayerClassName = "plyrVideoPlayer";
+        jQueryVideoStories.callApiVideoStories({
+          videoPlayerClassName: videoPlayerClassName,
+          callback: ({ videoPlayerClassName }) => {
+            animateSlides({ playVideoAutomatically: false, videoPlayerClassName: videoPlayerClassName });
+          }
+        });
         console.log("read")
         detailScene.destroy();
         controller.destroy();
+        
         window.location.hash = ""
       }
     },
