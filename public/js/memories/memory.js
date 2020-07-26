@@ -1,19 +1,7 @@
 const memoryWalks = () => {
 
     // sessionStorage.setItem("first", true)
-
-    const onArrive = async () => {
-        if (localStorage.firstTime) {
-            
-            localStorage.counter++
-            if(localStorage.counter < 2) {
-                console.log("reloaded")
-                history.go(0)
-            }
-            return localStorage.firstTime = false
-        }
-    }
-    onArrive()
+    
     const memories = [
         {
             title: "The Flight",

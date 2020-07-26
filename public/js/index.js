@@ -254,19 +254,24 @@ barba.init({
       }
     },
     {
+
+      /** Memories */
       namespace: "memorywalks",
       
       beforeEnter() {
-        let data = localStorage.firstTime
-        
-        if(data === undefined){
-          console.log("inside")
-          localStorage.firstTime = true
-        }
         logo.href = "./index.html";
+        memoryWalks()
       },
       afterEnter(){
-        memoryWalks()
+        dispatchEvent(new Event('load'));
+        window.onload = function() {
+          console.log("after")
+  
+          if(!window.location.hash) {
+              window.location = window.location + '#loaded';
+              window.location.reload();
+          }
+      }
         detailAnimation()
 
       },
