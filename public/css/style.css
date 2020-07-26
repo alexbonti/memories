@@ -1107,7 +1107,9 @@ main {
     /* pointer-events: none; */
 }
 
-
+.video-memory-index {
+    width: 90% !important;
+}
 
   .fashion-text p {
     margin-bottom: 1rem;
