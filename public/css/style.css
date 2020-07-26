@@ -1127,7 +1127,7 @@ main {
   }
   .nav-bar {
     display: flex;
-    padding-top: 5rem;
+    top: 0 !important
   }
   .nav-links {
     font-size: 1rem;

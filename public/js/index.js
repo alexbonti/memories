@@ -403,10 +403,12 @@ export const detailAnimation = () => {
 var prevScrollpos = window.pageYOffset;
 window.onscroll = function () {
   var currentScrollPos = window.pageYOffset;
-  if (prevScrollpos > currentScrollPos) {
+  console.log("prevScrollpos", prevScrollpos, currentScrollPos)
+  if (prevScrollpos - currentScrollPos === -1) {
+    console.log("reset")
     document.querySelector(".nav-header").style.top = "0";
   } else {
-    document.querySelector(".nav-header").style.top = "-450px";
+    document.querySelector(".nav-header").style.top = "-150px";
   }
   prevScrollpos = currentScrollPos;
 }
