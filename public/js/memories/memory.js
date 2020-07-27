@@ -4,12 +4,14 @@ const memoryWalks = () => {
     
     const memories = [
         {
-            title: "The Flight",
+            title: "Victoria",
             description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum adipisci porro, necessitatibus eos est
             veniam voluptate dolorem. Quia consequuntur quidem, cumque sequi ipsa soluta tenetur omnis in unde
             suscipit maxime?`,
             date: "10/20",
-            url: "https://assets.mixkit.co/videos/preview/mixkit-woman-walking-on-beach-towards-boulders-1012-large.mp4"
+            url: "https://assets.mixkit.co/videos/preview/mixkit-woman-walking-on-beach-towards-boulders-1012-large.mp4",
+            secondTitle: "The Road",
+            secondUrl: "https://assets.mixkit.co/videos/preview/mixkit-driving-in-a-dark-tunnel-2026-large.mp4"
         },
         {
             title: "Down Under",
@@ -17,7 +19,11 @@ const memoryWalks = () => {
             veniam voluptate dolorem. Quia consequuntur quidem, cumque sequi ipsa soluta tenetur omnis in unde
             suscipit maxime?`,
             date: "10/20",
-            url: "https://assets.mixkit.co/videos/preview/mixkit-times-square-during-a-rainy-night-4332-large.mp4"
+            url: "https://assets.mixkit.co/videos/preview/mixkit-times-square-during-a-rainy-night-4332-large.mp4",
+            secondUrl: "https://assets.mixkit.co/videos/preview/mixkit-driving-in-a-dark-tunnel-2026-large.mp4",
+            secondTitle: "The Road",
+
+
         },
         {
             title: "The City",
@@ -25,7 +31,11 @@ const memoryWalks = () => {
             veniam voluptate dolorem. Quia consequuntur quidem, cumque sequi ipsa soluta tenetur omnis in unde
             suscipit maxime?`,
             date: "10/20",
-            url: "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4"
+            url: "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4",
+            secondUrl: "https://assets.mixkit.co/videos/preview/mixkit-driving-in-a-dark-tunnel-2026-large.mp4",
+            secondTitle: "The Road",
+
+
         },
 
     ]

@@ -3,7 +3,7 @@
 import { launchArchive, loadVideoPlayerArchive } from "./archive/archive.js"
 import * as  jQueryVideoStories from "./jquery/videoStories.js";
 import memoryWalks from "./memories/memory.js";
-import singleMemory from "./memories/singleMemory.js";
+import {singleMemory, memoryAnimation} from "./memories/singleMemory.js";
 
 
 let controller;
@@ -244,8 +244,6 @@ barba.init({
       namespace: "videostories",
       beforeEnter() {
         logo.href = "./index.html";
-        console.log("inside")
-
       },
       afterEnter() {
         const videoPlayerClassName = "plyrVideoPlayer";
@@ -305,13 +303,15 @@ barba.init({
       namespace: "singleMemory",
       beforeEnter() {
         logo.href = "./index.html";
-        singleMemory()
+        singleMemory();
       },
       afterEnter() {
-
+        memoryAnimation()    
       },
       beforeLeave() {
         window.location.hash = ""
+        memoryScene.destroy();
+        controller.destroy();
       }
     }
   ],
@@ -368,12 +368,11 @@ barba.init({
 export const detailAnimation = () => {
   controller = new ScrollMagic.Controller();
   let slides = document.querySelectorAll(".detail-slide");
-
   const videos = document.querySelectorAll("video")
   videos.forEach(item => item.play())
   slides.forEach((slide, index, slides) => {
 
-    const slideTl = gsap.timeline({ defaults: { duration: 1 } });
+    const slideTl = gsap.timeline({ defaults: { duration: 2 } });
 
     let nextSlide = slides.length - 1 === index ? "end" : slides[index + 1];
 
@@ -381,7 +380,7 @@ export const detailAnimation = () => {
  
     slideTl.fromTo(slide, { opacity: 1 }, { opacity: 0 });
     slideTl.fromTo(nextSlide, { opacity: 0 }, { opacity: 1 }, "-=1");
-    slideTl.fromTo(nextImg, { x: "50%" }, { x: "0%" });
+    // slideTl.fromTo(nextImg, { x: "50%" }, { x: "0%" });
 
     // Scene
     detailScene = new ScrollMagic.Scene({
@@ -412,7 +411,7 @@ window.onscroll = function () {
     document.querySelector(".nav-header").style.top = "0";
   } else if (window.innerWidth > 500 & prevScrollpos > currentScrollPos) {
     document.querySelector(".nav-header").style.top = "0px";
-  } else document.querySelector(".nav-header").style.top = "-150px";
+  } else document.querySelector(".nav-header").style.top = "-100px";
   prevScrollpos = currentScrollPos;
 }
 //event listeners
