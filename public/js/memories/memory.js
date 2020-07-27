@@ -42,7 +42,6 @@ const memoryWalks = () => {
 
     const saveDataToStorage = (index) => {
         sessionStorage.clear();
-        console.log("session cleared")
         sessionStorage.setItem("data", JSON.stringify(memories[index]))
     }
 

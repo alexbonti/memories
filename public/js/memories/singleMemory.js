@@ -81,13 +81,11 @@ const singleMemory = () => {
 }
 
  const memoryAnimation = () => {
-     console.log("called")
     controller = new ScrollMagic.Controller();
     let textBoxes = document.querySelectorAll(".memory-text");
     let medias = document.querySelectorAll(".memory-img")
     let title = document.querySelectorAll(".text-memory-title")
     let title2 = document.querySelectorAll(".text-memory-2-title")
-    console.log("memoryAnimation -> title2", title2)
     let date = document.querySelectorAll(".memory-nr")
 
     let durationScene;

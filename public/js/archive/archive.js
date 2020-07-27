@@ -30,7 +30,6 @@ export const launchArchive = () => {
         data = memoriesData.data.data.data
 
         if (data !== undefined) {
-            data = data.concat(data).concat(data)
             data.sort((a, b) => moment(a.date).diff(b.date)).forEach(item => {
                 if (item.media.length > 0) {
                     memories.push({

@@ -268,15 +268,12 @@ barba.init({
 
       beforeEnter() {
         logo.href = "./index.html";
-        console.log(window.location.hash)
         memoryWalks()
       },
       afterEnter() {
-        console.log("inside afterEnter", window.location.hash === "")
         dispatchEvent(new Event('load'));
 
         if (window.location.hash === "") {
-          console.log("inside reload")
           window.location = window.location + '#loaded';
           window.location.reload();
         }
@@ -292,7 +289,6 @@ barba.init({
             animateSlides({ playVideoAutomatically: false, videoPlayerClassName: videoPlayerClassName });
           }
         });
-        console.log("read")
         detailScene.destroy();
         controller.destroy();
 
