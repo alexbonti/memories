@@ -271,7 +271,6 @@ barba.init({
         memoryWalks()
       },
       afterEnter() {
-        dispatchEvent(new Event('load'));
 
         if (window.location.hash === "") {
           window.location = window.location + '#loaded';
