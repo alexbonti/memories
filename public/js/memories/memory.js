@@ -47,7 +47,7 @@ const memoryWalks = () => {
 
     memories.forEach((memory, index) => {
         $("main").append(`
-                <section class="memory-${index} fashion${index + 1} detail-slide">
+                <section class="memory-${index} fashion${index + 1} detail-slide section-index-memory">
                 <div class="fashion-text">
                     <a href="./singleMemory.html" id="button-${index}">
                         <h1>${memory.title}</h1>

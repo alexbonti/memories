@@ -996,7 +996,9 @@ main {
 /* .main-memory{
     width: 100% !important;
 } */
-
+.section-index-memory{
+    margin-top: 50px;
+}
 .memory-section{
     display: flex;
     width: 100%;
