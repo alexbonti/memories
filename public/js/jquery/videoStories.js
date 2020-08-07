@@ -1,20 +1,20 @@
+import { apiBaseUrl } from "../connection.js"
 
 
 let videoData;
 
- async function callApiVideoStories({ videoPlayerClassName, callback }) {
+async function callApiVideoStories({ videoPlayerClassName, callback }) {
     var videoStoriesData = await axios({
         method: 'get',
-        url: 'http://168.1.217.30:31308/api/videoStories/getVideoStories',
-        // url: 'http://192.168.20.11:8100/api/videoStories/getVideoStories',
-        
+        url: `${apiBaseUrl}/videoStories/getVideoStories`,
+
     })
     videoData = videoStoriesData.data.data.stories;
     if (videoData !== undefined) {
         inflateVideoStories({ videoPlayerClassName, callback })
     }
 }
- function inflateVideoStories({ videoPlayerClassName, callback }) {
+function inflateVideoStories({ videoPlayerClassName, callback }) {
 
     let splitIntoDifferentVideos = false;
     var sections = videoData;
@@ -48,7 +48,7 @@ let videoData;
             var videoPlayerID = Math.random();
             var videoTAGstart = `<video id=${videoPlayerID} class="${videoPlayerClassName}" muted controls class="video-js vjs-default-skin">`;
             section.videos.forEach((video) => videoTAGSources = videoTAGSources + `<source src=${video.link} size=${video.width} p > </source>`);
-            $("main").addClass("main-videostories") 
+            $("main").addClass("main-videostories")
             videos = videoTAGstart + videoTAGSources + videoTAGend;
             $("main").append(`<section class="slide">
                 <div class="hero-img">
@@ -73,5 +73,5 @@ let videoData;
     }
 };
 
-export{callApiVideoStories}
+export { callApiVideoStories }
 
