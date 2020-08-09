@@ -1,5 +1,4 @@
 let controller;
-let secondController;
 
 const singleMemory = () => {
 
@@ -19,27 +18,13 @@ const singleMemory = () => {
                     </div>
                     <div class="text-memory-title">${memory.title}</div>
                     <div class="memory-text-container">
-
-                    <div class="memory-text">
-
-                        <p class="text-class-description">
-                            ${memory.description}
-                        </p>
-                    </div>
-
-                    <div class="memory-text">
-                        <p class="text-class-description">
-                            ${memory.description}
-                        </p>
-                    </div>
-
                     <div class="memory-text">
                         <p class="text-class-description">
                             ${memory.description}
                         </p>
                     </div>
                     </div>
-                    <div class="memory-nr"><span>${memory.date}</span></div>
+                    <div class="memory-nr"><span>${moment(memory.date).format("MM.YY")}</span></div>
                 </div>
                 </section>
                 <section class="memory-section memory-${memory.tile} fashion${memory.tile + 1} detail-slide">
@@ -47,33 +32,19 @@ const singleMemory = () => {
                 <div class="memory-img">
                         <video class="video1 memory-video-single" autoplay muted loop>
                             <source
-                                src=${memory.secondUrl}>
+                                src="${memory.secondUrl}">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div class="text-memory-2-title">${memory.secondTitle}</div>
                     <div class="memory-text-container">
-
-                    <div class="memory-text">
-
-                        <p class="text-class-description">
-                            ${memory.description}
-                        </p>
-                    </div>
-
                     <div class="memory-text">
                         <p class="text-class-description">
-                            ${memory.description}
-                        </p>
-                    </div>
-
-                    <div class="memory-text">
-                        <p class="text-class-description">
-                            ${memory.description}
+                            ${memory.secondDescription}
                         </p>
                     </div>
                     </div>
-                    <div class="memory-nr"><span>${memory.date}</span></div>
+                    <div class="memory-nr"><span>${moment(memory.date).format("MM.YY")}</span></div>
                 </div>
                 </section>`)
     document.querySelector(`#button-${memory.tile}`).addEventListener("click", () => saveDataToStorage(memory.tile))
@@ -95,8 +66,9 @@ const singleMemory = () => {
      
          textBoxes.forEach((box, index, textBoxes) => {
              const boxTl = gsap.timeline({ defaults: { duration: 1002 } });
-             boxTl.fromTo(medias[0], {y: 0, opacity: 1}, {y: "40%", opacity: 0})
+             boxTl.fromTo(medias[0], {y: 0, opacity: 1}, {y: "30%", opacity: 0})
              boxTl.fromTo(title[0], { scale: 3, opacity: 1 }, { scale: 1, opacity: 1},"+=2")
+             boxTl.fromTo(date, { scale: 3, opacity: 1 }, { scale: 1, opacity: 1},"+=2")
              boxTl.fromTo([textBoxes[0],textBoxes[1],textBoxes[2]], { y: "60%", opacity: 0 }, { y: "0%", opacity: 1, stagger: 1.9 }, "+=2")
              
              boxTl.fromTo(medias[1], {x: -300, opacity: 0}, {x: 0, opacity: 1}, "+=25")

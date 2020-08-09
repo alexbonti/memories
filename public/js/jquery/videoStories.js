@@ -1,11 +1,11 @@
 
 
-let videoData;
+var videoData;
 
  async function callApiVideoStories({ videoPlayerClassName, callback }) {
     var videoStoriesData = await axios({
         method: 'get',
-        url: 'http://168.1.217.30:31308/api/videoStories/getVideoStories',
+        url: 'http://168.1.97.85:8100/api/videoStories/getVideoStories',
         // url: 'http://192.168.20.11:8100/api/videoStories/getVideoStories',
         
     })
@@ -16,7 +16,7 @@ let videoData;
 }
  function inflateVideoStories({ videoPlayerClassName, callback }) {
 
-    let splitIntoDifferentVideos = false;
+    var splitIntoDifferentVideos = false;
     var sections = videoData;
     sections.forEach((section) => {
         var videos = "";

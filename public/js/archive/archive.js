@@ -20,7 +20,8 @@ export const launchArchive = () => {
         var memoriesData = await axios({
 
             method: 'post',
-            url: 'http://168.1.217.30:31308/api/memory/getMemories',
+            //url: 'http://168.1.217.30:31308/api/memory/getMemories',
+            url: 'http://168.1.97.85:8100/api/memory/getMemories',
             data: {
                 "numberOfRecords": 10,
                 "currentPageNumber": 1

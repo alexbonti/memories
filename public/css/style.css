@@ -1040,16 +1040,11 @@ main {
 
 .memory-text {
     color: white;
-    padding: 0 2vw;
+    padding: 2vh 12vw;
     font-size: 2rem;
 }
 
-.memory-text:first-child{
-    padding-left: 0
-}
-.memory-text:last-child{
-    padding-right: 0
-}
+
 
 .memory-nr{
     text-align: right;

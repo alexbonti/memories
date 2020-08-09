@@ -2,7 +2,7 @@
 
 import { launchArchive, loadVideoPlayerArchive } from "./archive/archive.js"
 import * as  jQueryVideoStories from "./jquery/videoStories.js";
-import memoryWalks from "./memories/memory.js";
+import {callApiGetMemorieWalks} from "./memories/memory.js";
 import {singleMemory, memoryAnimation} from "./memories/singleMemory.js";
 
 
@@ -262,23 +262,18 @@ barba.init({
       }
     },
     {
-
       /** Memories */
       namespace: "memorywalks",
-
       beforeEnter() {
         logo.href = "./index.html";
-        memoryWalks()
+        callApiGetMemorieWalks()
       },
       afterEnter() {
-
         if (window.location.hash === "") {
           window.location = window.location + '#loaded';
           window.location.reload();
         }
         detailAnimation()
-
-
       },
       beforeLeave() {
         const videoPlayerClassName = "plyrVideoPlayer";
@@ -301,7 +296,12 @@ barba.init({
         singleMemory();
       },
       afterEnter() {
+        if (window.location.hash === "") {
+          window.location = window.location + '#loaded';
+          window.location.reload();
+        }
         memoryAnimation()    
+
       },
       beforeLeave() {
         window.location.hash = ""
@@ -371,7 +371,7 @@ export const detailAnimation = () => {
 
     let nextSlide = slides.length - 1 === index ? "end" : slides[index + 1];
 
-    const nextImg = nextSlide.querySelector("video");
+    // const nextImg = nextSlide.querySelector("video");
  
     slideTl.fromTo(slide, { opacity: 1 }, { opacity: 0 });
     slideTl.fromTo(nextSlide, { opacity: 0 }, { opacity: 1 }, "-=1");

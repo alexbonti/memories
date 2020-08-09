@@ -1,50 +1,29 @@
+
+var memories;
+
+async function callApiGetMemorieWalks() {
+    
+    var memoriesData = await axios({
+        method: 'get',
+        url: 'http://168.1.97.85:8100/api/memoryWalk/getAllMemoryWalks',
+        //url: 'http://192.168.20.11:8100/api/memoryWalk/getAllMemoryWalks',
+        
+    })
+    memories = memoriesData.data.data;
+    if (memoriesData !== undefined) {
+        console.log(memories)
+        memoryWalks()
+    }
+}
 const memoryWalks = () => {
 
-    // sessionStorage.setItem("first", true)
-    
-    const memories = [
-        {
-            title: "Victoria",
-            description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum adipisci porro, necessitatibus eos est
-            veniam voluptate dolorem. Quia consequuntur quidem, cumque sequi ipsa soluta tenetur omnis in unde
-            suscipit maxime?`,
-            date: "10/20",
-            url: "https://assets.mixkit.co/videos/preview/mixkit-woman-walking-on-beach-towards-boulders-1012-large.mp4",
-            secondTitle: "The Road",
-            secondUrl: "https://assets.mixkit.co/videos/preview/mixkit-driving-in-a-dark-tunnel-2026-large.mp4"
-        },
-        {
-            title: "Down Under",
-            description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum adipisci porro, necessitatibus eos est
-            veniam voluptate dolorem. Quia consequuntur quidem, cumque sequi ipsa soluta tenetur omnis in unde
-            suscipit maxime?`,
-            date: "10/20",
-            url: "https://assets.mixkit.co/videos/preview/mixkit-times-square-during-a-rainy-night-4332-large.mp4",
-            secondUrl: "https://assets.mixkit.co/videos/preview/mixkit-driving-in-a-dark-tunnel-2026-large.mp4",
-            secondTitle: "The Road",
 
-
-        },
-        {
-            title: "The City",
-            description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum adipisci porro, necessitatibus eos est
-            veniam voluptate dolorem. Quia consequuntur quidem, cumque sequi ipsa soluta tenetur omnis in unde
-            suscipit maxime?`,
-            date: "10/20",
-            url: "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4",
-            secondUrl: "https://assets.mixkit.co/videos/preview/mixkit-driving-in-a-dark-tunnel-2026-large.mp4",
-            secondTitle: "The Road",
-
-
-        },
-
-    ]
-
+    console.log(memories)
     const saveDataToStorage = (index) => {
         sessionStorage.clear();
         sessionStorage.setItem("data", JSON.stringify(memories[index]))
     }
-
+    
     memories.forEach((memory, index) => {
         $("main").append(`
                 <section class="memory-${index} fashion${index + 1} detail-slide section-index-memory">
@@ -63,9 +42,50 @@ const memoryWalks = () => {
                         Your browser does not support the video tag.
                     </video>
                 </div>
-                <div class="fashion-nr"><span>${memory.date}</span></div>
+                <div class="fashion-nr"><span>${moment(memory.date).format("MM.YY")}</span></div>
                 </section>`)
         document.querySelector(`#button-${index}`).addEventListener("click", () => saveDataToStorage(index))
     })
 }
-export default memoryWalks
+
+export{callApiGetMemorieWalks}
+
+    // sessionStorage.setItem("first", true)
+    
+    // const memories = [
+    //     {
+    //         title: "Victoria",
+    //         description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum adipisci porro, necessitatibus eos est
+    //         veniam voluptate dolorem. Quia consequuntur quidem, cumque sequi ipsa soluta tenetur omnis in unde
+    //         suscipit maxime?`,
+    //         date: "10/20",
+    //         url: "https://assets.mixkit.co/videos/preview/mixkit-woman-walking-on-beach-towards-boulders-1012-large.mp4",
+    //         secondTitle: "The Road",
+    //         secondUrl: "https://assets.mixkit.co/videos/preview/mixkit-driving-in-a-dark-tunnel-2026-large.mp4"
+    //     },
+    //     {
+    //         title: "Down Under",
+    //         description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum adipisci porro, necessitatibus eos est
+    //         veniam voluptate dolorem. Quia consequuntur quidem, cumque sequi ipsa soluta tenetur omnis in unde
+    //         suscipit maxime?`,
+    //         date: "10/20",
+    //         url: "https://assets.mixkit.co/videos/preview/mixkit-times-square-during-a-rainy-night-4332-large.mp4",
+    //         secondUrl: "https://assets.mixkit.co/videos/preview/mixkit-driving-in-a-dark-tunnel-2026-large.mp4",
+    //         secondTitle: "The Road",
+
+
+    //     },
+    //     {
+    //         title: "The City",
+    //         description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum adipisci porro, necessitatibus eos est
+    //         veniam voluptate dolorem. Quia consequuntur quidem, cumque sequi ipsa soluta tenetur omnis in unde
+    //         suscipit maxime?`,
+    //         date: "10/20",
+    //         url: "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4",
+    //         secondUrl: "https://assets.mixkit.co/videos/preview/mixkit-driving-in-a-dark-tunnel-2026-large.mp4",
+    //         secondTitle: "The Road",
+
+
+    //     },
+
+    // ]
