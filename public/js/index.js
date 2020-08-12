@@ -2,7 +2,7 @@
 
 import { launchArchive, loadVideoPlayerArchive } from "./archive/archive.js"
 import * as  jQueryVideoStories from "./jquery/videoStories.js";
-import {callApiGetMemorieWalks} from "./memories/memory.js";
+import {callApiGetMemorieWalks,detailAnimation } from "./memories/memory.js";
 import {singleMemory, memoryAnimation} from "./memories/singleMemory.js";
 
 
@@ -266,14 +266,9 @@ barba.init({
       namespace: "memorywalks",
       beforeEnter() {
         logo.href = "./index.html";
-        callApiGetMemorieWalks()
       },
       afterEnter() {
-        if (window.location.hash === "") {
-          window.location = window.location + '#loaded';
-          window.location.reload();
-        }
-        detailAnimation()
+        callApiGetMemorieWalks({callback: ()=> detailAnimation()})
       },
       beforeLeave() {
         const videoPlayerClassName = "plyrVideoPlayer";
@@ -293,15 +288,13 @@ barba.init({
       namespace: "singleMemory",
       beforeEnter() {
         logo.href = "./index.html";
-        singleMemory();
       },
       afterEnter() {
         if (window.location.hash === "") {
           window.location = window.location + '#loaded';
           window.location.reload();
         }
-        memoryAnimation()    
-
+        singleMemory({callback: ()=> memoryAnimation()});
       },
       beforeLeave() {
         window.location.hash = ""
@@ -358,46 +351,6 @@ barba.init({
     }
   ]
 })
-
-
-export const detailAnimation = () => {
-  controller = new ScrollMagic.Controller();
-  let slides = document.querySelectorAll(".detail-slide");
-  const videos = document.querySelectorAll("video")
-  videos.forEach(item => item.play())
-  slides.forEach((slide, index, slides) => {
-
-    const slideTl = gsap.timeline({ defaults: { duration: 2 } });
-
-    let nextSlide = slides.length - 1 === index ? "end" : slides[index + 1];
-
-    // const nextImg = nextSlide.querySelector("video");
- 
-    slideTl.fromTo(slide, { opacity: 1 }, { opacity: 0 });
-    slideTl.fromTo(nextSlide, { opacity: 0 }, { opacity: 1 }, "-=1");
-    // slideTl.fromTo(nextImg, { x: "50%" }, { x: "0%" });
-
-    // Scene
-    detailScene = new ScrollMagic.Scene({
-      triggerElement: slide,
-      duration: "100%",
-      triggerHook: 0
-    })
-      .setPin(slide, { pushFollowers: false })
-      .setTween(slideTl)
-      // .addIndicators({
-      //   colorStart: "white",
-      //   colorTrigger: "white",
-      //   name: "detailScene"
-      // })
-      .addTo(controller);
-  });
-}
-
-
-
-
-
 
 var prevScrollpos = window.pageYOffset;
 window.onscroll = function () {

@@ -1,29 +1,23 @@
-
 var memories;
 
-async function callApiGetMemorieWalks() {
+async function callApiGetMemorieWalks({callback}) {
     
     var memoriesData = await axios({
         method: 'get',
-        url: 'http://168.1.97.85:8100/api/memoryWalk/getAllMemoryWalks',
-        //url: 'http://192.168.20.11:8100/api/memoryWalk/getAllMemoryWalks',
+        //url: 'http://168.1.97.85:8100/api/memoryWalk/getAllMemoryWalks',
+        url: 'http://192.168.20.11:8100/api/memoryWalk/getAllMemoryWalks',
         
     })
     memories = memoriesData.data.data;
     if (memoriesData !== undefined) {
-        console.log(memories)
-        memoryWalks()
+        memoryWalks(callback)
     }
 }
-const memoryWalks = () => {
-
-
-    console.log(memories)
+const memoryWalks = (callback) => {
     const saveDataToStorage = (index) => {
         sessionStorage.clear();
         sessionStorage.setItem("data", JSON.stringify(memories[index]))
     }
-    
     memories.forEach((memory, index) => {
         $("main").append(`
                 <section class="memory-${index} fashion${index + 1} detail-slide section-index-memory">
@@ -32,7 +26,7 @@ const memoryWalks = () => {
                         <h1>${memory.title}</h1>
                     </a>
                     <p class="test-class-${index}">
-                        ${memory.description}
+                        ${memory.content}
                     </p>
                 </div>
                 <div class="fashion-img">
@@ -41,51 +35,36 @@ const memoryWalks = () => {
                             src=${memory.url}>
                         Your browser does not support the video tag.
                     </video>
+                    <div class="fashion-nr"><span>${moment(memory.date).format("YYYY")}</span></div>
                 </div>
-                <div class="fashion-nr"><span>${moment(memory.date).format("MM.YY")}</span></div>
                 </section>`)
         document.querySelector(`#button-${index}`).addEventListener("click", () => saveDataToStorage(index))
     })
+callback()
 }
+const detailAnimation = () => {
+    gsap.registerPlugin(ScrollTrigger);
+    let slides = document.querySelectorAll(".detail-slide");
+    const videos = document.querySelectorAll("video")
+    videos.forEach(item => item.play())
+    slides.forEach((slide, index, slides) => {
+        let slideTl = gsap.timeline(
+            {
+                defaults: {
+                    duration: 1
+                },
+                scrollTrigger:{
+                    trigger: slides[index],
+                    start: "top top",
+                    toggleActions: "play none resume reverse",
+                }, 
+            }
+        ) 
+      let nextSlide = slides.length - 1 === index ? "end" : slides[index + 1];
+  
+      slideTl.fromTo(slide, { opacity: 1 }, { opacity: 0 })
+      slideTl.fromTo(nextSlide, { opacity: 0}, { opacity: 1}, "-=1");
+    });
+  }
 
-export{callApiGetMemorieWalks}
-
-    // sessionStorage.setItem("first", true)
-    
-    // const memories = [
-    //     {
-    //         title: "Victoria",
-    //         description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum adipisci porro, necessitatibus eos est
-    //         veniam voluptate dolorem. Quia consequuntur quidem, cumque sequi ipsa soluta tenetur omnis in unde
-    //         suscipit maxime?`,
-    //         date: "10/20",
-    //         url: "https://assets.mixkit.co/videos/preview/mixkit-woman-walking-on-beach-towards-boulders-1012-large.mp4",
-    //         secondTitle: "The Road",
-    //         secondUrl: "https://assets.mixkit.co/videos/preview/mixkit-driving-in-a-dark-tunnel-2026-large.mp4"
-    //     },
-    //     {
-    //         title: "Down Under",
-    //         description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum adipisci porro, necessitatibus eos est
-    //         veniam voluptate dolorem. Quia consequuntur quidem, cumque sequi ipsa soluta tenetur omnis in unde
-    //         suscipit maxime?`,
-    //         date: "10/20",
-    //         url: "https://assets.mixkit.co/videos/preview/mixkit-times-square-during-a-rainy-night-4332-large.mp4",
-    //         secondUrl: "https://assets.mixkit.co/videos/preview/mixkit-driving-in-a-dark-tunnel-2026-large.mp4",
-    //         secondTitle: "The Road",
-
-
-    //     },
-    //     {
-    //         title: "The City",
-    //         description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum adipisci porro, necessitatibus eos est
-    //         veniam voluptate dolorem. Quia consequuntur quidem, cumque sequi ipsa soluta tenetur omnis in unde
-    //         suscipit maxime?`,
-    //         date: "10/20",
-    //         url: "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4",
-    //         secondUrl: "https://assets.mixkit.co/videos/preview/mixkit-driving-in-a-dark-tunnel-2026-large.mp4",
-    //         secondTitle: "The Road",
-
-
-    //     },
-
-    // ]
+export{callApiGetMemorieWalks, detailAnimation}

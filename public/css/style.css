@@ -165,7 +165,9 @@ background: black;
     z-index: 12;
     transition: all .3s ease;
 }
-
+.nav-header-memory {
+    width: 70vw !important;
+}
 .line1, .line2 {
 width: 3rem;
 height: 0.2rem;
@@ -486,17 +488,16 @@ video {
 
 .fashion-text p {
     font-size: 1.5rem;
-    padding: 2rem 2rem 0rem 0rem;
     margin-bottom: 10rem;
+    padding-right: 2vw
 }
 
 .fashion-nr {
     font-size: 7rem;
     position: absolute;
-    left: 46%;
     bottom:12%;
-    color: #d2d2d2;
-    opacity: .4;
+    color: red;
+    opacity: .1;
 }
 
 
@@ -993,9 +994,6 @@ main {
 }
 }
 
-/* .main-memory{
-    width: 100% !important;
-} */
 .section-index-memory{
     margin-top: 50px;
 }
@@ -1012,7 +1010,6 @@ main {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    max-width: 1400px
 }
 .memory-video-single{
     border-radius: 10px;
@@ -1053,7 +1050,7 @@ main {
     padding: 2vw;
 }
 .main-memory{
-    width: 86% !important;
+    width: 70% !important;
 }
 
   /*?----------------------------MOBILE------------------------------------------ */
