@@ -55,7 +55,7 @@ const detailAnimation = () => {
                 },
                 scrollTrigger:{
                     trigger: slides[index],
-                    start: "top top",
+                    start: "center top",
                     toggleActions: "play none resume reverse",
                 }, 
             }
