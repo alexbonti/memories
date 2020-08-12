@@ -65,7 +65,7 @@ const singleMemory = ({callback}) => {
             },
             scrollTrigger:{
                 trigger: textBoxes[0],
-                start: "bottom bottom",
+                start: "center 80%",
                 toggleActions: "play pause resume reverse",
             }, 
         })
@@ -87,22 +87,21 @@ const singleMemory = ({callback}) => {
             },
             scrollTrigger:{
                 trigger: medias[1],
-                start: "bottom 70%",
+                start: "center center",
                 toggleActions: "play none resume reverse",
-                pin: true
             }, 
         }
     )    
-    tl.fromTo(title, {opacity:0, y: -200, scale:2}, {opacity:1, yPercent: -50, scale:3})
+    tl.fromTo(title, {opacity:0, y: -200, scale:1}, {opacity:1, yPercent: -50, scale:2})
     .fromTo(textBoxes[0], {opacity: 0, yPercent: 0}, {opacity: 1, yPercent: -30})
     .fromTo(medias[0], {opacity: 1, yPercent: 0}, {opacity: 0, yPercent: -30}, "-=1.5")
     .fromTo(date[0], {opacity: 0, xPercent: 100}, {opacity: 1, xPercent: 0}, "-=1.8")
 
-    tl2.fromTo(medias[1], {opacity:0, yPercent:30}, {opacity: 1, yPercent: 0})
+    tl2.fromTo(medias[1], {opacity:0}, {opacity: 1})
 
-    tl3.fromTo(medias[1], {opacity:1, y:0}, {opacity: 0, y: -450})
-    .fromTo(title2, {opacity:0, y: 0, scale:1}, {opacity:1, y: -250, scale:2})
-    .fromTo(textBoxes[1], {opacity:0, y:0}, {opacity: 1, y: -180})
+    tl3.fromTo(medias[1], {opacity:1}, {opacity: 0})
+    .fromTo(title2, {opacity:0, scale:1}, {opacity:1, transform: "translateY(-50vh)", scale:2})
+    .fromTo(textBoxes[1], {opacity:0,}, {opacity: 1, transform: "translateY(-50vh)"})
     .fromTo(date[1], {opacity: 0, xPercent: 100}, {opacity: 1, xPercent: 0}, "-=1.8")
     } 
 }
