@@ -21,7 +21,7 @@ const singleMemory = ({callback}) => {
                         </p>
                     </div>
                     </div>
-                    <div class="memory-nr"><span>${moment(memory.date).format("MM.YY")}</span></div>
+                    <div class="memory-nr"><span>${moment(memory.date).format("YYYY")}</span></div>
                 </div>
                 </section>
                 <section class="memory-section memory-${memory.tile} fashion${memory.tile + 1} detail-slide">
@@ -41,7 +41,6 @@ const singleMemory = ({callback}) => {
                         </p>
                     </div>
                     </div>
-                    <div class="memory-nr"><span>${moment(memory.date).format("MM.YY")}</span></div>
                 </div>
                 </section>`)
     if (callback instanceof Function) {

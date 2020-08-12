@@ -8,6 +8,8 @@ import { OrbitControls, MapControls } from "../controls/OrbitControls.js"
 
 import { TWEEN } from "../tween.module.min.js"
 
+import { apiBaseUrl } from "../connection.js"
+
 // import {API} from "../../helpers/API.js"
 
 export const launchArchive = () => {
@@ -20,8 +22,7 @@ export const launchArchive = () => {
         var memoriesData = await axios({
 
             method: 'post',
-            //url: 'http://168.1.217.30:31308/api/memory/getMemories',
-            url: 'http://168.1.97.85:8100/api/memory/getMemories',
+            url: `${apiBaseUrl}/memory/getMemories`,
             data: {
                 "numberOfRecords": 10,
                 "currentPageNumber": 1
@@ -242,7 +243,7 @@ export const launchArchive = () => {
 
 
         //* rotate the camera in front of the helix
-         rotate = function(e) {
+        rotate = function (e) {
             e.preventDefault();
             var vector = new THREE.Vector3();
             cameraRailPosition += e.deltaY;
@@ -488,7 +489,7 @@ export const launchArchive = () => {
 
     const destroy = () => {
         window.removeEventListener("wheel", rotate, { passive: false })
-       
+
     }
     return destroy
 

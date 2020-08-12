@@ -1,11 +1,11 @@
 var memories;
+import { apiBaseUrl } from "../connection.js"
 
 async function callApiGetMemorieWalks({callback}) {
     
     var memoriesData = await axios({
         method: 'get',
-        //url: 'http://168.1.97.85:8100/api/memoryWalk/getAllMemoryWalks',
-        url: 'http://192.168.20.11:8100/api/memoryWalk/getAllMemoryWalks',
+        url: `${apiBaseUrl}/memoryWalk/getAllMemoryWalks`,
         
     })
     memories = memoriesData.data.data;
