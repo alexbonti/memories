@@ -657,7 +657,9 @@ transition: all .3s ease-in-out;
 
 
 }
-
+.container-tile, .video-tile {
+    pointer-events: none;
+}
 .plyr {
     border-radius: 5px;
 }

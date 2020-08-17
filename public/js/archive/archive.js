@@ -109,7 +109,7 @@ export const launchArchive = () => {
                     const poster = document.createAttribute("poster")
                     video.setAttributeNode(poster)
 
-                    source.src = `${data[index].url}#t=0.1`
+                    source.src = `${data[index].url}#t=100`
                     video.appendChild(source)
                     mediaContent.appendChild(video)
                     new window.videoPlayer.setup(`.plyrVideoPlayer`)
@@ -142,12 +142,12 @@ export const launchArchive = () => {
             element.appendChild(date);
 
             var container = document.createElement('div');
-            container.className = `container container-tile-${i}`;
+            container.className = `container container-tile container-tile-${i}`;
             element.appendChild(container);
 
 
-            container.addEventListener("click", () => openMedia(tilesList))
-            container.addEventListener("touchstart", () => openMedia(tilesList))
+            element.addEventListener("click", () => openMedia(tilesList))
+            element.addEventListener("touchstart", () => openMedia(tilesList))
 
             var details = document.createElement('div');
             details.className = 'details';
