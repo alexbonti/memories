@@ -24,7 +24,7 @@ body {
 .body-archive {
     font-family: "Montserrat", sans-serif;
     margin: 0;
-    background-color: rgba(0, 0, 0, 0.69);	color: #fff !important;
+    /*background-color: rgba(0, 0, 0, 0.69);	color: #fff !important;*/
     display: flex;
     justify-content: center;
     overflow: hidden;
