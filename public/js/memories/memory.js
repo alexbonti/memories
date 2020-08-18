@@ -30,7 +30,7 @@ const memoryWalks = (callback) => {
                     </p>
                 </div>
                 <div class="fashion-img">
-                    <video class="video1 video-memory-index" autoplay muted loop>
+                    <video class="video1 video-memory-index" autoplay muted loop controls>
                         <source
                             src=${memory.url}>
                         Your browser does not support the video tag.
