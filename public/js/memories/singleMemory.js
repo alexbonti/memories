@@ -7,7 +7,7 @@ const singleMemory = ({callback}) => {
                 <section class="memory-section memory-${memory.tile} fashion${memory.tile + 1} detail-slide">
                 <div class="memory-container">
                 <div class="memory-img">
-                        <video class="video1 memory-video-single" autoplay muted loop>
+                        <video class="video1 memory-video-single" autoplay loop>
                             <source
                                 src=${memory.url}>
                             Your browser does not support the video tag.
@@ -27,7 +27,7 @@ const singleMemory = ({callback}) => {
                 <section class="memory-section memory-${memory.tile} fashion${memory.tile + 1} detail-slide">
                 <div class="memory-container">
                 <div class="memory-img">
-                        <video class="video1 memory-video-single" autoplay muted loop>
+                        <video class="video1 memory-video-single" autoplay loop muted>
                             <source
                                 src="${memory.secondUrl}">
                             Your browser does not support the video tag.
