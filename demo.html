@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>three.js webgl - lensflares</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <link type="text/css" rel="stylesheet" href="main.css" />
+  </head>
+
+  <body>
+    <!-- Modal Starts -->
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Modal Header</h2>
+        </div>
+        <div class="modal-body">
+          <img src="" id="modal-image" />
+        </div>
+        <div class="modal-footer">
+          <h3>Modal Footer</h3>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Ends -->
+    <script type="module">
+      import * as THREE from "./node_modules/three/build/three.module.js";
+
+      import Stats from "./jsm/libs/stats.module.js";
+
+      import { FlyControls } from "./jsm/controls/FlyControls.js";
+      import { Lensflare, LensflareElement } from "./jsm/objects/Lensflare.js";
+      import { CinematicCamera } from "./jsm/cameras/CinematicCamera.js";
+
+      var container, stats;
+
+      var camera, scene, renderer, raycaster;
+      var controls;
+
+      var mouse = new THREE.Vector2();
+
+      var clock = new THREE.Clock();
+
+      var mesh;
+
+      var planeMat;
+
+      // model variables
+      var modal = document.getElementById("myModal");
+      var span = document.getElementsByClassName("close")[0];
+      var modelImages = [];
+
+      init();
+      animate();
+
+      function init() {
+        container = document.createElement("div");
+        document.body.appendChild(container);
+
+        // camera
+
+        camera = new CinematicCamera(
+          40,
+          window.innerWidth / window.innerHeight,
+          1,
+          5000 // 15000
+        );
+        camera.position.z = 250; // 250
+
+        // scene
+
+        scene = new THREE.Scene();
+
+        scene.background = new THREE.Color().setHSL(0.51, 0.4, 0.01); // change the canvas background color
+        scene.fog = new THREE.Fog(scene.background, 3500, 15000);
+
+        // world
+
+        var s = 250; // change cube 3D size
+
+        var geometry = new THREE.PlaneBufferGeometry(s, s); // BoxBufferGeometry
+        const loader = new THREE.TextureLoader();
+
+        const textures = [
+          loader.load("images/flower-1.jpg"),
+          loader.load("images/flower-2.jpg"),
+          loader.load("images/flower-3.jpg"),
+          loader.load("images/flower-4.jpg"),
+          loader.load("images/flower-6.jpg"),
+          loader.load("images/flower-5.jpg"),
+        ];
+
+        /*var material = new THREE.MeshBasicMaterial({
+          map: loader.load(
+            "https://threejsfundamentals.org/threejs/resources/images/flower-1.jpg"
+          ),
+        });*/
+
+        var matrix = new THREE.Matrix4();
+
+        for (var i = 0; i < 400; i++) {
+          // the place where can reduce the number of cubes (were 3000)
+
+          textures.map((texture) => {
+            planeMat = new THREE.MeshBasicMaterial({
+              map: texture,
+              side: THREE.DoubleSide,
+            });
+            mesh = new THREE.Mesh(geometry, planeMat);
+            //mesh.position.x = 8000 * (2.0 * Math.random() - 1.0);
+            mesh.position.x = 8000 * (2.0 * Math.random() - 1.0);
+            mesh.position.y = 8000 * (2.0 * Math.random() - 1.0);
+            mesh.position.z = 8000 * (2.0 * Math.random() - 1.0);
+
+            mesh.rotation.x = Math.random() * Math.PI;
+            mesh.rotation.y = Math.random() * Math.PI;
+            mesh.rotation.z = Math.random() * Math.PI;
+
+            mesh.matrixAutoUpdate = false;
+            mesh.updateMatrix();
+
+            scene.add(mesh);
+            modelImages.push(texture);
+            window.addEventListener("click", onDocumentMouseClick, false);
+          });
+        }
+
+        raycaster = new THREE.Raycaster();
+        // lights
+
+        var dirLight = new THREE.DirectionalLight(0xffffff, 0.05);
+        dirLight.position.set(0, -1, 0).normalize();
+        dirLight.color.setHSL(0.1, 0.7, 0.5);
+        scene.add(dirLight);
+
+        // lensflares
+        var textureLoader = new THREE.TextureLoader();
+
+        var textureFlare0 = textureLoader.load("lensflare0.png");
+        var textureFlare3 = textureLoader.load("lensflare3.png");
+
+        addLight(0.55, 0.9, 0.5, 5000, 0, -1000);
+        addLight(0.08, 0.8, 0.5, 0, 0, -1000);
+        addLight(0.995, 0.5, 0.9, 5000, 5000, -1000);
+
+        function addLight(h, s, l, x, y, z) {
+          var light = new THREE.PointLight(0xffffff, 1.5, 2000);
+          light.color.setHSL(h, s, l);
+          light.position.set(x, y, z);
+          scene.add(light);
+
+          var lensflare = new Lensflare();
+          lensflare.addElement(
+            new LensflareElement(textureFlare0, 700, 0, light.color)
+          );
+          lensflare.addElement(new LensflareElement(textureFlare3, 60, 0.6));
+          lensflare.addElement(new LensflareElement(textureFlare3, 70, 0.7));
+          lensflare.addElement(new LensflareElement(textureFlare3, 120, 0.9));
+          lensflare.addElement(new LensflareElement(textureFlare3, 70, 1));
+          light.add(lensflare);
+        }
+
+        // renderer
+
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        container.appendChild(renderer.domElement);
+
+        //
+
+        controls = new FlyControls(camera, renderer.domElement);
+
+        controls.movementSpeed = 2500;
+        controls.domElement = container;
+        controls.rollSpeed = Math.PI / 20; //6
+        controls.autoForward = false;
+        controls.dragToLook = false;
+
+        // stats
+
+        stats = new Stats();
+        container.appendChild(stats.dom);
+
+        // events
+
+        window.addEventListener("resize", onWindowResize, false);
+      }
+
+      //
+
+      function onWindowResize() {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+      }
+
+      //
+
+      function onDocumentMouseClick(event) {
+        event.preventDefault();
+
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+
+        // calculate objects intersecting the picking ray
+        var intersects = raycaster.intersectObjects(scene.children);
+        for (var i = 0; i < intersects.length; i++) {
+          var image = document.getElementById("modal-image");
+          var image2 = intersects[i].object.material.map.image;
+          image.src = image2.src;
+          modal.style.display = "block";
+        }
+      }
+
+      span.onclick = function () {
+        modal.style.display = "none";
+      };
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+      function animate() {
+        requestAnimationFrame(animate);
+
+        render();
+        stats.update();
+      }
+
+      function render() {
+        var delta = clock.getDelta();
+
+        controls.update(delta);
+        renderer.render(scene, camera);
+      }
+    </script>
+  </body>
+</html>
