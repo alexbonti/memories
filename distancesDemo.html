@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>three.js webgl - lensflares</title>
+    <link rel="icon" href="icon.png" type="image/png" sizes="16x16" />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <link type="text/css" rel="stylesheet" href="main.css" />
+  </head>
+
+  <body>
+    <!-- Modal Starts -->
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Modal Header</h2>
+        </div>
+        <div class="modal-body">
+          <video id="modal-video" autoplay controls></video>
+          <img src="" id="modal-image" />
+        </div>
+        <div class="modal-footer">
+          <h3>Modal Footer</h3>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Ends -->
+    <script type="module">
+      import * as THREE from "./node_modules/three/build/three.module.js";
+
+      import Stats from "./jsm/libs/stats.module.js";
+
+      import { FlyControls } from "./jsm/controls/FlyControls.js";
+      import { Lensflare, LensflareElement } from "./jsm/objects/Lensflare.js";
+      import { CinematicCamera } from "./jsm/cameras/CinematicCamera.js";
+
+      // initializing variables
+      var container, stats;
+
+      var camera, scene, renderer, raycaster;
+      var controls;
+
+      var mouse = new THREE.Vector2();
+
+      var clock = new THREE.Clock();
+
+      var mesh;
+
+      var video;
+      var video1 = document.getElementById("modal-video");
+
+      var image = document.getElementById("modal-image");
+
+      var audio = new Audio("audios/audiotrack3.mp3");
+      audio.muted = true;
+
+      var sources = [];
+
+      var texture, loader, material;
+
+      // model variables
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+      var span = document.getElementsByClassName("close")[0];
+
+      // ending variables
+
+      init();
+      animate();
+
+      function init() {
+        container = document.createElement("div");
+        document.body.appendChild(container);
+
+        // camera
+        camera = new THREE.PerspectiveCamera(
+          40,
+          window.innerWidth / window.innerHeight,
+          1,
+          5000
+        );
+        camera.position.z = 250;
+
+        // scene
+        scene = new THREE.Scene();
+
+        scene.background = new THREE.Color().setHSL(0.51, 0.4, 0.01); // change the canvas background color
+        scene.fog = new THREE.Fog(scene.background, 3500, 15000);
+
+        // world
+        var s = 250; // change cube 3D size
+
+        // Here it can be used BoxBufferGeometry for the cubes
+        var geometry = new THREE.PlaneBufferGeometry(s, s);
+
+        // image resources
+        loader = new THREE.TextureLoader();
+
+        const textures = [
+          loader.load("images/flower-1.jpg"),
+          loader.load("images/flower-2.jpg"),
+          loader.load("images/flower-3.jpg"),
+          loader.load("images/flower-4.jpg"),
+          loader.load("images/flower-6.jpg"),
+          loader.load("images/flower-5.jpg"),
+        ];
+
+        var matrix = new THREE.Matrix4();
+
+        // use this for loop to increase the number of images
+        for (var i = 0; i < 200; i++) {
+          // image iteration
+          textures.map((texture) => {
+            material = new THREE.MeshBasicMaterial({
+              map: texture,
+              side: THREE.DoubleSide,
+            });
+            mesh = new THREE.Mesh(geometry, material);
+
+            mesh.position.x = 8000 * (2.0 * Math.random() - 1.0);
+            mesh.position.y = 8000 * (2.0 * Math.random() - 1.0);
+            mesh.position.z = 8000 * (2.0 * Math.random() - 1.0);
+
+            mesh.rotation.x = Math.random() * Math.PI;
+            mesh.rotation.y = Math.random() * Math.PI;
+            mesh.rotation.z = Math.random() * Math.PI;
+
+            mesh.matrixAutoUpdate = false;
+            mesh.updateMatrix();
+
+            scene.add(mesh);
+
+            // events
+            window.addEventListener("click", onDocumentMouseClick, false);
+            window.addEventListener("mousemove", onDocumentMouseMove, false);
+          });
+        }
+
+        // video resources
+        sources.push("videos/sample3.mov");
+        sources.push("videos/sample4.mp4");
+        sources.push("videos/MaryOculus.mp4");
+        sources.push("videos/sample2.mp4");
+        sources.push("videos/sample1.mov");
+
+        // iteration for videos
+        sources.map((source) => {
+          video = document.createElement("video"); // want to multiply the videos
+          video.width = "0px";
+          video.height = "0px";
+          video.src = source;
+          document.body.appendChild(video);
+
+          texture = new THREE.VideoTexture(video);
+          material = new THREE.MeshBasicMaterial({
+            map: texture,
+          });
+
+          // use this for loop to increase the number of videos
+          for (var i = 0; i < 300; i++) {
+            mesh = new THREE.Mesh(geometry, material);
+
+            mesh.position.x = 8000 * (2.0 * Math.random() - 1.0);
+            mesh.position.y = 8000 * (2.0 * Math.random() - 1.0);
+            mesh.position.z = 8000 * (2.0 * Math.random() - 1.0);
+
+            mesh.rotation.x = Math.random() * Math.PI;
+            mesh.rotation.y = Math.random() * Math.PI;
+            mesh.rotation.z = Math.random() * Math.PI;
+
+            mesh.matrixAutoUpdate = false;
+            mesh.updateMatrix();
+
+            scene.add(mesh);
+            video.style.display = "block";
+
+            // events
+            window.addEventListener("click", onDocumentMouseClick, false);
+            window.addEventListener("mousemove", onDocumentMouseMove, false);
+          }
+        });
+
+        raycaster = new THREE.Raycaster();
+
+        // renderer
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        container.appendChild(renderer.domElement);
+
+        //
+
+        controls = new FlyControls(camera, renderer.domElement);
+
+        controls.movementSpeed = 2500;
+        controls.domElement = container;
+        controls.rollSpeed = Math.PI / 20; //6
+        controls.autoForward = false;
+        controls.dragToLook = false;
+
+        // stats
+        stats = new Stats();
+        container.appendChild(stats.dom);
+
+        // events
+        window.addEventListener("resize", onWindowResize, false);
+      }
+
+      //
+
+      function onWindowResize() {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+      }
+
+      // mouse move event
+
+      // this generates a sound when moving on to a material
+      // but google autoplay policy doesn't allow it without interaction with the document
+      // therefore when running this file it can be seen a console error before clicking on a material
+      function onDocumentMouseMove(event) {
+        event.preventDefault();
+
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        var intersects = raycaster.intersectObjects(scene.children);
+
+        audio.volume = 0.1;
+        //console.log();
+        for (var i = 0; i < intersects.length; i++) {
+          //console.log(intersects[i].object.visible);
+          if (
+            intersects[i].object.visible &&
+            (modal.style.display === "none" || modal.style.display === "")
+          ) {
+            console.log(
+              intersects[i].object.visible + " and " + modal.style.display
+            );
+            audio.muted = false;
+            audio.play();
+          }
+        }
+      }
+
+      // mouse click event
+      function onDocumentMouseClick(event) {
+        event.preventDefault();
+
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+
+        // calculate objects intersecting the picking ray
+        var intersects = raycaster.intersectObjects(scene.children);
+        for (var i = 0; i < intersects.length; i++) {
+          var element = intersects[i].object.material.map.image;
+
+          if (element.nodeName == "IMG") {
+            image.src = element.src;
+            modal.style.display = "block";
+            image.style.display = "block";
+            video1.style.display = "none";
+          } else if (element.nodeName == "VIDEO") {
+            video1.src = element.src;
+            modal.style.display = "block";
+            video1.style.display = "block";
+            image.style.display = "none";
+          }
+        }
+      }
+
+      span.onclick = function () {
+        modal.style.display = "none";
+        video1.pause();
+      };
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+          video1.pause();
+        }
+      };
+      function animate() {
+        requestAnimationFrame(animate);
+
+        render();
+        stats.update();
+      }
+
+      function render() {
+        var delta = clock.getDelta();
+        controls.update(delta);
+        renderer.render(scene, camera);
+      }
+    </script>
+  </body>
+</html>
