@@ -173,8 +173,17 @@ select {
 }
 
 #modal-image {
+  display: none;
   width: 300px;
   height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#modal-video {
+  display: none;
+  width: 350px;
+  height: 250px;
   margin-left: auto;
   margin-right: auto;
 }
