@@ -17,6 +17,6 @@
     "url": "https://github.com/IBM-Bluemix/bluemix-hello-node.git"
   },
   "devDependencies": {
-    "video.js": "^7.8.4"
+    "video.js": "^7.20.3"
   }
 }
